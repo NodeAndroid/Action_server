@@ -1,0 +1,60 @@
+body {
+      padding: 0px;
+      margin: 0px;
+      font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #e5e5e5;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.item{
+    height: 100px;
+    background: gray;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background: #ffffff;
+    padding: 10px 8px 10px 8px;
+}
+
+.content{
+    margin-left: 20px;
+}
+.content p{
+    margin-bottom: 0px;
+}
+.title{
+    font-size: 20px;
+}
+
+.conductor{
+    font-size: 10px;
+    margin-top: 0px;
+    color: #e0e0e0;
+}
+.introduce{
+    margin-top: 5px;
+}
+
+.end{
+    height: 100px;
+    background: gray;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.blank{
+    height: 20px;
+}
+
+.action{
+    position: fixed;
+    right: 5px;
+    bottom:5px;
+    width: 50px;
+    height: 50px;
+    background: #24890d;
+    border-radius: 50%;
+}
