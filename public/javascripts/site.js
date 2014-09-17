@@ -8,10 +8,10 @@ $(document).ready(function () {
     }
 
     function moreData() {
-        if ($(document).height() <= $(window).scrollTop() + $(window).height()) {
+        while ($(document).height() <= $(window).scrollTop() + $(window).height() + 303) {
             console.log($('.loading').length)
             if ($('.loading').length)
-                return
+                break
 
             var item = $('.item').clone().first().hide()
 
@@ -39,4 +39,73 @@ $(document).ready(function () {
     }
 
     $(window).scroll(moreData)
+
+
+   //判断滑动
+    var startX, startY;
+    document.addEventListener('touchstart',function (ev) {
+        startX = ev.touches[0].pageX;
+        startY = ev.touches[0].pageY;
+    }, false);
+    document.addEventListener('touchend',function (ev) {
+        var endX, endY;
+        endX = ev.changedTouches[0].pageX;
+        endY = ev.changedTouches[0].pageY;
+        var direction = GetSlideDirection(startX, startY, endX, endY);
+
+        switch(direction) {
+               case 0:
+                    //alert("没滑动");
+                   //$('.userpanel').animate({left:-pandleWidth})
+                    break;
+               case 1:
+                   // alert("向上");
+                    break;
+               case 2:
+                  //  alert("向下");
+                     break;
+               case 3:
+                    //alert("向左");
+                    //$('.panel').hide()
+                    $('.userpanel').animate({left:'-55%'})
+                    break;
+                case 4:
+                    //alert("向右");
+                    //$('.panel').show()
+                    $('.userpanel').animate({left:'0%'})
+                    break;
+            default:
+        }
+    }, false);
+
+
+    //根据起点和终点返回方向 1：向上，2：向下，3：向左，4：向右,0：未滑动
+    function GetSlideDirection(startX, startY, endX, endY) {
+        var dy = startY - endY;
+        var dx = endX - startX;
+        var result = 0;
+
+        //如果滑动距离太短
+        if(Math.abs(dx) < 2 && Math.abs(dy) < 2) {
+            return result;
+        }
+
+        var angle = GetSlideAngle(dx, dy);
+        if(angle >= -45 && angle < 45) {
+            result = 4;
+        }else if (angle >= 45 && angle < 135) {
+            result = 1;
+        }else if (angle >= -135 && angle < -45) {
+            result = 2;
+        }
+        else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+            result = 3;
+        }
+
+        return result;
+    }
+
+    function GetSlideAngle(dx, dy) {
+        return Math.atan2(dy, dx) * 180 / Math.PI;
+    }
 })

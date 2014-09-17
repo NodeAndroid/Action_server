@@ -11,7 +11,6 @@ a {
 
 .item{
     height: 100px;
-    background: gray;
     margin-top: 8px;
     margin-bottom: 8px;
     background: #ffffff;
@@ -44,6 +43,15 @@ a {
     margin-bottom: 5px;
 }
 
+.loading{
+    height: 100px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background: #ffffff;
+    text-align: center;
+    padding: 10px 8px 10px 8px;
+}
+
 
 .blank{
     height: 20px;
@@ -57,4 +65,14 @@ a {
     height: 50px;
     background: #24890d;
     border-radius: 50%;
+}
+
+
+.userpanel{
+    position: fixed;
+    width: 55%;
+    height: 100%;
+    left:-55%;
+    top:0px;
+    background: #ffffff;
 }
