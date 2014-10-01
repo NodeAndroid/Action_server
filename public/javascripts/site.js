@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     function moreData() {
         while ($(document).height() <= $(window).scrollTop() + $(window).height() + 303) {
-            console.log($('.loading').length)
+//            console.log($('.loading').length)
             if ($('.loading').length)
                 break
 
@@ -28,6 +28,13 @@ $(document).ready(function () {
                     end.fadeIn(500)
                 }
                 else {
+//                    console.log(item.get('img'))
+//                    item.children('img').attr({src:'##'})
+                    //console.log(data)
+                 //   for(var i = 0; i < 3 ; i++)
+                      item.find('p').eq(0).text(data.title)
+                      item.find('p').eq(1).text(data.auth)
+                    item.find('p').eq(2).text(data.message)
                     $('.container').append(item)
 //                    item.text(data.message).fadeIn(500)
                     item.fadeIn(500)
