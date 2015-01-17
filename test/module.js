@@ -23,8 +23,19 @@ describe('module', function() {
   describe('module save and get', function() {
     it('save Action entety',function (done) {
        var item = new (modules.Action) ();
-       item.save();
-       done();
+       item.save(done);
+    });
+
+    it('get Action enterty',function (done) {
+      var action = modules.Action;
+      action.findOne({name:'Action'},function (err,items) {
+        if(items == null || items.length === 0){
+          throw new Error('get a item == null');
+        }
+        else{
+          done();
+        }
+      });
     });
   });
 
