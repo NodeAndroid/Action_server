@@ -14,6 +14,9 @@ var Action = new Schema({
   creator: ObjectId,
   reply_count:{type:Number,default:0},
   visit_count:{type:Number,default:0},
+  like_count:{type:Number,default:0},
+  unlike_count:{type:Number,default:0},
+  forkable:{type:Boolean,default:true},
 });
 
 
