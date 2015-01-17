@@ -7,7 +7,7 @@ var config = require('../config.js');
 var path = config.path;
 var mongoose = require("mongoose");
 
-// mongoose.connect();
+mongoose.connect();
 
 var models = {
 
@@ -30,6 +30,7 @@ models.init(function (files) {
     //reuire all modules
     var file = require('./'+files[item]);
     _.extend(models,file);
+    console.log(file);
   }
 });
 

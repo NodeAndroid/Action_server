@@ -12,11 +12,20 @@ describe('module', function() {
     });
 
     it('should has Action,User,etc module',function (done) {
-        assert(modules.Action!==null);
-        assert(modules.User!==null);
+        assert(modules.Action!=null);
+        assert(modules.User!=null);
+        // console.log(modules.Action);
         done();
+
     });
   });
 
+  describe('module save and get', function() {
+    it('save Action entety',function (done) {
+       var item = new (modules.Action) ();
+       item.save();
+       done();
+    });
+  });
 
 });

@@ -1,7 +1,7 @@
 
 var config = {
   path:".",//root of the project dir;
-  db:"mongodb://localhost/my_database",
+  db:"mongodb://localhost/action:",
 };
 
 config.path=process.cwd();
