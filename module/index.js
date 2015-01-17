@@ -9,7 +9,7 @@ var mongoose = require("mongoose");
 
 // mongoose.connect();
 
-var module = {
+var models = {
 
   init : function (callback) {
     fs.readdir(path+'/module',function (err,files) {
@@ -25,13 +25,13 @@ var module = {
 };
 
 
-// module.init(function (files) {
-//   for (var item in files) {
-//     //reuire all modules
-//     var file = require('./'+files[item]);
-//     _.extend(module,file);
-//   }
-// });
+models.init(function (files) {
+  for (var item in files) {
+    //reuire all modules
+    var file = require('./'+files[item]);
+    _.extend(models,file);
+  }
+});
 
 
-module.exports = module;
+module.exports = models;

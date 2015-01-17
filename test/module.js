@@ -1,22 +1,21 @@
 var assert = require('assert');
-
+var modules = require('../module');
 
 describe('module', function() {
   describe('#index.init', function() {
     it('should return .js file array',function (done) {
-        require('../module').init(function (array) {
+          modules.init(function (array) {
           console.log(array);
           assert(array.length !== 0 );
           done();
         });
     });
 
-    // it('should has Action module',function (done) {
-    //   var module = require('../module');
-    //
-    //     assert(module.Action==null);
-    //     done();
-    // });
+    it('should has Action,User,etc module',function (done) {
+        assert(modules.Action!==null);
+        assert(modules.User!==null);
+        done();
+    });
   });
 
 

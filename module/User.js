@@ -12,6 +12,7 @@
    email:{type:String},
    passwd:{type:String},
    phone:{type:String},
+   nickname:{type:String,default:"your nickname"},
    friends:{}
  });
 module.exports = mongoose.model("User",User);

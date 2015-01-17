@@ -8,9 +8,12 @@ var Schema = mongoose.Schema,
 
 var Action = new Schema({
   name:{type:String,default:'Action'},
-  date:{type:Date,default:Date.now},
+  create_date:{type:Date,default:Date.now},
+  edit_date:{type:Date,default:Date.now},
   desc:{type:String,default:'desciption'},
   creator: ObjectId,
+  reply_count:{type:Number,default:0},
+  visit_count:{type:Number,default:0},
 });
 
 
