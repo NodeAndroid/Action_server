@@ -22,7 +22,7 @@ describe('module', function() {
 
   describe('module save and get', function() {
     it('save Action entety',function (done) {
-       var item = new (modules.Action) ();
+       var item = new modules.Action ();
        item.save(done);
     });
 

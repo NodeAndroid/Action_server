@@ -21,3 +21,8 @@ var Action = new Schema({
 
 
 module.exports = mongoose.model('Action',Action);
+
+
+//require this module , var mod = require('module')
+// if you want use User schema,like this
+// var user = new mod.User()

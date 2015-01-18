@@ -3,5 +3,14 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/nav.css')
   body
+    
+    .nav
+      div.logo
+        span.logo_icon
+        div.logo_name Action
+      div.nav_input 
+        input(type:text,placeholder="Search")
+        button
     block content
