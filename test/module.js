@@ -39,4 +39,12 @@ describe('module', function() {
     });
   });
 
+
+  describe('require twice', function() {
+    it('require module twice',function () {
+      require('./module');
+      require('./module');
+    });
+  });
+
 });
