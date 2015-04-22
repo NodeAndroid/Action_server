@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
+var User=require('../proxy').User;
+var session=require('../util/session');
 /* GET users listing. */
 router.get('/', function(req, res) {
   res.send('welcome to Action');
@@ -10,8 +11,19 @@ router.get('/', function(req, res) {
 //登陆验证
 //message:登陆之后的回话
 //status:1代表成功，0代表账号或密码错误，-1代表异常或未知错误
-router.post('/signin',function(req,res){
+router.post('/signin',function(req,res,next){
+    var user_name=req.body.name;
+    User.getUserByLoginName(user_name,function(err,user){
+      if(err){
+        return next(err);
+      }
+      if(!user){
+        return res.json({message:'账号错误',status:0});
+      }
+
+    });
     res.json({message:'welcome',status:1});
+
 });
 
 

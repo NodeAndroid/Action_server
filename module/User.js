@@ -9,10 +9,16 @@
 
  var User = new Schema({
    name:{type:String,default:"user name"},
-   email:{type:String},
+   loginname: { type: String},
    passwd:{type:String},
+   email:{type:String},
    phone:{type:String},
    nickname:{type:String,default:"your nickname"},
-   friends:{}
+   friends:{},
+   role_id:{type:ObjectId}
  });
-module.exports = mongoose.model("User",User);
+
+ User.index({loginname:1},{unique:true});
+ User.index({email:1},{unique:true});
+
+ module.exports = mongoose.model("User",User);
