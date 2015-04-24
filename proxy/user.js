@@ -35,15 +35,15 @@
    User.find({_id:{ $in:ids}},callback);
  };
 
- exports.newAndSave=function(name,loginname,passwd,email,phone,nickname,friends,role_id,callback){
+ exports.newAndSave=function(profiles,callback){
    var user=new User();
-   user.name=name;
-   user.loginname=loginname;
-   user.passwd=passwd;
-   user.email=email;
-   user.phone=phone;
-   user.nickname=nickname;
-   user.friends=friends;
-   user.role_id=role_id;
+   user.name=profiles.name;
+   user.loginname=profiles.loginname;
+   user.passwd=profiles.passwd;
+   user.email=profiles.email;
+   user.phone=profiles.phone;
+   user.nickname=profiles.nickname;
+   user.friends=profiles.friends;
+   user.role_id=profiles.role_id;
    user.save(callback);
  };
