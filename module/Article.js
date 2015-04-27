@@ -5,6 +5,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
+
+/**
+ * @module Article
+ */
 var Article=new Schema({
   title:{type:String},
   //内容

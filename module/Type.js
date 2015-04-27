@@ -4,7 +4,9 @@
  var mongoose = require('mongoose');
  var Schema = mongoose.Schema,
      ObjectId = Schema.ObjectId;
-
+/**
+ * @module Type
+ */
  var Type=new Schema({
    type:{type:String,default:'action type'},
    creator: ObjectId,

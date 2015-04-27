@@ -1,0 +1,1045 @@
+{
+    "project": {},
+    "files": {
+        "module\\Action.js": {
+            "name": "module\\Action.js",
+            "modules": {
+                "Action": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "module\\Article.js": {
+            "name": "module\\Article.js",
+            "modules": {
+                "Article": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "module\\Attend.js": {
+            "name": "module\\Attend.js",
+            "modules": {
+                "Attend": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "module\\Fork.js": {
+            "name": "module\\Fork.js",
+            "modules": {
+                "Fork": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "module\\Role.js": {
+            "name": "module\\Role.js",
+            "modules": {
+                "Role": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "module\\Type.js": {
+            "name": "module\\Type.js",
+            "modules": {
+                "Type": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "module\\User.js": {
+            "name": "module\\User.js",
+            "modules": {
+                "User": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "module\\friend.js": {
+            "name": "module\\friend.js",
+            "modules": {
+                "Friend": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "module\\index.js": {
+            "name": "module\\index.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "proxy\\action.js": {
+            "name": "proxy\\action.js",
+            "modules": {},
+            "classes": {
+                "action-proxy": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "proxy\\user.js": {
+            "name": "proxy\\user.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "routes\\action.js": {
+            "name": "routes\\action.js",
+            "modules": {},
+            "classes": {
+                "action-router": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "routes\\index.js": {
+            "name": "routes\\index.js",
+            "modules": {},
+            "classes": {
+                "index-router": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "routes\\users.js": {
+            "name": "routes\\users.js",
+            "modules": {},
+            "classes": {
+                "users-router": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app.js": {
+            "name": "app.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Action": {
+            "name": "Action",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "module\\Action.js",
+            "line": 9
+        },
+        "Article": {
+            "name": "Article",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "module\\Article.js",
+            "line": 9
+        },
+        "Attend": {
+            "name": "Attend",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "module\\Attend.js",
+            "line": 7
+        },
+        "Fork": {
+            "name": "Fork",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "module\\Fork.js",
+            "line": 7
+        },
+        "Role": {
+            "name": "Role",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "module\\Role.js",
+            "line": 5
+        },
+        "Type": {
+            "name": "Type",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "module\\Type.js",
+            "line": 7
+        },
+        "User": {
+            "name": "User",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "module\\User.js",
+            "line": 9
+        },
+        "Friend": {
+            "name": "Friend",
+            "submodules": {},
+            "classes": {
+                "action-proxy": 1,
+                "action-router": 1,
+                "index-router": 1,
+                "users-router": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "routes\\users.js",
+            "line": 12
+        }
+    },
+    "classes": {
+        "action-proxy": {
+            "name": "action-proxy",
+            "shortname": "action-proxy",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Friend",
+            "namespace": "",
+            "file": "proxy\\action.js",
+            "line": 8,
+            "description": "proxy - action.js",
+            "exmaple": "//这里传入的回调函数的参数一律是\n\t\tcallback(err,results)\n\t\t//results是从mongodb中取得的结果集"
+        },
+        "action-router": {
+            "name": "action-router",
+            "shortname": "action-router",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Friend",
+            "namespace": "",
+            "file": "routes\\action.js",
+            "line": 5,
+            "description": "action操作的一些API  path-prefix '/action'"
+        },
+        "index-router": {
+            "name": "index-router",
+            "shortname": "index-router",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Friend",
+            "namespace": "",
+            "file": "routes\\index.js",
+            "line": 7,
+            "description": "主页的一些API  path-prefix '/'"
+        },
+        "users-router": {
+            "name": "users-router",
+            "shortname": "users-router",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Friend",
+            "namespace": "",
+            "file": "routes\\users.js",
+            "line": 12,
+            "description": "用户登录，获取用户信息和属性的相关API path-prefix '/users'"
+        }
+    },
+    "classitems": [
+        {
+            "file": "module\\Action.js",
+            "line": 1,
+            "description": "Created by huangyao on 14-10-1.",
+            "class": "action-proxy"
+        },
+        {
+            "file": "module\\Article.js",
+            "line": 1,
+            "class": "action-proxy",
+            "module": "Action"
+        },
+        {
+            "file": "module\\Attend.js",
+            "line": 1,
+            "class": "action-proxy",
+            "module": "Article"
+        },
+        {
+            "file": "module\\Type.js",
+            "line": 1,
+            "class": "action-proxy",
+            "module": "Role"
+        },
+        {
+            "file": "module\\User.js",
+            "line": 1,
+            "description": "Created by huangyao on 14-10-1.",
+            "class": "action-proxy",
+            "module": "Type"
+        },
+        {
+            "file": "module\\index.js",
+            "line": 1,
+            "description": "Created by huangyao on 14-10-1.",
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 1,
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 17,
+            "description": "获取最近一个新增Acion的时间",
+            "itemtype": "method",
+            "name": "getLastActionDate",
+            "params": [
+                {
+                    "name": "cb",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 33,
+            "depracated": "使用getActions代替\n获取最新的action条目，但是跳过skip条",
+            "itemtype": "method",
+            "name": "getBySkip",
+            "optional": "@param {number} skip",
+            "params": [
+                {
+                    "name": "cb",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 52,
+            "description": "获取最新的action条目，但是跳过skip条",
+            "itemtype": "method",
+            "name": "getActions",
+            "params": [
+                {
+                    "name": "@option",
+                    "description": "skip",
+                    "type": "Number"
+                },
+                {
+                    "name": "cb",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 73,
+            "description": "根据name获取一条action",
+            "itemtype": "method",
+            "name": "getActionByName",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "cb",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 83,
+            "description": "根据name数组获取一系列action",
+            "itemtype": "method",
+            "name": "getActionByNames",
+            "params": [
+                {
+                    "name": "names",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "cb",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 96,
+            "description": "根据id获取一条action",
+            "itemtype": "method",
+            "name": "getActionById",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "",
+                    "type": "Objectid"
+                },
+                {
+                    "name": "cb",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 106,
+            "description": "根据id数组获取一系列action",
+            "itemtype": "method",
+            "name": "getActionByIds",
+            "params": [
+                {
+                    "name": "ids",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "cb",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 118,
+            "depracated": "根据id数组获取一系列action",
+            "itemtype": "method",
+            "name": "getActionByCreateDate",
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 126,
+            "depracated": "根据id数组获取一系列action",
+            "itemtype": "method",
+            "name": "getActionByEndDate",
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 135,
+            "description": "新建并存入action到数据库",
+            "itemtype": "method",
+            "name": "newAndSave",
+            "params": [
+                {
+                    "name": "mb十几个参数，懒得写了，自己看代码",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\user.js",
+            "line": 1,
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\user.js",
+            "line": 8,
+            "description": "根据用户名列表查找用户列表",
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 10,
+            "description": "新建一个action--暂未实现",
+            "itemtype": "method",
+            "name": "/new",
+            "return": {
+                "description": "status 0 代表成功 ，否则失败",
+                "type": "Json"
+            },
+            "example": [
+                "\n\t\t\t\t//完整的action数据结构\n\t\t\t  name:{type:String,default:'Action'},\n       create_date:{type:Date,default:Date.now},\n       end_date:{type:Date,default:Date.now},\n       edit_date:{type:Date,default:Date.now},\n       desc:{type:String,default:'desciption'},\n       creator: ObjectId,\n       article_id:ObjectId,\n       reply_count:{type:Number,default:0},\n       visit_count:{type:Number,default:0},\n       like_count:{type:Number,default:0},\n       unlike_count:{type:Number,default:0},\n       forkable:{type:Boolean,default:true},\n       type_id:{type:ObjectId},\n       //是否置顶\n       top:{type:Boolean,default:false},\n"
+            ],
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 35,
+            "description": "删除一个action",
+            "itemtype": "method",
+            "name": "/delete/:aid",
+            "params": [
+                {
+                    "name": "aid",
+                    "description": "action的ObjectId",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status 0 代表成功，否则就是失败",
+                "type": "Json"
+            },
+            "example": [
+                "\n\t\tvar ServerUrl = 'xxxxxx/action/delete';\n\t\thttp.get(ServerUrl+'/'+ObjectId+'/');"
+            ],
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 47,
+            "description": "激活一个action，默认新建之后是激活状态",
+            "itemtype": "method",
+            "name": "/active/:aid",
+            "params": [
+                {
+                    "name": "aid",
+                    "description": "action的ObjectId",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status 0 代表成功，否则失败",
+                "type": "Json"
+            },
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 56,
+            "description": "参加一个活动",
+            "itemtype": "method",
+            "name": "/fork/:aid",
+            "params": [
+                {
+                    "name": "aid",
+                    "description": "action的ObjectId",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status 0 成功，否则失败",
+                "type": "Json"
+            },
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 65,
+            "description": "退出一个action",
+            "itemtype": "method",
+            "name": "/exit/:aid",
+            "params": [
+                {
+                    "name": "aid",
+                    "description": "action的ObjectId",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status 0 成功，否则失败",
+                "type": "Json"
+            },
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 74,
+            "description": "获取一个action的资料",
+            "itemtype": "method",
+            "name": "/pull/:aid",
+            "params": [
+                {
+                    "name": "aid",
+                    "description": "action的ObjectId",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status 0 成功，否则失败, action\\{status,action\\}",
+                "type": "Json"
+            },
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 82,
+            "description": "修改一个action的资料，类似于/new",
+            "params": [
+                {
+                    "name": "aid",
+                    "description": "action的ObjectId",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status 0 成功，否则失败",
+                "type": "Json"
+            },
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 13,
+            "description": "获取最新活动10条",
+            "itemtype": "method",
+            "name": "/",
+            "return": {
+                "description": "actions",
+                "type": "Array"
+            },
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 27,
+            "description": "获取最新的活动10条，但是跳过之前的条数",
+            "itemtype": "method",
+            "name": "/more",
+            "params": [
+                {
+                    "name": "skip",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "actions",
+                "type": "Array"
+            },
+            "example": [
+                "\n\t\thttp.get(SERVER_URL,{skip:10}) //假设原本已经显示了10条，跳过之前的10条获取之后的action"
+            ],
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 44,
+            "description": "判断是否已经有更新的action条目,返回status = -1说明已经需要更新,status=1说明不需要更新",
+            "itemtype": "method",
+            "name": "/isTimeout",
+            "params": [
+                {
+                    "name": "date",
+                    "description": "",
+                    "type": "Date"
+                }
+            ],
+            "return": {
+                "description": "status",
+                "type": "Number"
+            },
+            "example": [
+                "\n\t\thttp.get(Server_Url,{date:new Date}) //参数date表示目前客户端中最新一条非置顶action的创建时间"
+            ],
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 71,
+            "description": "NOTE:过期API",
+            "depracated": "",
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 80,
+            "description": "NOTE:过期API",
+            "depracated": "",
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 97,
+            "description": "NOTE:过期API",
+            "depracated": "",
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 113,
+            "description": "NOTE:过期API",
+            "depracated": "",
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 124,
+            "description": "NOTE:过期API",
+            "depracated": "",
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 134,
+            "description": "NOTE:过期API",
+            "depracated": "",
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 144,
+            "description": "NOTE:过期API",
+            "depracated": "",
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\index.js",
+            "line": 155,
+            "description": "NOTE:过期API",
+            "depracated": "",
+            "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\users.js",
+            "line": 17,
+            "description": "登陆验证",
+            "deprecated": true,
+            "class": "users-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\users.js",
+            "line": 39,
+            "description": "注册",
+            "itemtype": "method",
+            "name": "/signup",
+            "params": [
+                {
+                    "name": "loginname",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "passwd",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status:1代表成功，0代表已存在账号，2代表账号用户名或者密码格式有问题，-1代表异常或者未知错误",
+                "type": "Json"
+            },
+            "class": "users-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\users.js",
+            "line": 75,
+            "description": "退出登录",
+            "mothod": "/logout",
+            "return": {
+                "description": "status:1注销成功，0没有登录，2内部错误",
+                "type": "Json"
+            },
+            "class": "users-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\users.js",
+            "line": 85,
+            "description": "登录",
+            "itemtype": "method",
+            "name": "/login",
+            "params": [
+                {
+                    "name": "loginname",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "passwd",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status:1成功，0密码或者账号错误，2内部错误",
+                "type": "Json"
+            },
+            "class": "users-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\users.js",
+            "line": 116,
+            "description": "账号服务 NOTE 未开放API",
+            "itemtype": "method",
+            "name": "/accountservice",
+            "return": {
+                "description": "status:1代表成功，0代表修改失败，2代表账号密码格式有问题，-1代表异常或者未知错误",
+                "type": "Json"
+            },
+            "class": "users-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\users.js",
+            "line": 126,
+            "description": "其他账号登陆  QQ github 手机 NOTE 未开放API",
+            "itemtype": "method",
+            "name": "/3partsignup",
+            "return": {
+                "description": "status:1代表成功，0代表账号或密码错误，-1代表异常或未知错误",
+                "type": "Json"
+            },
+            "class": "users-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\users.js",
+            "line": 138,
+            "description": "获取自身账号信息",
+            "itemtype": "method",
+            "name": "/profile",
+            "return": {
+                "description": "status:1 成功，0 错误，2 未登录",
+                "type": "Json"
+            },
+            "class": "users-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\users.js",
+            "line": 151,
+            "description": "获取其他用户的账号信息",
+            "itemtype": "method",
+            "name": "/profile/:uid",
+            "params": [
+                {
+                    "name": "uid",
+                    "description": "User的ObjectId",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "status:1 成功，0 错误，2 没有权限",
+                "type": "Json"
+            },
+            "class": "users-router",
+            "module": "Friend"
+        },
+        {
+            "file": "app.js",
+            "line": 65,
+            "description": "teswtestest中文",
+            "class": "",
+            "module": "Friend"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: exmaple",
+            "line": " proxy\\action.js:8"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " proxy\\action.js:33"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " proxy\\action.js:118"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " proxy\\action.js:126"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " routes\\index.js:71"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " routes\\index.js:80"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " routes\\index.js:97"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " routes\\index.js:113"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " routes\\index.js:124"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " routes\\index.js:134"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " routes\\index.js:144"
+        },
+        {
+            "message": "unknown tag: depracated",
+            "line": " routes\\index.js:155"
+        },
+        {
+            "message": "unknown tag: mothod",
+            "line": " routes\\users.js:75"
+        },
+        {
+            "message": "Missing item type\nCreated by huangyao on 14-10-1.",
+            "line": " module\\Action.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " module\\Article.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " module\\Attend.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " module\\Type.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by huangyao on 14-10-1.",
+            "line": " module\\User.js:1"
+        },
+        {
+            "message": "Missing item type\nCreated by huangyao on 14-10-1.",
+            "line": " module\\index.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " proxy\\action.js:1"
+        },
+        {
+            "message": "Missing item type",
+            "line": " proxy\\user.js:1"
+        },
+        {
+            "message": "Missing item type\n根据用户名列表查找用户列表",
+            "line": " proxy\\user.js:8"
+        },
+        {
+            "message": "Missing item type\n修改一个action的资料，类似于/new",
+            "line": " routes\\action.js:82"
+        },
+        {
+            "message": "Missing item type\nNOTE:过期API",
+            "line": " routes\\index.js:71"
+        },
+        {
+            "message": "Missing item type\nNOTE:过期API",
+            "line": " routes\\index.js:80"
+        },
+        {
+            "message": "Missing item type\nNOTE:过期API",
+            "line": " routes\\index.js:97"
+        },
+        {
+            "message": "Missing item type\nNOTE:过期API",
+            "line": " routes\\index.js:113"
+        },
+        {
+            "message": "Missing item type\nNOTE:过期API",
+            "line": " routes\\index.js:124"
+        },
+        {
+            "message": "Missing item type\nNOTE:过期API",
+            "line": " routes\\index.js:134"
+        },
+        {
+            "message": "Missing item type\nNOTE:过期API",
+            "line": " routes\\index.js:144"
+        },
+        {
+            "message": "Missing item type\nNOTE:过期API",
+            "line": " routes\\index.js:155"
+        },
+        {
+            "message": "Missing item type\n登陆验证",
+            "line": " routes\\users.js:17"
+        },
+        {
+            "message": "Missing item type\n退出登录",
+            "line": " routes\\users.js:75"
+        },
+        {
+            "message": "Missing item type\nteswtestest中文",
+            "line": " app.js:65"
+        }
+    ]
+}

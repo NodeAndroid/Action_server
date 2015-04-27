@@ -6,6 +6,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
+/**
+ * @module Action
+ */
 var Action = new Schema({
   name:{type:String,default:'Action'},
   create_date:{type:Date,default:Date.now},
@@ -19,7 +22,9 @@ var Action = new Schema({
   like_count:{type:Number,default:0},
   unlike_count:{type:Number,default:0},
   forkable:{type:Boolean,default:true},
-  type_id:{type:ObjectId}
+  type_id:{type:ObjectId},
+  //是否置顶
+  top:{type:Boolean,default:false},
 });
 
 Action.index({name:1},{unique:true});

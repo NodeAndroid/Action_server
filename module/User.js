@@ -6,7 +6,9 @@
  var Schema = mongoose.Schema,
  ObjectId = Schema.ObjectId;
 
-
+/**
+ * @module User
+ */
  var User = new Schema({
    name:{type:String,default:"user name"},
    loginname: { type: String},
