@@ -5,9 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var config = require('./config');
 var app = express();
 
 var modole = require('./module');
@@ -26,10 +27,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  store : new MongoStore({ url: config.db , ttl: 4 * 60 * 60}), //4 hour
+  secret: 'action',
+  name : 'action',
+  resave:true,
+  saveUninitialized:true,
+}));
+
 
 app.use('/', routes);
 app.use('/users', users);
-
+app.use('/action',require('./routes/action'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

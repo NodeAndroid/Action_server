@@ -28,10 +28,12 @@ var Action = require('../proxy/action');
  */
 router.post('/new',function (req,res,next) {
   var body = req.body;
+  console.log(body);
   var pjson ={};
-  pjson.name = _.trim(body.name);
-  pjson.end_date = new Date(body.end_date);
-  pjson.desc = _.trim(body.desc);
+  pjson.name = body.name?_.trim(body.name):'';
+  pjson.end_date = body.end_date?Date(body.end_date):((new Date())+1);
+  console.log('point');
+  pjson.desc = body.desc?_.trim(body.desc):'';
   pjson.creator = req.session.user._id;
   pjson.forkable = Booelan(body.forkable);
   pjson.type_id = Number(body.type_id);
