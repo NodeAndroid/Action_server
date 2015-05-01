@@ -36,7 +36,13 @@ var models = {
 models.init(function (files) {
   for (var item in files) {
     //reuire all modules
-    models[lcommon.literat(files[item]).slice(0,-3)] = require('./'+files[item]);
+    // console.log(lcommon.literat(files[item]).slice(0,-3));
+    console.log(files[item]);
+    item = item.split('.')[0];
+    require('./'+ item);
+    var m = common.literat(item);
+    console.log('loading and use ',m,' model');
+    exports[m] = mongoose.model(m);
 
     // _.extend(models,file.exports);
     // console.log(file);
