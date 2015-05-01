@@ -142,6 +142,11 @@ exports.newAndSave=function(pjson,callback){
   action.save(callback);
 };
 
+exports.updateActionById=function(id,pjson,options,callback){
+  // action.upadte(query,njson,options,callback);
+  Action.update({_id:id},{$set:pjson},options,callback);
+};
+
 exports.deleteById = function (aid,callback) {
   action.delete({_id:aid},callback);
 };

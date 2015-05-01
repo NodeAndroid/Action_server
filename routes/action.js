@@ -82,7 +82,18 @@ router.get('/delete/:aid',function (req,res,next) {
  * @param {string} aid action的ObjectId
  * @return {json} status 0 代表成功，否则失败
  */
-router.get('/active/:aid');
+router.get('/active/:aid',function(req,res,next){
+  var aid=req.params.aid;
+  // Action.getActionById(aid,function(err,action){
+  //   if(err){
+  //     console.log(err.stack);
+  //     res.json({status:-1,message:'server error'});
+  //     throw err;
+  //   }
+  //   res.json({status:0,message:action});
+  // });
+
+});
 
 //fork 参加一个action
 /**
@@ -100,7 +111,15 @@ router.get('/fork/:aid');
   * @param {string} aid action的ObjectId
   * @return {json} status 0 成功，否则失败
   */
-router.get('/exit/:aid');
+router.get('/exit/:aid',function(req,res,next){
+  var user=req.session.user;
+  // if(err){
+  //   console.log(err.stack);
+  //   res.json({status:-1,message:'server error'});
+  //   throw err;
+  // }
+
+});
 
 
 /**
@@ -109,14 +128,38 @@ router.get('/exit/:aid');
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败, action\{status,action\}
  */
-router.get('/pull/:aid');
+router.get('/pull/:aid',function(req,res,next){
+  var aid=req.params.aid;
+  Action.getActionById(aid,function(err,action){
+    if(err){
+        console.log(err.stack);
+        res.json({status:-1,message:'server error'});
+        throw err;
+      }
+      res.json({status:0,message:action});
+  });
+});
 
 /**
  * 修改一个action的资料，类似于/new
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败
  */
-router.post('/push/:aid');
+router.post('/push/:aid',function(res,req,next){
+  // Action.update()
+  var aid=req.params.aid;
+  var pjson={};
+  pjson.name = _.trim(body.name);
+  pjson.end_date = new Date(body.end_date);
+  pjson.desc = _.trim(body.desc);
+  pjson.creator = req.session.user._id;
+  pjson.forkable = Booelan(body.forkable);
+  pjson.type_id = Number(body.type_id);
+  pjson.top = Boolean(req.top);
+  Action.updateAction(aid,njson,function(){
+
+  });
+});
 
 
 /**
