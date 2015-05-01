@@ -165,8 +165,14 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
   var aid = xss(req.params.aid);
   var pjson={};
   pjson.action_id=aid;
-  pjson.create_date=new Date();
+  pjson.create_date=validator.isDate(body.create_date)?Date(body.create_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
   pjson.user_id=req.session.user._id;
+  if(pjson.action_id.trim().length!==24||pjson.action_id===''){
+    return res.json({status: -1,message: 'invalid ObjectId'});
+  }
+  if(!validator.isDate(pjson.create_date)){
+    return res.json({status:-1,message:'create_date error'});
+  }
 
     Action.addFork(pjson,function(err){
       if(err){
