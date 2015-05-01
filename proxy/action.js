@@ -135,22 +135,9 @@ exports.getActionByEndDate=function(end_date,callback){
 /**
  * 新建并存入action到数据库
  * @method newAndSave
- * @param {string} mb十几个参数，懒得写了，自己看代码
+ * @param {json} mb十几个参数，懒得写了，自己看代码
  */
-exports.newAndSave=function(name,create_date,end_date,edit_date,desc,creator,article_id,reply_count,visit_count,like_count,unlike_count,forkable,type_id,callback){
-  var action=new Action();
-  action.name=name;
-  action.create_date=create_date;
-  action.end_date=end_date;
-  action.edit_date=edit_date;
-  action.desc=desc;
-  action.creator=creator;
-  action.article_id=article_id;
-  action.reply_count=reply_count;
-  action.visit_count=visit_count;
-  action.like_count=like_count;
-  action.unlike_count=unlike_count;
-  action.forkable=forkable;
-  action.type_id=type_id;
+exports.newAndSave=function(pjson,callback){
+  var action=new Action(pjson);
   action.save(callback);
 };
