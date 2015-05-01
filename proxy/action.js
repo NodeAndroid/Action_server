@@ -1,6 +1,4 @@
-/**
- *
- */
+
 var Action=require('../module').Action;
 var Type=require('../module').Type;
 var Attend=require('../module').Attend;
