@@ -95,6 +95,9 @@ var router = express.Router();
 var User=require(&#x27;../proxy&#x27;).User;
 var session=require(&#x27;../util/session&#x27;);
 var _ = require(&#x27;lodash&#x27;);
+var seHelper = require(&#x27;../middleware/session&#x27;);
+
+
 /* GET users listing. */
 router.get(&#x27;/&#x27;, function(req, res) {
   res.send(&#x27;welcome to Action&#x27;);
@@ -137,8 +140,9 @@ router.post(&#x27;/signin&#x27;,function(req,res,next){
  */
 router.post(&#x27;/signup&#x27;, function(req, res) {
   var body = req.body;
+  console.log(body);
   var loginname = _.trim(body.loginname);
-  var passwd = _trim(body.passwd);
+  var passwd = _.trim(body.passwd);
   if(loginname ===&#x27;&#x27; || passwd === &#x27;&#x27;){
     return res.json({message:&#x27;账号或者密码格式错误&#x27;,status:2});
   }
@@ -147,19 +151,20 @@ router.post(&#x27;/signup&#x27;, function(req, res) {
     	console.err(err.stack);
     	throw err;
     }
-    if(!user || user.length === 0){
-      return res.json({message:&#x27;&#x27;,status:0});
+    console.log(user);
+    if(user){
+      return res.json({message:&#x27;exist username&#x27;,status:0});
     }else{
-      User.newAndSave(body,function (err) {
+      User.newAndSave({loginname:loginname,passwd:passwd},function (err) {
         if(err){
         	console.err(err.stack);
         	throw err;
         }
-        return res.json({message:&#x27;&#x27;,status:1});
+        return res.json({message:&#x27;done&#x27;,status:1});
       });
     }
   });
-  res.json({message:&#x27;&#x27;,status:1});
+  // res.json({message:&#x27;done&#x27;,status:1});
 });
 
 
@@ -171,7 +176,7 @@ router.post(&#x27;/signup&#x27;, function(req, res) {
  */
  router.get(&#x27;/logout&#x27;,function (req,res,next) {
    req.session.user = null;
-   res.json({message:&#x27;&#x27;,status:1});
+   res.json({message:&#x27;success&#x27;,status:1});
  });
 
  /**
@@ -185,20 +190,24 @@ router.post(&#x27;/signup&#x27;, function(req, res) {
   router.post(&#x27;/login&#x27;,function (req,res,next) {
     var body = req.body;
     var loginname = _.trim(body.loginname);
-    var passwd = _trim(body.passwd);
+    var passwd = _.trim(body.passwd);
     if(loginname ===&#x27;&#x27; || passwd === &#x27;&#x27;){
       return res.json({message:&#x27;账号或者密码格式错误&#x27;,status:2});
     }
-
+    if(req.session.user){
+      return res.json({message:&#x27;user had login!&#x27;,status:2});
+    }
     User.getUserByLoginName(loginname,function (err,user) {
       if(err){
       	console.err(err.stack);
       	throw err;
       }
-      if(!user || user.length === 0 || user.passwd !== passwd){
-        res.json({message:&#x27;&#x27;,status:0});
+      console.log(user);
+      if(!user || user.length ===0 || user.passwd !== passwd){
+        return res.json({message:&#x27;loginname or passwd error&#x27;,status:0});
       }else{
-        res.json({message:&#x27;&#x27;,status:1});
+        req.session.user = user;
+        return res.json({message:&#x27;success&#x27;,status:1});
       }
     });
   });
@@ -210,7 +219,7 @@ router.post(&#x27;/signup&#x27;, function(req, res) {
  * @method /accountservice
  * @return {json} status:1代表成功，0代表修改失败，2代表账号密码格式有问题，-1代表异常或者未知错误
  */
-router.post(&#x27;/accountservice&#x27;, function(req, res) {
+router.post(&#x27;/accountservice&#x27;, seHelper.loginRequire,function(req, res) {
     res.json({message:&#x27;&#x27;,status:1});
 });
 
@@ -232,11 +241,11 @@ router.post(&#x27;/3partsignup&#x27;, function(req, res) {
  * @method /profile
  * @return {json} status:1 成功，0 错误，2 未登录
  */
-router.get(&#x27;/profile&#x27;, function(req, res) {
+router.get(&#x27;/profile&#x27;,seHelper.loginRequire, function(req, res) {
   if(!req.session.user){
-    res.json({message:&#x27;&#x27;,status:2});
+    return res.json({message:&#x27;please login &#x27;,status:2});
   }
-  res.json({message:req.session.user,status:1});
+  return res.json({message:req.session.user,status:1});
 });
 
 
@@ -246,8 +255,8 @@ router.get(&#x27;/profile&#x27;, function(req, res) {
  * @param {string} uid User的ObjectId
  * @return {json} status:1 成功，0 错误，2 没有权限
  */
-router.get(&#x27;/profile/:uid&#x27;,function (req,res,next) {
-  User.find({_id:uid},{name:1,email:1,phone:1,nickname:1},function (err,user) {
+router.get(&#x27;/profile/:uid&#x27;,seHelper.loginRequire,function (req,res,next) {
+  User.find({_id:uid}/*,{name:1,email:1,phone:1,nickname:1}*/,function (err,user) {
     if(err){
     	console.err(err.stack);
     	throw err;

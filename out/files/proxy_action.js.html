@@ -90,9 +90,7 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
-/**
- *
- */
+
 var Action=require(&#x27;../module&#x27;).Action;
 var Type=require(&#x27;../module&#x27;).Type;
 var Attend=require(&#x27;../module&#x27;).Attend;
@@ -227,24 +225,29 @@ exports.getActionByEndDate=function(end_date,callback){
 /**
  * 新建并存入action到数据库
  * @method newAndSave
- * @param {string} mb十几个参数，懒得写了，自己看代码
+ * @param {json} mb十几个参数，懒得写了，自己看代码
  */
-exports.newAndSave=function(name,create_date,end_date,edit_date,desc,creator,article_id,reply_count,visit_count,like_count,unlike_count,forkable,type_id,callback){
-  var action=new Action();
-  action.name=name;
-  action.create_date=create_date;
-  action.end_date=end_date;
-  action.edit_date=edit_date;
-  action.desc=desc;
-  action.creator=creator;
-  action.article_id=article_id;
-  action.reply_count=reply_count;
-  action.visit_count=visit_count;
-  action.like_count=like_count;
-  action.unlike_count=unlike_count;
-  action.forkable=forkable;
-  action.type_id=type_id;
+exports.newAndSave=function(pjson,callback){
+  var action=new Action(pjson);
+  console.log(pjson);
   action.save(callback);
+};
+
+/**
+ * 更新action信息
+ * @method updateAction
+ * @param {json} query
+ * @param {json} pjson
+ * @param {function} callback
+ */
+exports.updateAction=function(query,pjson,callback){
+  // action.upadte(query,njson,options,callback);
+  Action.update(query,pjson,callback);
+};
+
+exports.deleteById = function (aid,callback) {
+  console.log(aid);
+  Action.remove({_id:aid},callback);
 };
 
     </pre>

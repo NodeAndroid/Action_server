@@ -93,36 +93,103 @@
 
 var express = require(&#x27;express&#x27;);
 var router = express.Router();
-
+var validator = require(&#x27;validator&#x27;);
+var _ = require(&#x27;lodash&#x27;);
+var Action = require(&#x27;../proxy/action&#x27;);
+var seHelper = require(&#x27;../middleware/session&#x27;);
 /**
  * action操作的一些API  path-prefix &#x27;/action&#x27;
  * @class action-router
  */
 
 /**
- * 新建一个action--暂未实现
+ * 新建一个action
  * @method /new
  * @return {json} status 0 代表成功 ，否则失败
  * @example
- * 				//完整的action数据结构
- * 			  name:{type:String,default:&#x27;Action&#x27;},
- *        create_date:{type:Date,default:Date.now},
- *        end_date:{type:Date,default:Date.now},
- *        edit_date:{type:Date,default:Date.now},
- *        desc:{type:String,default:&#x27;desciption&#x27;},
- *        creator: ObjectId,
- *        article_id:ObjectId,
- *        reply_count:{type:Number,default:0},
- *        visit_count:{type:Number,default:0},
- *        like_count:{type:Number,default:0},
- *        unlike_count:{type:Number,default:0},
- *        forkable:{type:Boolean,default:true},
- *        type_id:{type:ObjectId},
- *        //是否置顶
- *        top:{type:Boolean,default:false},
+ *   // name:{type:String,default:&#x27;Action&#x27;},
+ * // create_date:{type:Date,default:Date.now},
+ * // start_date:{type:Date,default:Date.now},
+ * // end_date:{type:Date,default:Date.now},
+ * // edit_date:{type:Date,default:Date.now},
+ * // desc:{type:String,default:&#x27;desciption&#x27;},
+ * // addr_name:{type:String},
+ * // addr_position_x:{type:Number,default:-1},
+ * // addr_position_y:{type:Number,default:-1},
+ * // creator: ObjectId,
+ * // article_id:ObjectId,
+ * // reply_count:{type:Number,default:0},
+ * // visit_count:{type:Number,default:0},
+ * // like_count:{type:Number,default:0},
+ * // unlike_count:{type:Number,default:0},
+ * // forkable:{type:Boolean,default:true},
+ * // type_id:{type:Number,default:1},
+ * // //是否置顶
+ * // top:{type:Boolean,default:false},
  *
  */
-router.post(&#x27;/new&#x27;);
+router.post(&#x27;/new&#x27;,seHelper.loginRequire,function (req,res,next) {
+  var body = req.body;
+  console.log(body);
+  var pjson ={};
+  pjson.name = body.name?_.trim(body.name):&#x27;&#x27;;
+  var date = new Date();
+
+  // name:{type:String,default:&#x27;Action&#x27;},
+  // create_date:{type:Date,default:Date.now},
+  // start_date:{type:Date,default:Date.now},
+  // end_date:{type:Date,default:Date.now},
+  // edit_date:{type:Date,default:Date.now},
+  // desc:{type:String,default:&#x27;desciption&#x27;},
+  // addr_name:{type:String},
+  // addr_position_x:{type:Number,default:-1},
+  // addr_position_y:{type:Number,default:-1},
+  // creator: ObjectId,
+  // article_id:ObjectId,
+  // reply_count:{type:Number,default:0},
+  // visit_count:{type:Number,default:0},
+  // like_count:{type:Number,default:0},
+  // unlike_count:{type:Number,default:0},
+  // forkable:{type:Boolean,default:true},
+  // type_id:{type:Number,default:1},
+  // //是否置顶
+  // top:{type:Boolean,default:false},
+  //
+  pjson.start_date = validator.isDate(body.start_date)?Date(body.start_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
+  pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
+  pjson.desc = body.desc?_.trim(body.desc):&#x27;&#x27;;
+  pjson.addr_name = body.addr_name?_.trim(body.addr_name):&#x27;&#x27;;
+  pjson.addr_position_x = validator.isNumeric(body.addr_position_x)?Number(body.addr_position_x):-1;
+  pjson.addr_position_y = validator.isNumeric(body.addr_position_y)?Number(body.addr_position_y):-1;
+  pjson.creator = req.session.user._id;
+  // validator.isBoolean(body.forkable,&#x27;strict&#x27;);
+  pjson.forkable = validator.toBoolean(body.forkable,&#x27;strict&#x27;);
+  pjson.type_id = validator.isNumeric(body.type_id)?Number(body.type_id):1;
+  pjson.top = validator.toBoolean(body.top,&#x27;strict&#x27;);
+  if(!validator.isDate(pjson.end_date)){
+    return res.json({status:-1,message:&#x27;end_date error&#x27;});
+  }
+  if(pjson.name === &#x27;&#x27;){
+    return res.json({status:-1,message:&#x27;name can not be blank&#x27;});
+  }
+  if(pjson.desc === &#x27;&#x27;){
+    return res.json({status:-1,message:&#x27;desc can not be blank&#x27;});
+  }
+  if(pjson.addr_name === &#x27;&#x27;){
+    return res.json({status:-1,message:&#x27;addr_name can not be blank&#x27;});
+  }
+  if(pjson.type_id &lt; 0){
+    return res.json({status:-1,message:&#x27;type_id error&#x27;});
+  }
+  console.log(&#x27;point&#x27;);
+  Action.newAndSave(pjson,function (err) {
+    if(err){
+    	console.err(err);
+    	throw err;
+    }
+    res.json({status:0,message:&#x27;success&#x27;});
+  });
+});
 
 /**
  * 删除一个action
@@ -133,7 +200,20 @@ router.post(&#x27;/new&#x27;);
  * 		var ServerUrl = &#x27;xxxxxx/action/delete&#x27;;
  * 		http.get(ServerUrl+&#x27;/&#x27;+ObjectId+&#x27;/&#x27;);
  */
-router.get(&#x27;/delete/:aid&#x27;);
+router.get(&#x27;/delete/:aid&#x27;,seHelper.loginRequire,function (req,res,next) {
+  var aid = req.params.aid;
+  if(!aid || aid.length !== 24){
+    return res.json({status:-1,message:&#x27;objectid error&#x27;});
+  }
+  Action.deleteById(aid,function (err) {
+    if(err){
+    	console.err(err.stack);
+      res.json({status:-1,message:&#x27;server error&#x27;});
+    	throw err;
+    }
+    res.json({status:0,message:&#x27;success&#x27;});
+  });
+});
 
 
 /**
@@ -142,7 +222,25 @@ router.get(&#x27;/delete/:aid&#x27;);
  * @param {string} aid action的ObjectId
  * @return {json} status 0 代表成功，否则失败
  */
-router.get(&#x27;/active/:aid&#x27;);
+router.get(&#x27;/active/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
+  var aid=req.params.aid;
+  // Action.getActionById(aid,function(err,action){
+  //   if(err){
+  //     console.log(err.stack);
+  //     res.json({status:-1,message:&#x27;server error&#x27;});
+  //     throw err;
+  //   }
+  //   res.json({status:0,message:action});
+  // });
+  Action.updateAction({_id:aid},{active:true},function (err) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    return res.json({status:1,message:&#x27;done&#x27;});
+  });
+
+});
 
 //fork 参加一个action
 /**
@@ -151,7 +249,9 @@ router.get(&#x27;/active/:aid&#x27;);
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败
  */
-router.get(&#x27;/fork/:aid&#x27;);
+router.get(&#x27;/fork/:aid&#x27;,function (req,res,next) {
+
+});
 
 
  /**
@@ -160,7 +260,15 @@ router.get(&#x27;/fork/:aid&#x27;);
   * @param {string} aid action的ObjectId
   * @return {json} status 0 成功，否则失败
   */
-router.get(&#x27;/exit/:aid&#x27;);
+router.get(&#x27;/exit/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
+  var user=req.session.user;
+  // if(err){
+  //   console.log(err.stack);
+  //   res.json({status:-1,message:&#x27;server error&#x27;});
+  //   throw err;
+  // }
+
+});
 
 
 /**
@@ -169,15 +277,56 @@ router.get(&#x27;/exit/:aid&#x27;);
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败, action\{status,action\}
  */
-router.get(&#x27;/pull/:aid&#x27;);
+router.get(&#x27;/pull/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
+  var aid=req.params.aid;
+  Action.getActionById(aid,function(err,action){
+    if(err){
+        console.log(err.stack);
+        res.json({status:-1,message:&#x27;server error&#x27;});
+        throw err;
+      }
+      res.json({status:0,message:action});
+  });
+});
 
 /**
  * 修改一个action的资料，类似于/new
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败
  */
-router.post(&#x27;/push/:aid&#x27;);
+router.post(&#x27;/push/:aid&#x27;,seHelper.loginRequire,function(res,req,next){
+  // Action.update()
+  // var aid=req.params.aid;
+  // var body=req.body;
+  // var pjson={};
+  // pjson.name = _.trim(body.name);
+  // pjson.end_date = new Date(body.end_date);
+  // pjson.desc = _.trim(body.desc);
+  // pjson.creator = req.session.user._id;
+  // pjson.forkable = Booelan(body.forkable);
+  // pjson.type_id = Number(body.type_id);
+  // pjson.top = Boolean(req.top);
+  // if(!validator.isDate(pjson.end_date)){
+  //   return res.json({status:-1,message:&#x27;end_date error&#x27;});
+  // }
+  // if(pjson.name === &#x27;&#x27;){
+  //   return res.json({status:-1,message:&#x27;name can not be blank&#x27;});
+  // }
+  // if(pjson.desc === &#x27;&#x27;){
+  //   return res.json({status:-1,message:&#x27;desc can not be blank&#x27;});
+  // }
+  // Action.updateAction(aid,pjson,function(err){
+  //
+  // });
+});
 
+
+/**
+ * 获取我的action列表
+ * @return {json} status 0 成功 否则失败 ；actions action对象列表
+ *
+ */
+router.post(&#x27;/listAll&#x27;);
 
 module.exports = router;
 

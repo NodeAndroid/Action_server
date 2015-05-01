@@ -97,9 +97,10 @@ var logger = require(&#x27;morgan&#x27;);
 var cookieParser = require(&#x27;cookie-parser&#x27;);
 var bodyParser = require(&#x27;body-parser&#x27;);
 var session = require(&#x27;express-session&#x27;);
+var MongoStore = require(&#x27;connect-mongo&#x27;)(session);
 var routes = require(&#x27;./routes/index&#x27;);
 var users = require(&#x27;./routes/users&#x27;);
-
+var config = require(&#x27;./config&#x27;);
 var app = express();
 
 var modole = require(&#x27;./module&#x27;);
@@ -118,10 +119,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, &#x27;public&#x27;)));
+app.use(session({
+  store : new MongoStore({ url: config.db , ttl: 4 * 60 * 60}), //4 hour
+  secret: &#x27;action&#x27;,
+  name : &#x27;action&#x27;,
+  resave:true,
+  saveUninitialized:true,
+}));
+
 
 app.use(&#x27;/&#x27;, routes);
 app.use(&#x27;/users&#x27;, users);
-
+app.use(&#x27;/action&#x27;,require(&#x27;./routes/action&#x27;));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error(&#x27;Not Found&#x27;);

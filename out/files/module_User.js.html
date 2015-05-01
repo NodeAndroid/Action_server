@@ -115,7 +115,7 @@
  User.index({loginname:1},{unique:true});
  User.index({email:1},{unique:true});
 
- module.exports = mongoose.model(&quot;User&quot;,User);
+ mongoose.model(&quot;User&quot;,User);
 
     </pre>
 </div>

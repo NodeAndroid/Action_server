@@ -137,14 +137,23 @@ exports.getActionByEndDate=function(end_date,callback){
  */
 exports.newAndSave=function(pjson,callback){
   var action=new Action(pjson);
+  console.log(pjson);
   action.save(callback);
 };
 
+/**
+ * 更新action信息
+ * @method updateAction
+ * @param {json} query
+ * @param {json} pjson
+ * @param {function} callback
+ */
 exports.updateAction=function(query,pjson,callback){
   // action.upadte(query,njson,options,callback);
   Action.update(query,pjson,callback);
 };
 
 exports.deleteById = function (aid,callback) {
-  action.delete({_id:aid},callback);
+  console.log(aid);
+  Action.remove({_id:aid},callback);
 };

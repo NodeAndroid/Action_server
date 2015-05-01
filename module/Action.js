@@ -12,9 +12,13 @@ var Schema = mongoose.Schema,
 var Action = new Schema({
   name:{type:String,default:'Action'},
   create_date:{type:Date,default:Date.now},
+  start_date:{type:Date,default:Date.now},
   end_date:{type:Date,default:Date.now},
   edit_date:{type:Date,default:Date.now},
   desc:{type:String,default:'desciption'},
+  addr_name:{type:String},
+  addr_position_x:{type:Number,default:-1},
+  addr_position_y:{type:Number,default:-1},
   creator: ObjectId,
   article_id:ObjectId,
   reply_count:{type:Number,default:0},
@@ -22,9 +26,10 @@ var Action = new Schema({
   like_count:{type:Number,default:0},
   unlike_count:{type:Number,default:0},
   forkable:{type:Boolean,default:true},
-  type_id:{type:ObjectId},
+  type_id:{type:Number,default:1},
   //是否置顶
   top:{type:Boolean,default:false},
+  active:{type:Boolean,default:true},
 });
 
 Action.index({name:1},{unique:true});

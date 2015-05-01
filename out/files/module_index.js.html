@@ -97,44 +97,66 @@ var _ = require(&#x27;lodash&#x27;);
 var color =require(&#x27;colors&#x27;);
 var fs =require(&#x27;fs&#x27;);
 var config = require(&#x27;../config.js&#x27;);
-var path = config.path;
+var path = require(&#x27;path&#x27;);
 var mongoose = require(&quot;mongoose&quot;);
-
+var lcommon = require(&#x27;lush&#x27;).common;
+console.log(config.db);
 mongoose.connect(config.db,function (err) {
   if(err){
       throw new Error(&#x27;db connect error!\n&#x27;+err);
   }
   console.log(&#x27;db connect success!&#x27;.yellow);
 });
+// console.log(&#x27;point&#x27;);
 
-var models = {
+// var models = {
+//
+//   init : function (callback) {
+//     fs.readdir(path+&#x27;/module&#x27;,function (err,files) {
+//       if(err){
+//         throw err;
+//       }
+//       //  console.log(files);
+//       return callback(files.filter(function (item) {
+//         return !(item === &quot;index.js&quot; || item === &quot;.&quot; || item === &quot;..&quot;);
+//       }));
+//     });
+//   },
+// };
+//
+//
+// models.init(function (files) {
+//   // console.log(files);
+//   for (var item in files) {
+//     //reuire all modules
+//     // console.log(lcommon.literat(files[item]).slice(0,-3));
+//     console.log(files[item]);
+//     item = files[item].split(&#x27;.&#x27;)[0];
+//     require(&#x27;./&#x27;+ item);
+//     var m = lcommon.literat(item);
+//     console.log(&#x27;loading and use &#x27;,m,&#x27; model&#x27;);
+//     exports[m] = mongoose.model(m);
+//
+//     // _.extend(models,file.exports);
+//     // console.log(file);
+//   }
+// });
+//
+ var models = fs.readdirSync(path.resolve(&#x27;.&#x27;,&#x27;module&#x27;));
 
-  init : function (callback) {
-    fs.readdir(path+&#x27;/module&#x27;,function (err,files) {
-      if(err){
-        throw err;
-      }
-      //  console.log(files);
-      return callback(files.filter(function (item) {
-        return (item!==&quot;index.js&quot;);
-      }));
-    });
-  },
-};
-
-
-models.init(function (files) {
-  for (var item in files) {
-    //reuire all modules
-    models[files[item].slice(0,-3)] = require(&#x27;./&#x27;+files[item]);
-
-    // _.extend(models,file.exports);
-    // console.log(file);
+models.forEach(function(item,index){
+  if(item !== &#x27;.&#x27; &amp;&amp; item !== &#x27;..&#x27; &amp;&amp; item !== &#x27;index.js&#x27;){
+    // console.log(item.indexOf(&#x27;.js&#x27;));
+    //ends with .js
+    if(item.indexOf(&#x27;.js&#x27;) == (item.length-3)){
+      item = item.split(&#x27;.&#x27;)[0];
+      require(&#x27;./&#x27;+ item);
+      var m = lcommon.literat(item);
+      console.log(&#x27;loading and use &#x27;,m,&#x27; model&#x27;);
+      exports[m] = mongoose.model(m);
+    }
   }
 });
-
-
-module.exports = models;
 
     </pre>
 </div>

@@ -215,7 +215,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "routes\\users.js",
-            "line": 12
+            "line": 15
         }
     },
     "classes": {
@@ -230,7 +230,7 @@
             "module": "Friend",
             "namespace": "",
             "file": "proxy\\action.js",
-            "line": 8,
+            "line": 6,
             "description": "proxy - action.js",
             "exmaple": "//这里传入的回调函数的参数一律是\n\t\tcallback(err,results)\n\t\t//results是从mongodb中取得的结果集"
         },
@@ -245,7 +245,7 @@
             "module": "Friend",
             "namespace": "",
             "file": "routes\\action.js",
-            "line": 5,
+            "line": 8,
             "description": "action操作的一些API  path-prefix '/action'"
         },
         "index-router": {
@@ -273,7 +273,7 @@
             "module": "Friend",
             "namespace": "",
             "file": "routes\\users.js",
-            "line": 12,
+            "line": 15,
             "description": "用户登录，获取用户信息和属性的相关API path-prefix '/users'"
         }
     },
@@ -318,13 +318,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 1,
-            "class": "action-proxy",
-            "module": "Friend"
-        },
-        {
-            "file": "proxy\\action.js",
-            "line": 17,
+            "line": 15,
             "description": "获取最近一个新增Acion的时间",
             "itemtype": "method",
             "name": "getLastActionDate",
@@ -340,7 +334,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 33,
+            "line": 31,
             "depracated": "使用getActions代替\n获取最新的action条目，但是跳过skip条",
             "itemtype": "method",
             "name": "getBySkip",
@@ -357,7 +351,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 52,
+            "line": 50,
             "description": "获取最新的action条目，但是跳过skip条",
             "itemtype": "method",
             "name": "getActions",
@@ -378,7 +372,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 73,
+            "line": 71,
             "description": "根据name获取一条action",
             "itemtype": "method",
             "name": "getActionByName",
@@ -399,7 +393,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 83,
+            "line": 81,
             "description": "根据name数组获取一系列action",
             "itemtype": "method",
             "name": "getActionByNames",
@@ -420,7 +414,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 96,
+            "line": 94,
             "description": "根据id获取一条action",
             "itemtype": "method",
             "name": "getActionById",
@@ -441,7 +435,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 106,
+            "line": 104,
             "description": "根据id数组获取一系列action",
             "itemtype": "method",
             "name": "getActionByIds",
@@ -462,7 +456,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 118,
+            "line": 116,
             "depracated": "根据id数组获取一系列action",
             "itemtype": "method",
             "name": "getActionByCreateDate",
@@ -471,7 +465,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 126,
+            "line": 124,
             "depracated": "根据id数组获取一系列action",
             "itemtype": "method",
             "name": "getActionByEndDate",
@@ -480,7 +474,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 135,
+            "line": 133,
             "description": "新建并存入action到数据库",
             "itemtype": "method",
             "name": "newAndSave",
@@ -488,7 +482,33 @@
                 {
                     "name": "mb十几个参数，懒得写了，自己看代码",
                     "description": "",
-                    "type": "String"
+                    "type": "Json"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 144,
+            "description": "更新action信息",
+            "itemtype": "method",
+            "name": "updateAction",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "",
+                    "type": "Json"
+                },
+                {
+                    "name": "pjson",
+                    "description": "",
+                    "type": "Json"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
                 }
             ],
             "class": "action-proxy",
@@ -509,8 +529,8 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 10,
-            "description": "新建一个action--暂未实现",
+            "line": 13,
+            "description": "新建一个action",
             "itemtype": "method",
             "name": "/new",
             "return": {
@@ -518,14 +538,14 @@
                 "type": "Json"
             },
             "example": [
-                "\n\t\t\t\t//完整的action数据结构\n\t\t\t  name:{type:String,default:'Action'},\n       create_date:{type:Date,default:Date.now},\n       end_date:{type:Date,default:Date.now},\n       edit_date:{type:Date,default:Date.now},\n       desc:{type:String,default:'desciption'},\n       creator: ObjectId,\n       article_id:ObjectId,\n       reply_count:{type:Number,default:0},\n       visit_count:{type:Number,default:0},\n       like_count:{type:Number,default:0},\n       unlike_count:{type:Number,default:0},\n       forkable:{type:Boolean,default:true},\n       type_id:{type:ObjectId},\n       //是否置顶\n       top:{type:Boolean,default:false},\n"
+                "\n  // name:{type:String,default:'Action'},\n// create_date:{type:Date,default:Date.now},\n// start_date:{type:Date,default:Date.now},\n// end_date:{type:Date,default:Date.now},\n// edit_date:{type:Date,default:Date.now},\n// desc:{type:String,default:'desciption'},\n// addr_name:{type:String},\n// addr_position_x:{type:Number,default:-1},\n// addr_position_y:{type:Number,default:-1},\n// creator: ObjectId,\n// article_id:ObjectId,\n// reply_count:{type:Number,default:0},\n// visit_count:{type:Number,default:0},\n// like_count:{type:Number,default:0},\n// unlike_count:{type:Number,default:0},\n// forkable:{type:Boolean,default:true},\n// type_id:{type:Number,default:1},\n// //是否置顶\n// top:{type:Boolean,default:false},\n"
             ],
             "class": "action-router",
             "module": "Friend"
         },
         {
             "file": "routes\\action.js",
-            "line": 35,
+            "line": 102,
             "description": "删除一个action",
             "itemtype": "method",
             "name": "/delete/:aid",
@@ -548,7 +568,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 47,
+            "line": 127,
             "description": "激活一个action，默认新建之后是激活状态",
             "itemtype": "method",
             "name": "/active/:aid",
@@ -568,7 +588,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 56,
+            "line": 154,
             "description": "参加一个活动",
             "itemtype": "method",
             "name": "/fork/:aid",
@@ -588,7 +608,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 65,
+            "line": 165,
             "description": "退出一个action",
             "itemtype": "method",
             "name": "/exit/:aid",
@@ -608,7 +628,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 74,
+            "line": 182,
             "description": "获取一个action的资料",
             "itemtype": "method",
             "name": "/pull/:aid",
@@ -628,7 +648,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 82,
+            "line": 200,
             "description": "修改一个action的资料，类似于/new",
             "params": [
                 {
@@ -639,6 +659,17 @@
             ],
             "return": {
                 "description": "status 0 成功，否则失败",
+                "type": "Json"
+            },
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 232,
+            "description": "获取我的action列表",
+            "return": {
+                "description": "status 0 成功 否则失败 ；actions action对象列表",
                 "type": "Json"
             },
             "class": "action-router",
@@ -694,7 +725,7 @@
                 }
             ],
             "return": {
-                "description": "status",
+                "description": "status -1说明错误",
                 "type": "Number"
             },
             "example": [
@@ -769,7 +800,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 17,
+            "line": 20,
             "description": "登陆验证",
             "deprecated": true,
             "class": "users-router",
@@ -777,7 +808,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 39,
+            "line": 42,
             "description": "注册",
             "itemtype": "method",
             "name": "/signup",
@@ -802,7 +833,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 75,
+            "line": 80,
             "description": "退出登录",
             "mothod": "/logout",
             "return": {
@@ -814,7 +845,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 85,
+            "line": 90,
             "description": "登录",
             "itemtype": "method",
             "name": "/login",
@@ -839,7 +870,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 116,
+            "line": 125,
             "description": "账号服务 NOTE 未开放API",
             "itemtype": "method",
             "name": "/accountservice",
@@ -852,7 +883,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 126,
+            "line": 135,
             "description": "其他账号登陆  QQ github 手机 NOTE 未开放API",
             "itemtype": "method",
             "name": "/3partsignup",
@@ -865,7 +896,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 138,
+            "line": 147,
             "description": "获取自身账号信息",
             "itemtype": "method",
             "name": "/profile",
@@ -878,7 +909,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 151,
+            "line": 160,
             "description": "获取其他用户的账号信息",
             "itemtype": "method",
             "name": "/profile/:uid",
@@ -898,7 +929,7 @@
         },
         {
             "file": "app.js",
-            "line": 65,
+            "line": 74,
             "description": "teswtestest中文",
             "class": "",
             "module": "Friend"
@@ -907,19 +938,19 @@
     "warnings": [
         {
             "message": "unknown tag: exmaple",
-            "line": " proxy\\action.js:8"
+            "line": " proxy\\action.js:6"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " proxy\\action.js:33"
+            "line": " proxy\\action.js:31"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " proxy\\action.js:118"
+            "line": " proxy\\action.js:116"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " proxy\\action.js:126"
+            "line": " proxy\\action.js:124"
         },
         {
             "message": "unknown tag: depracated",
@@ -955,7 +986,7 @@
         },
         {
             "message": "unknown tag: mothod",
-            "line": " routes\\users.js:75"
+            "line": " routes\\users.js:80"
         },
         {
             "message": "Missing item type\nCreated by huangyao on 14-10-1.",
@@ -983,10 +1014,6 @@
         },
         {
             "message": "Missing item type",
-            "line": " proxy\\action.js:1"
-        },
-        {
-            "message": "Missing item type",
             "line": " proxy\\user.js:1"
         },
         {
@@ -995,7 +1022,11 @@
         },
         {
             "message": "Missing item type\n修改一个action的资料，类似于/new",
-            "line": " routes\\action.js:82"
+            "line": " routes\\action.js:200"
+        },
+        {
+            "message": "Missing item type\n获取我的action列表",
+            "line": " routes\\action.js:232"
         },
         {
             "message": "Missing item type\nNOTE:过期API",
@@ -1031,15 +1062,15 @@
         },
         {
             "message": "Missing item type\n登陆验证",
-            "line": " routes\\users.js:17"
+            "line": " routes\\users.js:20"
         },
         {
             "message": "Missing item type\n退出登录",
-            "line": " routes\\users.js:75"
+            "line": " routes\\users.js:80"
         },
         {
             "message": "Missing item type\nteswtestest中文",
-            "line": " app.js:65"
+            "line": " app.js:74"
         }
     ]
 }

@@ -128,15 +128,15 @@
  };
 
  exports.newAndSave=function(profiles,callback){
-   var user=new User();
-   user.name=profiles.name;
-   user.loginname=profiles.loginname;
-   user.passwd=profiles.passwd;
-   user.email=profiles.email;
-   user.phone=profiles.phone;
-   user.nickname=profiles.nickname;
-   user.friends=profiles.friends;
-   user.role_id=profiles.role_id;
+   var user=new User(profiles);
+  //  user.name=profiles.name;
+  //  user.loginname=profiles.loginname;
+  //  user.passwd=profiles.passwd;
+  //  user.email=profiles.email;
+  //  user.phone=profiles.phone;
+  //  user.nickname=profiles.nickname;
+  //  user.friends=profiles.friends;
+  //  user.role_id=profiles.role_id;
    user.save(callback);
  };
 
