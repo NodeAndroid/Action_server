@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
  * 		http.get(SERVER_URL,{skip:10}) //假设原本已经显示了10条，跳过之前的10条获取之后的action
  */
 router.get('/more',function (req,res,next) {
-  var skip = req.params.skip;
+  var skip = req.params.skip?req.params.skip:0;
   skip = validator.isNumeric(skip)?Number(skip):0;
   Action.getActions(skip,function (actions) {
     res.json({time:new Date(),actions:actions});
@@ -46,7 +46,7 @@ router.get('/more',function (req,res,next) {
  * @method /isTimeout
  * @param {date} date
  * @return {String} message
- * @return {number} status
+ * @return {number} status -1说明错误
  * @example
  * 		http.get(Server_Url,{date:new Date}) //参数date表示目前客户端中最新一条非置顶action的创建时间
  */
@@ -62,7 +62,7 @@ router.get('/isTimeout',function (req,res,next) {
         }
       });
   }else{
-    return res.json({message:'参数错误'});
+    return res.json({message:'参数错误',status:-1});
   }
 });
 
