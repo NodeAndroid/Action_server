@@ -5,6 +5,7 @@ var validator = require('validator');
 var _ = require('lodash');
 var Action = require('../proxy/action');
 var seHelper = require('../middleware/session');
+var xss = require('xss');
 /**
  * action操作的一些API  path-prefix '/action'
  * @class action-router
@@ -37,7 +38,7 @@ var seHelper = require('../middleware/session');
  *
  */
 router.post('/new',seHelper.loginRequire,function (req,res,next) {
-  var body = req.body;
+  var body = xss(req.body);
   console.log(body);
   var pjson ={};
   pjson.name = body.name?_.trim(body.name):'';
@@ -109,10 +110,12 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
  * 		http.get(ServerUrl+'/'+ObjectId+'/');
  */
 router.get('/delete/:aid',seHelper.loginRequire,function (req,res,next) {
-  var aid = req.params.aid;
+
+  var aid = xss(req.params.aid);
   if(!aid || aid.length !== 24){
     return res.json({status:-1,message:'objectid error'});
   }
+
   Action.deleteById(aid,function (err) {
     if(err){
     	console.err(err.stack);
@@ -131,7 +134,7 @@ router.get('/delete/:aid',seHelper.loginRequire,function (req,res,next) {
  * @return {json} status 0 代表成功，否则失败
  */
 router.get('/active/:aid',seHelper.loginRequire,function(req,res,next){
-  var aid=req.params.aid;
+  var aid=xss(req.params.aid);
   // Action.getActionById(aid,function(err,action){
   //   if(err){
   //     console.log(err.stack);
@@ -157,7 +160,22 @@ router.get('/active/:aid',seHelper.loginRequire,function(req,res,next){
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败
  */
-router.get('/fork/:aid',function (req,res,next) {
+
+router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
+  var aid = xss(req.params.aid);
+  var pjson={};
+  pjson.action_id=aid;
+  pjson.create_date=new Date();
+  pjson.user_id=req.session.user._id;
+
+    Action.addFork(pjson,function(err){
+      if(err){
+        console.err(err.stack);
+        res.json({status:-1,message:'server error'});
+        throw err;
+      }
+      res.json({status:0,message:'success'});
+    });
 
 });
 
@@ -186,7 +204,7 @@ router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
  * @return {json} status 0 成功，否则失败, action\{status,action\}
  */
 router.get('/pull/:aid',seHelper.loginRequire,function(req,res,next){
-  var aid=req.params.aid;
+  var aid=xss(req.params.aid);
   Action.getActionById(aid,function(err,action){
     if(err){
         console.log(err.stack);

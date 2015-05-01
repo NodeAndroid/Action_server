@@ -4,7 +4,7 @@ var User=require('../proxy').User;
 var session=require('../util/session');
 var _ = require('lodash');
 var seHelper = require('../middleware/session');
-
+var xss = require('xss');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -22,7 +22,7 @@ router.get('/', function(req, res) {
  * @deprecated
  */
 router.post('/signin',function(req,res,next){
-    var user_name=req.body.name;
+    var user_name=xss(req.body.name);
     User.getUserByLoginName(user_name,function(err,user){
       if(err){
         return next(err);
@@ -49,8 +49,8 @@ router.post('/signin',function(req,res,next){
 router.post('/signup', function(req, res) {
   var body = req.body;
   console.log(body);
-  var loginname = _.trim(body.loginname);
-  var passwd = _.trim(body.passwd);
+  var loginname = xss(_.trim(body.loginname));
+  var passwd = xss(_.trim(body.passwd));
   if(loginname ==='' || passwd === ''){
     return res.json({message:'账号或者密码格式错误',status:2});
   }
@@ -96,7 +96,7 @@ router.post('/signup', function(req, res) {
   *
   */
   router.post('/login',function (req,res,next) {
-    var body = req.body;
+    var body = xss(req.body);
     var loginname = _.trim(body.loginname);
     var passwd = _.trim(body.passwd);
     if(loginname ==='' || passwd === ''){
