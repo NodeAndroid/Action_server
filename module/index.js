@@ -26,7 +26,7 @@ var models = {
       }
       //  console.log(files);
       return callback(files.filter(function (item) {
-        return (item !== "index.js") && (item !== ".") && item !== "..";
+        return !(item === "index.js" || item === "." || item === "..");
       }));
     });
   },
