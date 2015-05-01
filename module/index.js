@@ -5,7 +5,8 @@ var _ = require('lodash');
 var color =require('colors');
 var fs =require('fs');
 var config = require('../config.js');
-var path = config.path;
+//var path = config.path;
+var path = require('path');
 var mongoose = require("mongoose");
 var lcommon = require('lush').common;
 console.log(config.db);
@@ -68,4 +69,4 @@ models.forEach(function(item,index){
 
 
 
-module.exports = models;
+// module.exports = models;

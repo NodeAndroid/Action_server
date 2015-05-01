@@ -2,10 +2,10 @@
 var express = require('express');
 var router = express.Router();
 var validator = require('validator');
-var Action = require('../module').Action;
+var Action = require('../proxy').Action;
 
 /**
- * 主页的一些API  path-prefix '/' 
+ * 主页的一些API  path-prefix '/'
  *
  * @class index-router
  */
