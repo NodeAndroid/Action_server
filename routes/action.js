@@ -4,6 +4,8 @@ var router = express.Router();
 var validator = require('validator');
 var _ = require('lodash');
 var Action = require('../proxy/action');
+var seHelper = require('../middleware/session');
+
 /**
  * action操作的一些API  path-prefix '/action'
  * @class action-router
@@ -26,7 +28,7 @@ var Action = require('../proxy/action');
  *        top:{type:Boolean,default:false},
  *
  */
-router.post('/new',function (req,res,next) {
+router.post('/new',seHelper.loginRequire,function (req,res,next) {
   var body = req.body;
   console.log(body);
   var pjson ={};
@@ -65,7 +67,7 @@ router.post('/new',function (req,res,next) {
  * 		var ServerUrl = 'xxxxxx/action/delete';
  * 		http.get(ServerUrl+'/'+ObjectId+'/');
  */
-router.get('/delete/:aid',function (req,res,next) {
+router.get('/delete/:aid',seHelper.loginRequire,function (req,res,next) {
   var aid = req.params.aid;
   Action.deleteById(aid,function (err) {
     if(err){
@@ -84,7 +86,7 @@ router.get('/delete/:aid',function (req,res,next) {
  * @param {string} aid action的ObjectId
  * @return {json} status 0 代表成功，否则失败
  */
-router.get('/active/:aid',function(req,res,next){
+router.get('/active/:aid',seHelper.loginRequire,function(req,res,next){
   var aid=req.params.aid;
   // Action.getActionById(aid,function(err,action){
   //   if(err){
@@ -113,7 +115,7 @@ router.get('/fork/:aid');
   * @param {string} aid action的ObjectId
   * @return {json} status 0 成功，否则失败
   */
-router.get('/exit/:aid',function(req,res,next){
+router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
   var user=req.session.user;
   // if(err){
   //   console.log(err.stack);
@@ -130,7 +132,7 @@ router.get('/exit/:aid',function(req,res,next){
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败, action\{status,action\}
  */
-router.get('/pull/:aid',function(req,res,next){
+router.get('/pull/:aid',seHelper.loginRequire,function(req,res,next){
   var aid=req.params.aid;
   Action.getActionById(aid,function(err,action){
     if(err){
@@ -147,20 +149,30 @@ router.get('/pull/:aid',function(req,res,next){
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败
  */
-router.post('/push/:aid',function(res,req,next){
+router.post('/push/:aid',seHelper.loginRequire,function(res,req,next){
   // Action.update()
-  var aid=req.params.aid;
-  var pjson={};
-  pjson.name = _.trim(body.name);
-  pjson.end_date = new Date(body.end_date);
-  pjson.desc = _.trim(body.desc);
-  pjson.creator = req.session.user._id;
-  pjson.forkable = Booelan(body.forkable);
-  pjson.type_id = Number(body.type_id);
-  pjson.top = Boolean(req.top);
-  Action.updateAction(aid,njson,function(){
-
-  });
+  // var aid=req.params.aid;
+  // var body=req.body;
+  // var pjson={};
+  // pjson.name = _.trim(body.name);
+  // pjson.end_date = new Date(body.end_date);
+  // pjson.desc = _.trim(body.desc);
+  // pjson.creator = req.session.user._id;
+  // pjson.forkable = Booelan(body.forkable);
+  // pjson.type_id = Number(body.type_id);
+  // pjson.top = Boolean(req.top);
+  // if(!validator.isDate(pjson.end_date)){
+  //   return res.json({status:-1,message:'end_date error'});
+  // }
+  // if(pjson.name === ''){
+  //   return res.json({status:-1,message:'name can not be blank'});
+  // }
+  // if(pjson.desc === ''){
+  //   return res.json({status:-1,message:'desc can not be blank'});
+  // }
+  // Action.updateAction(aid,pjson,function(err){
+  //
+  // });
 });
 
 
