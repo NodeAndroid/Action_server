@@ -3,6 +3,8 @@ var Action=require('../module').Action;
 var Type=require('../module').Type;
 var Attend=require('../module').Attend;
 
+var Fork=require('../module').Fork;
+
 /**
  * proxy - action.js
  * @class action-proxy
@@ -147,4 +149,12 @@ exports.updateAction=function(query,pjson,callback){
 
 exports.deleteById = function (aid,callback) {
   action.delete({_id:aid},callback);
+};
+
+exports.addFork=function(query,callback){
+  var fork=new fork(query);
+  fork.save(callback);
+};
+exports.removeFork=function(aid,callback){
+  fork.delete({_id:aid},callback);
 };
