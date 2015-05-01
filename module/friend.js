@@ -11,4 +11,4 @@
  });
 
 
- module.exports = mongoose.model('Friend',Friend);
+ mongoose.model('Friend',Friend);

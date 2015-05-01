@@ -13,4 +13,4 @@ var Attend=new Schema({
     type_id:ObjectId
 });
 
-module.exports = mongoose.model('Attend',Attend);
+mongoose.model('Attend',Attend);

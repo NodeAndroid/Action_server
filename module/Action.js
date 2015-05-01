@@ -31,7 +31,7 @@ Action.index({name:1},{unique:true});
 Action.index({create_date:1},{unique:true});
 Action.index({end_date:1},{unique:true});
 
-module.exports = mongoose.model('Action',Action);
+mongoose.model('Action',Action);
 
 
 //require this module , var mod = require('module')

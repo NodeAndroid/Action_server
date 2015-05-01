@@ -11,4 +11,4 @@
  });
 
 
- module.exports = mongoose.model('Role',Role);
+mongoose.model('Role',Role);

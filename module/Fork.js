@@ -14,4 +14,4 @@ var Fork = new Schema({
   fork_from:ObjectId,
 });
 
-module.exports = mongoose.model('Fork',Fork);
+mongoose.model('Fork',Fork);

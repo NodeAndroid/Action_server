@@ -13,4 +13,4 @@
    create_date:{type:Date,default:Date.now}
  });
 
- module.exports = mongoose.model('Type',Type);
+mongoose.model('Type',Type);
