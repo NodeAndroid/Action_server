@@ -141,3 +141,7 @@ exports.newAndSave=function(pjson,callback){
   var action=new Action(pjson);
   action.save(callback);
 };
+
+exports.deleteById = function (aid,callback) {
+  action.delete({_id:aid},callback);
+};

@@ -63,7 +63,17 @@ router.post('/new',function (req,res,next) {
  * 		var ServerUrl = 'xxxxxx/action/delete';
  * 		http.get(ServerUrl+'/'+ObjectId+'/');
  */
-router.get('/delete/:aid');
+router.get('/delete/:aid',function (req,res,next) {
+  var aid = req.params.aid;
+  Action.deleteById(aid,function (err) {
+    if(err){
+    	console.err(err.stack);
+      res.json({status:-1,message:'server error'});
+    	throw err;
+    }
+    res.json({status:0,message:'success'});
+  });
+});
 
 
 /**
@@ -114,6 +124,6 @@ router.post('/push/:aid');
  * @return {json} status 0 成功 否则失败 ；actions action对象列表
  *
  */
-router.post('/listAll')
+router.post('/listAll');
 
 module.exports = router;
