@@ -20,7 +20,7 @@
    role_id:{type:ObjectId}
  });
 
- User.index({loginname:1},{unique:true});
- User.index({email:1},{unique:true});
+ User.index({loginname:1});
+ User.index({email:1});
 
  mongoose.model("User",User);

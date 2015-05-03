@@ -32,9 +32,9 @@ var Action = new Schema({
   active:{type:Boolean,default:true},
 });
 
-Action.index({name:1},{unique:true});
-Action.index({create_date:1},{unique:true});
-Action.index({end_date:1},{unique:true});
+Action.index({name:1});
+Action.index({create_date:1});
+// Action.index({end_date:1},{unique:true});
 
 mongoose.model('Action',Action);
 
