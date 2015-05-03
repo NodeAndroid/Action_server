@@ -6,6 +6,7 @@ var _ = require('lodash');
 var Action = require('../proxy/action');
 var seHelper = require('../middleware/session');
 var xss = require('xss');
+var busboy = require('busboy');
 /**
  * action操作的一些API  path-prefix '/action'
  * @class action-router
