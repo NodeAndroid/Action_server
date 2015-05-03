@@ -29,8 +29,8 @@ var busboy = require('busboy');
  * // creator: ObjectId,
  * // article_id:ObjectId,
  * // reply_count:{type:Number,default:0},
- * // visit_count:{type:Number,default:0},
  * // like_count:{type:Number,default:0},
+ * // visit_count:{type:Number,default:0},
  * // unlike_count:{type:Number,default:0},
  * // forkable:{type:Boolean,default:true},
  * // type_id:{type:Number,default:1},
@@ -239,7 +239,11 @@ router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
  * @return {json} status 0 成功，否则失败, action\{status,action\}
  */
 router.get('/pull/:aid',seHelper.loginRequire,function(req,res,next){
-  var aid=xss(req.params.aid);
+  var aid = req.params.aid?_.trim(req.params.aid):'';
+  aid=xss(aid);
+  if(!aid || aid.length !== 24){
+    return res.json({status:1,message:'invalid objectid'});
+  }
   Action.getActionById(aid,function(err,action){
     if(err){
         console.log(err.stack);
