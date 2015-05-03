@@ -122,7 +122,6 @@ router.get('/delete/:aid',seHelper.loginRequire,function (req,res,next) {
   if(!aid || aid.length !== 24){
     return res.json({status:-1,message:'objectid error'});
   }
-
   Action.deleteById(aid,function (err) {
     if(err){
     	console.err(err.stack);
@@ -373,6 +372,75 @@ router.get('/listAllMyjoin',seHelper.loginRequire,function (req,res,next) {
       return res.json({status:0,actions:actions});
     });
   });
+});
+
+
+/**
+ * 文件上传，仅支持['jpg', 'png', 'gif', 'jpeg', 'bmp', 'JPG', 'PNG', 'GIF', 'JPEG', 'BMP']
+ * @method /uploadImg
+ * @return {json}   status 1 错误，查阅message获得详细情况 0 成功
+ */
+router.post('/uploadImg',function (req,res,next) {
+  var IMG_FILE_TYPE = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'JPG', 'PNG', 'GIF', 'JPEG', 'BMP'];
+  var query = req.query;
+  var date = new Date();
+  date = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate().toString();
+  var FileName = '';
+  var imgPath = path.resolve(__dirname, '../public/uploads', date);
+    // debug('upload image + path is ' + imgPath);
+    req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+      // debug('busboy on file');
+      if (!filename) {
+        return res.json({
+          status: 1,
+          message: '文件名无法获取，可能是网络拥堵原因造成'
+        });
+      }
+      var type = filename.split('.');
+      if (!type && !type.length) {
+        return res.json({
+          status: 1,
+          message: '无法识别文件类型'
+        });
+      }
+      type = type[type.length - 1];
+      // debug('type = ' + type);
+      if (_.indexOf(IMG_FILE_TYPE, type || 'null') < 0) {
+        return res.json({
+          status: 1,
+          message: '不支持的类型'
+        });
+      }
+      // debug('after _.index');
+      //make timestap to filename,avoid dupliacte filename
+      FileName = filename = (new Date()).getTime() + filename;
+      fs.exists(imgPath, function(exists) {
+        // debug('img path exists ' + exists);
+        if (exists) {
+          file.pipe(fs.createWriteStream(path.join(imgPath, filename)));
+        } else {
+          fs.mkdir(imgPath, function(err) {
+            if (err) {
+              // debug('image file save error,maybe you dont have permission to write');
+              console.log('image file save error,maybe you dont have permission to write');
+              throw error;
+            }
+            file.pipe(fs.createWriteStream(path.join(imgPath, filename)));
+          });
+        }
+      });
+    });
+    req.busboy.on('field', function(key, value, keyTruncated, valueTruncated) {
+      // console.log('arguments'+arguments);
+    });
+    req.busboy.on('finish', function(field) {
+      // console.log('finish');
+      return res.json({
+        status: 0,
+        url: '/uploads/' + date + '/' + FileName
+      });
+    });
+    req.pipe(req.busboy);
 });
 
 module.exports = router;
