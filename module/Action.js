@@ -34,8 +34,8 @@ var Action = new Schema({
 
 Action.index({name:1});
 Action.index({create_date:1});
-Action.index({end_date:1});
 
+// Action.index({end_date:1},{unique:true});
 mongoose.model('Action',Action);
 
 

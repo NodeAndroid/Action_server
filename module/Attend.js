@@ -12,5 +12,5 @@ var Attend=new Schema({
     user_id:{type:ObjectId},
     type_id:ObjectId
 });
-
+// Attend.index({action_id:1,user_id:1},{unique:true});
 mongoose.model('Attend',Attend);
