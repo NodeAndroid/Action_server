@@ -97,6 +97,7 @@ var validator = require(&#x27;validator&#x27;);
 var _ = require(&#x27;lodash&#x27;);
 var Action = require(&#x27;../proxy/action&#x27;);
 var seHelper = require(&#x27;../middleware/session&#x27;);
+var xss = require(&#x27;xss&#x27;);
 /**
  * action操作的一些API  path-prefix &#x27;/action&#x27;
  * @class action-router
@@ -130,10 +131,7 @@ var seHelper = require(&#x27;../middleware/session&#x27;);
  */
 router.post(&#x27;/new&#x27;,seHelper.loginRequire,function (req,res,next) {
   var body = req.body;
-  console.log(body);
-  var pjson ={};
-  pjson.name = body.name?_.trim(body.name):&#x27;&#x27;;
-  var date = new Date();
+  // console.log(body);
 
   // name:{type:String,default:&#x27;Action&#x27;},
   // create_date:{type:Date,default:Date.now},
@@ -155,6 +153,10 @@ router.post(&#x27;/new&#x27;,seHelper.loginRequire,function (req,res,next) {
   // //是否置顶
   // top:{type:Boolean,default:false},
   //
+
+  var pjson ={};
+  pjson.name = body.name?_.trim(body.name):&#x27;&#x27;;
+  var date = new Date();
   pjson.start_date = validator.isDate(body.start_date)?Date(body.start_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
   pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
   pjson.desc = body.desc?_.trim(body.desc):&#x27;&#x27;;
@@ -163,7 +165,7 @@ router.post(&#x27;/new&#x27;,seHelper.loginRequire,function (req,res,next) {
   pjson.addr_position_y = validator.isNumeric(body.addr_position_y)?Number(body.addr_position_y):-1;
   pjson.creator = req.session.user._id;
   // validator.isBoolean(body.forkable,&#x27;strict&#x27;);
-  pjson.forkable = validator.toBoolean(body.forkable,&#x27;strict&#x27;);
+  // pjson.forkable = validator.toBoolean(body.forkable,&#x27;strict&#x27;);
   pjson.type_id = validator.isNumeric(body.type_id)?Number(body.type_id):1;
   pjson.top = validator.toBoolean(body.top,&#x27;strict&#x27;);
   if(!validator.isDate(pjson.end_date)){
@@ -178,10 +180,16 @@ router.post(&#x27;/new&#x27;,seHelper.loginRequire,function (req,res,next) {
   if(pjson.addr_name === &#x27;&#x27;){
     return res.json({status:-1,message:&#x27;addr_name can not be blank&#x27;});
   }
+  if(pjson.addr_position_x &lt; 0){
+    return res.json({status:-1,message:&#x27;addr_position_x must be a number&#x27;});
+  }
+  if(pjson.addr_position_y &lt; 0){
+    return res.json({status:-1,message:&#x27;addr_position_y must be a number&#x27;});
+  }
   if(pjson.type_id &lt; 0){
     return res.json({status:-1,message:&#x27;type_id error&#x27;});
   }
-  console.log(&#x27;point&#x27;);
+  // console.log(&#x27;point&#x27;);
   Action.newAndSave(pjson,function (err) {
     if(err){
     	console.err(err);
@@ -201,10 +209,12 @@ router.post(&#x27;/new&#x27;,seHelper.loginRequire,function (req,res,next) {
  * 		http.get(ServerUrl+&#x27;/&#x27;+ObjectId+&#x27;/&#x27;);
  */
 router.get(&#x27;/delete/:aid&#x27;,seHelper.loginRequire,function (req,res,next) {
-  var aid = req.params.aid;
+
+  var aid = xss(req.params.aid);
   if(!aid || aid.length !== 24){
     return res.json({status:-1,message:&#x27;objectid error&#x27;});
   }
+
   Action.deleteById(aid,function (err) {
     if(err){
     	console.err(err.stack);
@@ -223,7 +233,7 @@ router.get(&#x27;/delete/:aid&#x27;,seHelper.loginRequire,function (req,res,next
  * @return {json} status 0 代表成功，否则失败
  */
 router.get(&#x27;/active/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
-  var aid=req.params.aid;
+  var aid=xss(req.params.aid);
   // Action.getActionById(aid,function(err,action){
   //   if(err){
   //     console.log(err.stack);
@@ -232,12 +242,16 @@ router.get(&#x27;/active/:aid&#x27;,seHelper.loginRequire,function(req,res,next)
   //   }
   //   res.json({status:0,message:action});
   // });
+  console.log(aid);
+  if(!aid || aid===&#x27;&#x27; || aid.length !== 24){
+    return res.json({status:-1,message:&#x27;illegal objectid&#x27;});
+  }
   Action.updateAction({_id:aid},{active:true},function (err) {
     if(err){
     	console.err(err.stack);
     	throw err;
     }
-    return res.json({status:1,message:&#x27;done&#x27;});
+    return res.json({status:0,message:&#x27;done&#x27;});
   });
 
 });
@@ -247,9 +261,35 @@ router.get(&#x27;/active/:aid&#x27;,seHelper.loginRequire,function(req,res,next)
  * 参加一个活动
  * @method /fork/:aid
  * @param {string} aid action的ObjectId
- * @return {json} status 0 成功，否则失败
+ * @return {json} status 0 成功，1 此用户已经参加了
  */
-router.get(&#x27;/fork/:aid&#x27;,function (req,res,next) {
+
+router.get(&#x27;/fork/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
+  var aid = xss(req.params.aid);
+  var pjson={};
+  pjson.action_id=aid;
+  // pjson.create_date=validator.isDate(body.create_date)?Date(body.create_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
+  pjson.user_id=req.session.user._id;
+  if(!pjson.action_id || pjson.action_id.trim().length!==24){
+    return res.json({status: -1,message: &#x27;invalid ObjectId&#x27;});
+  }
+  // if(!validator.isDate(pjson.create_date)){
+  //   return res.json({status:-1,message:&#x27;create_date error&#x27;});
+  // }
+
+    Action.addFork(pjson,function(err){
+      if(err){
+        // console.err(err.stack);
+        // console.log(err);
+        if(err.code === 11000)
+          return res.json({status:-1,message:&#x27;had join this action&#x27;});
+        else{
+          console.error(err.stack);
+          throw err;
+        }
+      }
+      res.json({status:0,message:&#x27;success&#x27;});
+    });
 
 });
 
@@ -261,7 +301,20 @@ router.get(&#x27;/fork/:aid&#x27;,function (req,res,next) {
   * @return {json} status 0 成功，否则失败
   */
 router.get(&#x27;/exit/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
-  var user=req.session.user;
+  var userid=req.session.user._id;
+  var aid = req.params.aid?_.trim(req.params.aid):&#x27;&#x27;;
+  aid = xss(aid);
+  if(!aid || aid.length !== 24){
+    return res.json({status: -1,message: &#x27;invalid ObjectId&#x27;});
+  }
+  aid = xss(aid);
+  Action.removeFork(aid,uid,function (err) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    return res.json({status: 0,message: &#x27;done&#x27;});
+  });
   // if(err){
   //   console.log(err.stack);
   //   res.json({status:-1,message:&#x27;server error&#x27;});
@@ -278,55 +331,141 @@ router.get(&#x27;/exit/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
  * @return {json} status 0 成功，否则失败, action\{status,action\}
  */
 router.get(&#x27;/pull/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
-  var aid=req.params.aid;
+  var aid=xss(req.params.aid);
   Action.getActionById(aid,function(err,action){
     if(err){
         console.log(err.stack);
         res.json({status:-1,message:&#x27;server error&#x27;});
         throw err;
       }
-      res.json({status:0,message:action});
+      return res.json({status:0,message:action});
   });
 });
 
 /**
- * 修改一个action的资料，类似于/new
+ * 修改一个action的资料，类似于/new 如果某个最短格式错误，那么这个字段不会被修改，注意格式错误不会导致报错，只是单纯的不会更新这个字段
+ * @method /push/:aid
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败
  */
 router.post(&#x27;/push/:aid&#x27;,seHelper.loginRequire,function(res,req,next){
-  // Action.update()
-  // var aid=req.params.aid;
-  // var body=req.body;
-  // var pjson={};
-  // pjson.name = _.trim(body.name);
-  // pjson.end_date = new Date(body.end_date);
-  // pjson.desc = _.trim(body.desc);
-  // pjson.creator = req.session.user._id;
-  // pjson.forkable = Booelan(body.forkable);
-  // pjson.type_id = Number(body.type_id);
-  // pjson.top = Boolean(req.top);
-  // if(!validator.isDate(pjson.end_date)){
-  //   return res.json({status:-1,message:&#x27;end_date error&#x27;});
-  // }
-  // if(pjson.name === &#x27;&#x27;){
-  //   return res.json({status:-1,message:&#x27;name can not be blank&#x27;});
-  // }
-  // if(pjson.desc === &#x27;&#x27;){
-  //   return res.json({status:-1,message:&#x27;desc can not be blank&#x27;});
-  // }
-  // Action.updateAction(aid,pjson,function(err){
-  //
-  // });
+  var tbody = req.body;
+  //module中可以修改的字段
+  var params = [&#x27;name&#x27;,
+      &#x27;start_date&#x27;,
+      &#x27;end_date&#x27;,
+      &#x27;desc&#x27;,
+      &#x27;addr_name&#x27;,
+      &#x27;addr_position_x&#x27;,
+      &#x27;addr_position_y&#x27;,
+      &#x27;forkable&#x27;,
+      &#x27;type_id&#x27;,
+      &#x27;top&#x27;,
+      &#x27;active&#x27;,];
+  //过滤掉不该有的字段
+  var body = tbody.filter(function (item,index) {
+    return params.indexOf(item) &gt; -1;
+  });
+  var aid = req.params.aid;
+  if(!aid || aid.length !== 24){
+    return res.json({status:-1,message:&#x27;aid error&#x27;});
+  }
+
+  //校验字段类型
+  var pjson = {};
+  if(body.name &amp;&amp; _.trim(body.name) !== &#x27;&#x27;){
+    pjson.name = _.trim(body.name);
+  }
+  if(body.start_date &amp;&amp; validator.isDate(body.start_date)){
+    pjson.start_date = new Date(body.start_date);
+  }
+  if(body.end_date &amp;&amp; validator.isDate(body.end_date)){
+    pjson.end_date = new Date(body.end_date);
+  }
+  if(body.desc &amp;&amp; _.trim(body.desc) !== &#x27;&#x27;){
+    pjson.desc = _.trim(body.desc);
+  }
+  if(body.addr_name &amp;&amp; _.trim(body.addr_name) !== &#x27;&#x27;){
+    pjson.addr_name = _.trim(body.addr_name);
+  }
+  if(body.addr_position_x &amp;&amp; validator.isNumeric(body.addr_position_x)){
+    pjson.addr_position_x = Number(pjson.addr_position_x);
+  }
+  if(body.addr_position_y &amp;&amp; validator.isNumeric(body.addr_position_y)){
+    pjson.addr_position_y = Number(pjson.addr_position_y);
+  }
+  if(validator.isBoolean(body.forkable)){
+    pjson.forkable = Boolean(pjson.forkable);
+  }
+  if(body.type_id &amp;&amp; validator.isNumeric(body.type_id)){
+    pjson.type_id = Number(pjson.type_id);
+  }
+  if(validator.isBoolean(body.top)){
+    pjson.top = Boolean(pjson.top);
+  }
+  if(validator.isBoolean(body.active)){
+    pjson.active = Boolean(pjson.active);
+  }
+  Action.updateAction({_id:aid},pjson,function (err) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    res.json({status:0,message:&#x27;done&#x27;});
+  });
 });
 
 
 /**
- * 获取我的action列表
+ * 获取我新建的action列表
+ * @method /listAllofMy
+ * @param  @optional skip 跳过的条数
  * @return {json} status 0 成功 否则失败 ；actions action对象列表
- *
  */
-router.post(&#x27;/listAll&#x27;);
+router.get(&#x27;/listAllofMy&#x27;,seHelper.loginRequire,function (req,res,next) {
+  var userid = req.session.user._id;
+  var skip = validator.isNumeric(req.query.skip)?Number(req.query.skip):0;
+  Action.getActionBycreator(userid,skip,10,function (err,actions) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    return res.json({status:0,actions:actions});
+  });
+});
+
+/**
+ * 获取我参加的action列表
+ * @method /listAllMyjoin
+ * @param  @optional skip 跳过的条数
+ * @return {json} status 0 成功 否则失败 ；actions action对象列表
+ */
+router.get(&#x27;/listAllMyjoin&#x27;,seHelper.loginRequire,function (req,res,next) {
+  var userid = req.session.user._id;
+  var skip = validator.isNumeric(req.query.skip)?Number(req.query.skip):0;
+  Action.getForkByUid(userid,skip,10,function (err,aids) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    //aids只是一个对象数组，这里先把对象数组整理成需要的ObjectId数组
+    var daids = [];
+    aids.reduce(function (pre,cur) {
+      pre.push(cur.action_id);
+    },daids);
+    //去除重复的action_id
+    var taids = daids.filter(function (item,index) {
+      return aid.indexOf(item) === index;
+    });
+    Action.getActionByIds(taids,function (err,actions) {
+      if(err){
+      	console.err(err.stack);
+      	throw err;
+      }
+      return res.json({status:0,actions:actions});
+    });
+  });
+});
 
 module.exports = router;
 

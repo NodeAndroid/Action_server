@@ -96,7 +96,7 @@ var User=require(&#x27;../proxy&#x27;).User;
 var session=require(&#x27;../util/session&#x27;);
 var _ = require(&#x27;lodash&#x27;);
 var seHelper = require(&#x27;../middleware/session&#x27;);
-
+var xss = require(&#x27;xss&#x27;);
 
 /* GET users listing. */
 router.get(&#x27;/&#x27;, function(req, res) {
@@ -114,7 +114,7 @@ router.get(&#x27;/&#x27;, function(req, res) {
  * @deprecated
  */
 router.post(&#x27;/signin&#x27;,function(req,res,next){
-    var user_name=req.body.name;
+    var user_name=xss(req.body.name);
     User.getUserByLoginName(user_name,function(err,user){
       if(err){
         return next(err);
@@ -141,8 +141,8 @@ router.post(&#x27;/signin&#x27;,function(req,res,next){
 router.post(&#x27;/signup&#x27;, function(req, res) {
   var body = req.body;
   console.log(body);
-  var loginname = _.trim(body.loginname);
-  var passwd = _.trim(body.passwd);
+  var loginname = xss(_.trim(body.loginname));
+  var passwd = xss(_.trim(body.passwd));
   if(loginname ===&#x27;&#x27; || passwd === &#x27;&#x27;){
     return res.json({message:&#x27;账号或者密码格式错误&#x27;,status:2});
   }
@@ -184,15 +184,16 @@ router.post(&#x27;/signup&#x27;, function(req, res) {
   * @method /login
   * @param {string} loginname
   * @param {string} passwd
-  * @return {json} status:1成功，0密码或者账号错误，2内部错误
+  * @return {json} status:0成功，1密码或者账号错误，2已登录，请先退出当前账户
   *
   */
   router.post(&#x27;/login&#x27;,function (req,res,next) {
     var body = req.body;
-    var loginname = _.trim(body.loginname);
-    var passwd = _.trim(body.passwd);
+    console.log(body);
+    var loginname = xss(_.trim(body.loginname));
+    var passwd = xss(_.trim(body.passwd));
     if(loginname ===&#x27;&#x27; || passwd === &#x27;&#x27;){
-      return res.json({message:&#x27;账号或者密码格式错误&#x27;,status:2});
+      return res.json({message:&#x27;账号或者密码格式错误&#x27;,status:1});
     }
     if(req.session.user){
       return res.json({message:&#x27;user had login!&#x27;,status:2});
@@ -204,10 +205,10 @@ router.post(&#x27;/signup&#x27;, function(req, res) {
       }
       console.log(user);
       if(!user || user.length ===0 || user.passwd !== passwd){
-        return res.json({message:&#x27;loginname or passwd error&#x27;,status:0});
+        return res.json({message:&#x27;loginname or passwd error&#x27;,status:1});
       }else{
         req.session.user = user;
-        return res.json({message:&#x27;success&#x27;,status:1});
+        return res.json({message:&#x27;success&#x27;,status:0});
       }
     });
   });

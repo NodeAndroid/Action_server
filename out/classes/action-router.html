@@ -91,7 +91,7 @@
 
 
         <div class="foundat">
-            Defined in: <a href="../files/routes_action.js.html#l8"><code>routes\action.js:8</code></a>
+            Defined in: <a href="../files/routes_action.js.html#l9"><code>routes\action.js:9</code></a>
         </div>
 
             Module: <a href="../modules/Friend.html">Friend</a>
@@ -137,11 +137,23 @@
 
                             </li>
                             <li class="index-item method">
+                                <a href="#method_/listAllMyjoin">/listAllMyjoin</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_/listAllofMy">/listAllofMy</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_/new">/new</a>
 
                             </li>
                             <li class="index-item method">
                                 <a href="#method_/pull/:aid">/pull/:aid</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_/push/:aid">/push/:aid</a>
 
                             </li>
                     </ul>
@@ -178,7 +190,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/routes_action.js.html#l127"><code>routes\action.js:127</code></a>
+        <a href="../files/routes_action.js.html#l137"><code>routes\action.js:137</code></a>
         </p>
 
 
@@ -244,7 +256,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/routes_action.js.html#l102"><code>routes\action.js:102</code></a>
+        <a href="../files/routes_action.js.html#l110"><code>routes\action.js:110</code></a>
         </p>
 
 
@@ -319,7 +331,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/routes_action.js.html#l165"><code>routes\action.js:165</code></a>
+        <a href="../files/routes_action.js.html#l205"><code>routes\action.js:205</code></a>
         </p>
 
 
@@ -385,7 +397,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/routes_action.js.html#l154"><code>routes\action.js:154</code></a>
+        <a href="../files/routes_action.js.html#l168"><code>routes\action.js:168</code></a>
         </p>
 
 
@@ -420,7 +432,139 @@
 
             <div class="returns-description">
                         <span class="type">Json</span>:
-                    <p>status 0 成功，否则失败</p>
+                    <p>status 0 成功，1 此用户已经参加了</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_/listAllMyjoin" class="method item">
+    <h3 class="name"><code>/listAllMyjoin</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>@optional</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Json</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/routes_action.js.html#l345"><code>routes\action.js:345</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>获取我参加的action列表</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">@optional</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <p>skip 跳过的条数</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Json</span>:
+                    <p>status 0 成功 否则失败 ；actions action对象列表</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_/listAllofMy" class="method item">
+    <h3 class="name"><code>/listAllofMy</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>@optional</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Json</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/routes_action.js.html#l327"><code>routes\action.js:327</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>获取我新建的action列表</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">@optional</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                        <p>skip 跳过的条数</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Json</span>:
+                    <p>status 0 成功 否则失败 ；actions action对象列表</p>
 
             </div>
         </div>
@@ -445,7 +589,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/routes_action.js.html#l13"><code>routes\action.js:13</code></a>
+        <a href="../files/routes_action.js.html#l14"><code>routes\action.js:14</code></a>
         </p>
 
 
@@ -520,7 +664,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/routes_action.js.html#l182"><code>routes\action.js:182</code></a>
+        <a href="../files/routes_action.js.html#l235"><code>routes\action.js:235</code></a>
         </p>
 
 
@@ -556,6 +700,72 @@
             <div class="returns-description">
                         <span class="type">Json</span>:
                     <p>status 0 成功，否则失败, action{status,action}</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_/push/:aid" class="method item">
+    <h3 class="name"><code>/push/:aid</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>aid</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Json</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/routes_action.js.html#l253"><code>routes\action.js:253</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>修改一个action的资料，类似于/new 如果某个最短格式错误，那么这个字段不会被修改，注意格式错误不会导致报错，只是单纯的不会更新这个字段</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">aid</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>action的ObjectId</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Json</span>:
+                    <p>status 0 成功，否则失败</p>
 
             </div>
         </div>
