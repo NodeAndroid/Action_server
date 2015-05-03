@@ -92,15 +92,16 @@ router.post('/signup', function(req, res) {
   * @method /login
   * @param {string} loginname
   * @param {string} passwd
-  * @return {json} status:1成功，0密码或者账号错误，2内部错误
+  * @return {json} status:0成功，1密码或者账号错误，2已登录，请先退出当前账户
   *
   */
   router.post('/login',function (req,res,next) {
-    var body = xss(req.body);
-    var loginname = _.trim(body.loginname);
-    var passwd = _.trim(body.passwd);
+    var body = req.body;
+    console.log(body);
+    var loginname = xss(_.trim(body.loginname));
+    var passwd = xss(_.trim(body.passwd));
     if(loginname ==='' || passwd === ''){
-      return res.json({message:'账号或者密码格式错误',status:2});
+      return res.json({message:'账号或者密码格式错误',status:1});
     }
     if(req.session.user){
       return res.json({message:'user had login!',status:2});
@@ -112,10 +113,10 @@ router.post('/signup', function(req, res) {
       }
       console.log(user);
       if(!user || user.length ===0 || user.passwd !== passwd){
-        return res.json({message:'loginname or passwd error',status:0});
+        return res.json({message:'loginname or passwd error',status:1});
       }else{
         req.session.user = user;
-        return res.json({message:'success',status:1});
+        return res.json({message:'success',status:0});
       }
     });
   });

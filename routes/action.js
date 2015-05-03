@@ -38,8 +38,8 @@ var xss = require('xss');
  *
  */
 router.post('/new',seHelper.loginRequire,function (req,res,next) {
-  var body = xss(req.body);
-  console.log(body);
+  var body = req.body;
+  // console.log(body);
 
   // name:{type:String,default:'Action'},
   // create_date:{type:Date,default:Date.now},
@@ -73,7 +73,7 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   pjson.addr_position_y = validator.isNumeric(body.addr_position_y)?Number(body.addr_position_y):-1;
   pjson.creator = req.session.user._id;
   // validator.isBoolean(body.forkable,'strict');
-  pjson.forkable = validator.toBoolean(body.forkable,'strict');
+  // pjson.forkable = validator.toBoolean(body.forkable,'strict');
   pjson.type_id = validator.isNumeric(body.type_id)?Number(body.type_id):1;
   pjson.top = validator.toBoolean(body.top,'strict');
   if(!validator.isDate(pjson.end_date)){
@@ -97,7 +97,7 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   if(pjson.type_id < 0){
     return res.json({status:-1,message:'type_id error'});
   }
-  console.log('point');
+  // console.log('point');
   Action.newAndSave(pjson,function (err) {
     if(err){
     	console.err(err);
@@ -150,12 +150,16 @@ router.get('/active/:aid',seHelper.loginRequire,function(req,res,next){
   //   }
   //   res.json({status:0,message:action});
   // });
+  console.log(aid);
+  if(!aid || aid==='' || aid.length !== 24){
+    return res.json({status:-1,message:'illegal objectid'});
+  }
   Action.updateAction({_id:aid},{active:true},function (err) {
     if(err){
     	console.err(err.stack);
     	throw err;
     }
-    return res.json({status:1,message:'done'});
+    return res.json({status:0,message:'done'});
   });
 
 });
@@ -165,7 +169,7 @@ router.get('/active/:aid',seHelper.loginRequire,function(req,res,next){
  * 参加一个活动
  * @method /fork/:aid
  * @param {string} aid action的ObjectId
- * @return {json} status 0 成功，否则失败
+ * @return {json} status 0 成功，1 此用户已经参加了
  */
 
 router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
@@ -183,9 +187,14 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
 
     Action.addFork(pjson,function(err){
       if(err){
-        console.err(err.stack);
-        res.json({status:-1,message:'server error'});
-        throw err;
+        // console.err(err.stack);
+        // console.log(err);
+        if(err.code === 11000)
+          return res.json({status:-1,message:'had join this action'});
+        else{
+          console.error(err.stack);
+          throw err;
+        }
       }
       res.json({status:0,message:'success'});
     });
@@ -201,7 +210,8 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
   */
 router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
   var userid=req.session.user._id;
-  var aid = req.params.aid?_.trim(req.params.aid):null;
+  var aid = req.params.aid?_.trim(req.params.aid):'';
+  aid = xss(aid);
   if(!aid || aid.length !== 24){
     return res.json({status: -1,message: 'invalid ObjectId'});
   }
@@ -213,7 +223,6 @@ router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
     }
     return res.json({status: 0,message: 'done'});
   });
-
   // if(err){
   //   console.log(err.stack);
   //   res.json({status:-1,message:'server error'});
@@ -320,7 +329,6 @@ router.post('/push/:aid',seHelper.loginRequire,function(res,req,next){
  * @method /listAllofMy
  * @param  @optional skip 跳过的条数
  * @return {json} status 0 成功 否则失败 ；actions action对象列表
- *
  */
 router.get('/listAllofMy',seHelper.loginRequire,function (req,res,next) {
   var userid = req.session.user._id;

@@ -214,6 +214,7 @@ exports.getForkByUid = function (uid,skip,limit,callback) {
   Fork.find({user_id:uid}).select('action_id').sort({create_date:-1}).skip(skip).limit(limit).exec(callback);
 };
 
+
 /**
  * 根据删除一个fork，注意此方法会删除所有的匹配，不会只删除一个
  * @method removeFork
@@ -222,5 +223,6 @@ exports.getForkByUid = function (uid,skip,limit,callback) {
  * @param {function} callback
  */
 exports.removeFork=function(aid,uid,callback){
+  console.log('point');
   Fork.remove({action_id:aid,user_id:uid},callback);
 };
