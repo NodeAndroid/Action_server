@@ -73,6 +73,7 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   pjson.addr_position_x = validator.isNumeric(body.addr_position_x)?Number(body.addr_position_x):-1;
   pjson.addr_position_y = validator.isNumeric(body.addr_position_y)?Number(body.addr_position_y):-1;
   pjson.creator = req.session.user._id;
+  console.log('point');
   // validator.isBoolean(body.forkable,'strict');
   // pjson.forkable = validator.toBoolean(body.forkable,'strict');
   pjson.type_id = validator.isNumeric(body.type_id)?Number(body.type_id):1;

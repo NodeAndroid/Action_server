@@ -112,7 +112,7 @@ router.post('/signup', function(req, res) {
       	throw err;
       }
       console.log(user);
-      if(user || user.length ===0 || user.passwd !== passwd){
+      if(!user || user.length ===0 || user.passwd !== passwd){
         return res.json({message:'loginname or passwd error',status:1});
       }else{
         req.session.user = user;

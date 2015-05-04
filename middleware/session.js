@@ -6,7 +6,8 @@ module.exports = {
       next();
     }else{
       // return res.json({status:-1,message:'please login first'});
-      User.getUserByLoginName('huangyao',function (err) {
+      User.getUserByLoginName('huangyao',function (err,user) {
+        req.session.user = user;
         next();
       });
     }
