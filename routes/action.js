@@ -73,11 +73,9 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   pjson.addr_position_x = validator.isNumeric(body.addr_position_x)?Number(body.addr_position_x):-1;
   pjson.addr_position_y = validator.isNumeric(body.addr_position_y)?Number(body.addr_position_y):-1;
   pjson.creator = req.session.user._id;
-  console.log('point');
-  // validator.isBoolean(body.forkable,'strict');
-  // pjson.forkable = validator.toBoolean(body.forkable,'strict');
   pjson.type_id = validator.isNumeric(body.type_id)?Number(body.type_id):1;
   pjson.top = validator.toBoolean(body.top,'strict');
+  pjson.img_url = body.img_url?_.trim(body.img_url):'';
   if(!validator.isDate(pjson.end_date)){
     return res.json({status:-1,message:'end_date error'});
   }
@@ -274,7 +272,8 @@ router.post('/push/:aid',seHelper.loginRequire,function(res,req,next){
       'forkable',
       'type_id',
       'top',
-      'active',];
+      'active',
+      'img_url',];
   //过滤掉不该有的字段
   var body = tbody.filter(function (item,index) {
     return params.indexOf(item) > -1;
@@ -318,6 +317,9 @@ router.post('/push/:aid',seHelper.loginRequire,function(res,req,next){
   }
   if(validator.isBoolean(body.active)){
     pjson.active = Boolean(pjson.active);
+  }
+  if(body.img_url && _.trim(body.img_url) !== ''){
+    pjson.img_url = _.trim(body.img_url);
   }
   Action.updateAction({_id:aid},pjson,function (err) {
     if(err){

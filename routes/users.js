@@ -183,6 +183,39 @@ router.get('/profile/:uid',seHelper.loginRequire,function (req,res,next) {
 });
 
 
+router.post('/update',seHelper.loginRequire,function (req,res,next) {
+  var body = req.body;
+  var pjson = {};
+  var args = [
+    'name',
+    'passwd',
+    'email',
+    'email_enable',
+    'phone',
+    'phone_enable',
+    'title',
+    'school',
+    'nickname',
+  ];
+  args.forEach(function (item,index) {
+    if(body[item]){
+      pjson[item] = xss(_.trim(body.item));
+    }
+  });
+  if(pjson.email_enable !== null){
+    pjson.email_enable = Boolean(pjson.email_enable);
+  }
+  if(pjson.phone_enable !== null){
+    pjson.phone_enable = Boolean(pjson.phone_enable);
+  }
+  User.updateByid(req.session.user._id,pjson,function (err) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    res.json({message:'success',status:0});
+  });
+});
 
 
 module.exports = router;

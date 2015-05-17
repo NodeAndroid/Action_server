@@ -47,3 +47,6 @@
   //  user.role_id=profiles.role_id;
    user.save(callback);
  };
+ exports.updateByid = function (id,profile,cb) {
+   user.update({id:id},profile,cb);
+ };
