@@ -173,11 +173,16 @@ router.get('/profile',seHelper.loginRequire, function(req, res) {
  * @return {json} status:1 成功，0 错误，2 没有权限
  */
 router.get('/profile/:uid',seHelper.loginRequire,function (req,res,next) {
-  User.find({_id:uid}/*,{name:1,email:1,phone:1,nickname:1}*/,function (err,user) {
+  var uid = req.params.uid;
+  if(!uid || uid.length !== 24){
+    return res.json({message:'invalidate uid',status:-1});
+  }
+  User.getUserById(uid,function (err,user) {
     if(err){
-    	console.err(err.stack);
+    	console.log(err.stack);
     	throw err;
     }
+    // console.log('point');
     res.json({message:user,status:1});
   });
 });
