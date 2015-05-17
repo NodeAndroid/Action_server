@@ -39,6 +39,7 @@ app.use(session({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/action',require('./routes/action'));
+app.use('/search',require('./routes/search'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

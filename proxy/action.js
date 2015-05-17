@@ -223,6 +223,28 @@ exports.getForkByUid = function (uid,skip,limit,callback) {
  * @param {function} callback
  */
 exports.removeFork=function(aid,uid,callback){
-  console.log('point');
+  // console.log('point');
   Fork.remove({action_id:aid,user_id:uid},callback);
+};
+
+/**
+ * 搜索action的标题
+ * @method searchActionByName
+ */
+exports.searchActionByName = function (key,cb) {
+  // Action.find({$text:{$search:key,$language:'none'}},cb);
+    // key = '['+key+']';
+    console.log(key);
+  Action.find({name:{$regex:key}},cb);
+};
+
+/**
+ * 搜索action的描述
+ * @method searchActionByName
+ */
+exports.searchActionByDesc = function (key,cb) {
+  // Action.find({$text:{$search:key,$language:'none'}},cb);
+    // key = '['+key+']';
+    console.log(key);
+  Action.find({desc:{$regex:key}},cb);
 };

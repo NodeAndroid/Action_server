@@ -15,6 +15,8 @@
    passwd:{type:String},
    email:{type:String},
    phone:{type:String},
+   title:{type:String},
+   school:{type:String},
    nickname:{type:String,default:"your nickname"},
    friends:{},
    role_id:{type:ObjectId}

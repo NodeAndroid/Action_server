@@ -51,8 +51,16 @@ router.post('/signup', function(req, res) {
   console.log(body);
   var loginname = xss(_.trim(body.loginname));
   var passwd = xss(_.trim(body.passwd));
-  if(loginname ==='' || passwd === ''){
-    return res.json({message:'账号或者密码格式错误',status:2});
+  var email = xss(_.trim(body.email));
+  var phone = xss(_.trim(body.phone));
+  var name = xss(_.trim(body.name));
+  var title = xss(_.trim(body.title));
+  var school = xss(_.trim(body.title));
+  if(loginname ==='' || passwd === '' || email === '' || phone === ''|| name === ''|| title === ''|| school === ''){
+    return res.json({message:'信息格式错误',status:2});
+  }
+  if(loginname === null || passwd === null || email === null || phone === null|| name === null|| title === null|| school === null){
+    return res.json({message:'信息格式错误',status:2});
   }
   User.getUserByLoginName(loginname,function (err,user) {
     if(err){
@@ -63,7 +71,7 @@ router.post('/signup', function(req, res) {
     if(user){
       return res.json({message:'exist username',status:0});
     }else{
-      User.newAndSave({loginname:loginname,passwd:passwd},function (err) {
+      User.newAndSave({loginname:loginname,passwd:passwd,email:email,phone:phone,name:name,title:title,school:school},function (err) {
         if(err){
         	console.err(err.stack);
         	throw err;

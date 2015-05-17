@@ -30,9 +30,14 @@ var Action = new Schema({
   //是否置顶
   top:{type:Boolean,default:false},
   active:{type:Boolean,default:true},
+  //参加的人数
+  fork_count:{type:Number,default:0},
+  //图片的url
+  img_url:{type:String,default:''},
 });
 
-Action.index({name:1});
+// Action.index({name:'text'});
+// Action.index({desc:'text'});
 Action.index({create_date:1});
 
 // Action.index({end_date:1},{unique:true});

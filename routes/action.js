@@ -386,7 +386,7 @@ router.get('/listAllMyjoin',seHelper.loginRequire,function (req,res,next) {
  * @method /uploadImg
  * @return {json}   status 1 错误，查阅message获得详细情况 0 成功
  */
-router.post('/uploadImg',function (req,res,next) {
+router.post('/uploadImg',seHelper.loginRequire,function (req,res,next) {
   var IMG_FILE_TYPE = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'JPG', 'PNG', 'GIF', 'JPEG', 'BMP'];
   var query = req.query;
   var date = new Date();
@@ -441,10 +441,11 @@ router.post('/uploadImg',function (req,res,next) {
     });
     req.busboy.on('finish', function(field) {
       // console.log('finish');
-      return res.json({
+      res.json({
         status: 0,
         url: '/uploads/' + date + '/' + FileName
       });
+      // return Action.updateAction({_id:req.session.user._id},{img_url:'/uploads/' + date + '/' + FileName});
     });
     req.pipe(req.busboy);
 });
