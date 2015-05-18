@@ -366,7 +366,7 @@ router.get('/listAllMyjoin',seHelper.loginRequire,function (req,res,next) {
     //aids只是一个对象数组，这里先把对象数组整理成需要的ObjectId数组
     var daids = [];
     aids.reduce(function (pre,cur) {
-      pre.push(cur.action_id);
+      return pre.push(cur.action_id);
     },daids);
     //去除重复的action_id
     var taids = daids.filter(function (item,index) {
