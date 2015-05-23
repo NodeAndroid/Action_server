@@ -5,6 +5,9 @@ var session=require('../util/session');
 var _ = require('lodash');
 var seHelper = require('../middleware/session');
 var xss = require('xss');
+var async = require('async');
+
+var Action = require('../proxy').Action;
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -156,13 +159,26 @@ router.post('/3partsignup', function(req, res) {
 /**
  * 获取自身账号信息
  * @method /profile
- * @return {json} status:1 成功，0 错误，2 未登录
+ * @return {json} {tatus:1 成功，0 错误，2 未登录 message{countOfMy 我创建的action countOfJoin 我参加的action user 我的基本信息}}
  */
 router.get('/profile',seHelper.loginRequire, function(req, res) {
-  if(!req.session.user){
-    return res.json({message:'please login ',status:2});
-  }
-  return res.json({message:req.session.user,status:1});
+  var uid = req.session.user._id;
+  async.parallel([
+    function (cb) {
+      Action.countActionsById(uid,cb);
+    },
+    function (cb) {
+      Action.countForkById(uid,cb);
+    }
+  ],function (err,results) {
+  console.log('point');
+    var msg = {};
+    console.log(results);
+    msg.countOfMy = results[0];
+    msg.countOfJoin = results[1];
+    msg.user = req.session.user;
+    return res.json({message:msg,status:1});
+  });
 });
 
 
@@ -183,6 +199,12 @@ router.get('/profile/:uid',seHelper.loginRequire,function (req,res,next) {
     	throw err;
     }
     // console.log('point');
+    if(!user.email_enable){
+      delete user.email;
+    }
+    if(!user.phone_enable){
+      delete user.phone;
+    }
     res.json({message:user,status:1});
   });
 });

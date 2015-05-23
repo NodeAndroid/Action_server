@@ -245,6 +245,17 @@ exports.searchActionByName = function (key,cb) {
 exports.searchActionByDesc = function (key,cb) {
   // Action.find({$text:{$search:key,$language:'none'}},cb);
     // key = '['+key+']';
-    console.log(key);
+    // console.log(key);
   Action.find({desc:{$regex:key}},cb);
+};
+
+/**
+ * 统计用户action的个数
+ */
+exports.countActionsById = function (uid,callback) {
+  Action.count({creator:uid},callback);
+};
+
+exports.countForkById = function (uid,callback) {
+  Fork.count({user_id:uid},callback);
 };

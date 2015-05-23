@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>index-router</title>
+    <title>user-proxy</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -13,7 +13,7 @@
 <div id="doc">
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
-            <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">undefined: index-router</a></h1>
+            <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">undefined: user-proxy</a></h1>
         </div>
         <div class="yui3-u-1-4 version">
             <em>API Docs for: </em>
@@ -74,9 +74,13 @@
                 </div>
                 <div class="bd">
                     <ul>
-                            <li><a href="#methods_/">/</a></li>
-                            <li><a href="#methods_/isTimeout">/isTimeout</a></li>
-                            <li><a href="#methods_/more">/more</a></li>
+                            <li><a href="#methods_getUserById">getUserById</a></li>
+                            <li><a href="#methods_getUserByIds">getUserByIds</a></li>
+                            <li><a href="#methods_getUserByLoginName">getUserByLoginName</a></li>
+                            <li><a href="#methods_getUserByMail">getUserByMail</a></li>
+                            <li><a href="#methods_getUsersBynames">getUsersBynames</a></li>
+                            <li><a href="#methods_newAndSave">newAndSave</a></li>
+                            <li><a href="#methods_updateByid">updateByid</a></li>
                     </ul>
                 </div>
             </div>
@@ -96,9 +100,9 @@
         </div>
 
         <div id="main" class="yui3-u">
-            <div class="content"><h4>Class index-router</h4>
-<span class="foundat">Class defined in: <a href="../files/routes_index.js.html#l7"><code>routes\index.js:7</code></a></span>
-<div class="intro"><p>主页的一些API  path-prefix '/'</p>
+            <div class="content"><h4>Class user-proxy</h4>
+<span class="foundat">Class defined in: <a href="../files/proxy_user.js.html#l8"><code>proxy\user.js:8</code></a></span>
+<div class="intro"><p>proxy - user.js</p>
 </div>
 
 
@@ -108,64 +112,163 @@
     </ul>
     <div>
             <div id="methods">
-<a name="methods_/"></a>
+<a name="methods_getUserById"></a>
 <div class="method item">
-    Array <strong class="name"><code>&#x2F;</code></strong>( <code>  </code> ) 
+     <strong class="name"><code>getUserById</code></strong>( <code>id, callback </code> ) 
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_index.js.html#l13"><code>routes\index.js:13</code></a>
+        <a href="../files/proxy_user.js.html#l40"><code>proxy\user.js:40</code></a>
     </span><br>
-    <p>获取最新活动10条</p>
-
-    <br><div class="returns"><strong>Returns:</strong> &lt;Array&gt; <p>actions</p>
-</div>
-</div>
-<a name="methods_/isTimeout"></a>
-<div class="method item">
-    Number <strong class="name"><code>&#x2F;isTimeout</code></strong>( <code>date </code> ) 
-    <br>
-    <span class="foundat">
-        
-        <a href="../files/routes_index.js.html#l44"><code>routes\index.js:44</code></a>
-    </span><br>
-    <p>判断是否已经有更新的action条目,返回status = -1说明已经需要更新,status=1说明不需要更新</p>
+    <p>根据用户id查找用户列表</p>
 
     <strong>Parameters:</strong>
     <ul class="params">
         <li>
-            <code>date</code> <strong>&lt;Date&gt;</strong>
+            <code>id</code> <strong>&lt;Objectid&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
          
         </li>
     </ul>
-    <br><div class="returns"><strong>Returns:</strong> &lt;Number&gt; <p>status -1说明错误</p>
 </div>
-        <h5>Example</h5>
-        <pre class="code prettyprint"><code>    http.get(Server_Url,{date:new Date}) //参数date表示目前客户端中最新一条非置顶action的创建时间</code></pre>
-
-</div>
-<a name="methods_/more"></a>
+<a name="methods_getUserByIds"></a>
 <div class="method item">
-    Array <strong class="name"><code>&#x2F;more</code></strong>( <code>skip </code> ) 
+     <strong class="name"><code>getUserByIds</code></strong>( <code>ids, callback </code> ) 
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_index.js.html#l27"><code>routes\index.js:27</code></a>
+        <a href="../files/proxy_user.js.html#l58"><code>proxy\user.js:58</code></a>
     </span><br>
-    <p>获取最新的活动10条，但是跳过之前的条数</p>
+    <p>根据用户id列表查找用户列表</p>
 
     <strong>Parameters:</strong>
     <ul class="params">
         <li>
-            <code>skip</code> <strong>&lt;Number&gt;</strong>
+            <code>ids</code> <strong>&lt;Array&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
          
         </li>
     </ul>
-    <br><div class="returns"><strong>Returns:</strong> &lt;Array&gt; <p>actions</p>
 </div>
-        <h5>Example</h5>
-        <pre class="code prettyprint"><code>    http.get(SERVER_URL,{skip:10}) //假设原本已经显示了10条，跳过之前的10条获取之后的action</code></pre>
+<a name="methods_getUserByLoginName"></a>
+<div class="method item">
+     <strong class="name"><code>getUserByLoginName</code></strong>( <code>loginname, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_user.js.html#l30"><code>proxy\user.js:30</code></a>
+    </span><br>
+    <p>根据用户登录名查找用户列表</p>
 
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>loginname</code> <strong>&lt;String&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getUserByMail"></a>
+<div class="method item">
+     <strong class="name"><code>getUserByMail</code></strong>( <code>id, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_user.js.html#l49"><code>proxy\user.js:49</code></a>
+    </span><br>
+    <p>根据用户email查找用户列表</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>id</code> <strong>&lt;Objectid&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getUsersBynames"></a>
+<div class="method item">
+     <strong class="name"><code>getUsersBynames</code></strong>( <code>names, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_user.js.html#l17"><code>proxy\user.js:17</code></a>
+    </span><br>
+    <p>根据用户名列表查找用户列表</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>names</code> <strong>&lt;Array&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_newAndSave"></a>
+<div class="method item">
+     <strong class="name"><code>newAndSave</code></strong>( <code>profiles, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_user.js.html#l70"><code>proxy\user.js:70</code></a>
+    </span><br>
+    <p>新建并保存用户</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>profiles</code> <strong>&lt;Object&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_updateByid"></a>
+<div class="method item">
+     <strong class="name"><code>updateByid</code></strong>( <code>id, profiles, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_user.js.html#l88"><code>proxy\user.js:88</code></a>
+    </span><br>
+    <p>更新用户资料</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>id</code> <strong>&lt;Objectid&gt;</strong>
+         
+        </li>
+        <li>
+            <code>profiles</code> <strong>&lt;Object&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
 </div>
             </div>
     </div>

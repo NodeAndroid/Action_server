@@ -7,6 +7,8 @@ var Action = require('../proxy/action');
 var seHelper = require('../middleware/session');
 var xss = require('xss');
 var busboy = require('busboy');
+var path = require('path');
+var fs = require('fs');
 /**
  * action操作的一些API  path-prefix '/action'
  * @class action-router
@@ -398,6 +400,7 @@ router.post('/uploadImg',seHelper.loginRequire,function (req,res,next) {
   var imgPath = path.resolve(__dirname, '../public/uploads', date);
     // debug('upload image + path is ' + imgPath);
     req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+  // console.log('point');
       // debug('busboy on file');
       if (!filename) {
         return res.json({

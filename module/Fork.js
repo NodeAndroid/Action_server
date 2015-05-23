@@ -8,9 +8,13 @@ ObjectId = Schema.ObjectId;
  * @module Fork
  */
 var Fork = new Schema({
+  // 活动ID
   action_id:{type:ObjectId},
+  // 创建日期
   create_date:{type:Date,default:Date.now},
+  // 参加用户ID
   user_id: ObjectId,
+  // 活动创建者ID
   fork_from:ObjectId,
 });
 

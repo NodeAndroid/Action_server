@@ -3,1148 +3,472 @@
 <head>
     <meta charset="utf-8">
     <title>action-proxy</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="icon" href="../assets/favicon.ico">
-    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+    <script src="http://yui.yahooapis.com/combo?3.8.0pr2/build/yui/yui-min.js"></script>
 </head>
 <body class="yui3-skin-sam">
 
 <div id="doc">
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
-                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+            <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">undefined: action-proxy</a></h1>
         </div>
         <div class="yui3-u-1-4 version">
             <em>API Docs for: </em>
         </div>
     </div>
-    <div id="bd" class="yui3-g">
+    <div class="yui3-g">
 
-        <div class="yui3-u-1-4">
-            <div id="docs-sidebar" class="sidebar apidocs">
-                <div id="api-list">
-                    <h2 class="off-left">APIs</h2>
-                    <div id="api-tabview" class="tabview">
-                        <ul class="tabs">
-                            <li><a href="#api-classes">Classes</a></li>
-                            <li><a href="#api-modules">Modules</a></li>
-                        </ul>
-                
-                        <div id="api-tabview-filter">
-                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-                        </div>
-                
-                        <div id="api-tabview-panel">
-                            <ul id="api-classes" class="apis classes">
-                                <li><a href="../classes/action-proxy.html">action-proxy</a></li>
-                                <li><a href="../classes/action-router.html">action-router</a></li>
-                                <li><a href="../classes/index-router.html">index-router</a></li>
-                                <li><a href="../classes/users-router.html">users-router</a></li>
-                            </ul>
-                
-                            <ul id="api-modules" class="apis modules">
-                                <li><a href="../modules/Action.html">Action</a></li>
-                                <li><a href="../modules/Article.html">Article</a></li>
-                                <li><a href="../modules/Attend.html">Attend</a></li>
-                                <li><a href="../modules/Fork.html">Fork</a></li>
-                                <li><a href="../modules/Friend.html">Friend</a></li>
-                                <li><a href="../modules/Role.html">Role</a></li>
-                                <li><a href="../modules/Type.html">Type</a></li>
-                                <li><a href="../modules/User.html">User</a></li>
-                            </ul>
-                        </div>
-                    </div>
+        <div id="sidebar" class="yui3-u">
+            <div id="modules" class="sidebox">
+                <div class="hd">
+                    <h2 class="no-toc">Modules</h2>
                 </div>
-            </div>
-        </div>
-        <div class="yui3-u-3-4">
-                <div id="api-options">
-                    Show:
-                    <label for="api-show-inherited">
-                        <input type="checkbox" id="api-show-inherited" checked>
-                        Inherited
-                    </label>
-            
-                    <label for="api-show-protected">
-                        <input type="checkbox" id="api-show-protected">
-                        Protected
-                    </label>
-            
-                    <label for="api-show-private">
-                        <input type="checkbox" id="api-show-private">
-                        Private
-                    </label>
-                    <label for="api-show-deprecated">
-                        <input type="checkbox" id="api-show-deprecated">
-                        Deprecated
-                    </label>
-            
-                </div>
-            
-            <div class="apidocs">
-                <div id="docs-main">
-                    <div class="content">
-<h1>action-proxy Class</h1>
-<div class="box meta">
-
-
-        <div class="foundat">
-            Defined in: <a href="../files/proxy_action.js.html#l8"><code>proxy\action.js:8</code></a>
-        </div>
-
-            Module: <a href="../modules/Friend.html">Friend</a>
-
-</div>
-
-
-<div class="box intro">
-    <p>proxy - action.js</p>
-
-</div>
-
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-                <div class="index-section methods">
-                    <h3>Methods</h3>
-
-                    <ul class="index-list methods">
-                            <li class="index-item method">
-                                <a href="#method_addFork">addFork</a>
-
+                <div class="bd">
+                    <ul>
+                            <li><a href="../modules/Action.html">Action</a>
                             </li>
-                            <li class="index-item method">
-                                <a href="#method_deleteById">deleteById</a>
-
+                            <li><a href="../modules/Article.html">Article</a>
                             </li>
-                            <li class="index-item method">
-                                <a href="#method_getActionByCreateDate">getActionByCreateDate</a>
-
+                            <li><a href="../modules/Attend.html">Attend</a>
                             </li>
-                            <li class="index-item method">
-                                <a href="#method_getActionBycreator">getActionBycreator</a>
-
+                            <li><a href="../modules/Fork.html">Fork</a>
                             </li>
-                            <li class="index-item method">
-                                <a href="#method_getActionByEndDate">getActionByEndDate</a>
-
+                            <li><a href="../modules/Friend.html">Friend</a>
                             </li>
-                            <li class="index-item method">
-                                <a href="#method_getActionById">getActionById</a>
-
+                            <li><a href="../modules/Role.html">Role</a>
                             </li>
-                            <li class="index-item method">
-                                <a href="#method_getActionByIds">getActionByIds</a>
-
+                            <li><a href="../modules/Type.html">Type</a>
                             </li>
-                            <li class="index-item method">
-                                <a href="#method_getActionByName">getActionByName</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_getActionByNames">getActionByNames</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_getActions">getActions</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_getBySkip">getBySkip</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_getLastActionDate">getLastActionDate</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_newAndSave">newAndSave</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_removeFork">removeFork</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_updateAction">updateAction</a>
-
+                            <li><a href="../modules/User.html">User</a>
                             </li>
                     </ul>
                 </div>
-
-
-
-        </div>
-
-            <div id="methods" class="api-class-tabpanel">
-                <h2 class="off-left">Methods</h2>
-
-<div id="method_addFork" class="method item">
-    <h3 class="name"><code>addFork</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>query</code>
-                </li>
-                <li class="arg">
-                        <code>callback</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l192"><code>proxy\action.js:192</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>增加一个fork，这个方法不会验证是否已经有重复的fork</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">query</code>
-                        <span class="type">Json</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">callback</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_deleteById" class="method item">
-    <h3 class="name"><code>deleteById</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>aid</code>
-                </li>
-                <li class="arg">
-                        <code>callback</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l181"><code>proxy\action.js:181</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>根据ID删除一个action，不会删除多个</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">aid</code>
-                        <span class="type">Objectid</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">callback</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_getActionByCreateDate" class="method item">
-    <h3 class="name"><code>getActionByCreateDate</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l118"><code>proxy\action.js:118</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-
-</div>
-<div id="method_getActionBycreator" class="method item">
-    <h3 class="name"><code>getActionBycreator</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>uid</code>
-                </li>
-                <li class="arg">
-                        <code>@optional</code>
-                </li>
-                <li class="arg">
-                        <code>@optional</code>
-                </li>
-                <li class="arg">
-                        <code>@optional</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l135"><code>proxy\action.js:135</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>根据uid获取所有的action条目，通常用于获取某个user的所有action条目,默认十条</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">uid</code>
-                        <span class="type">Objectid</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">@optional</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>skip</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">@optional</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>limit</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">@optional</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                        <p>callback</p>
-
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_getActionByEndDate" class="method item">
-    <h3 class="name"><code>getActionByEndDate</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l126"><code>proxy\action.js:126</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-
-</div>
-<div id="method_getActionById" class="method item">
-    <h3 class="name"><code>getActionById</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>id</code>
-                </li>
-                <li class="arg">
-                        <code>cb</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l96"><code>proxy\action.js:96</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>根据id获取一条action</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">id</code>
-                        <span class="type">Objectid</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">cb</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_getActionByIds" class="method item">
-    <h3 class="name"><code>getActionByIds</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>ids</code>
-                </li>
-                <li class="arg">
-                        <code>cb</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l106"><code>proxy\action.js:106</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>根据id数组获取一系列action</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">ids</code>
-                        <span class="type">Array</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">cb</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_getActionByName" class="method item">
-    <h3 class="name"><code>getActionByName</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>name</code>
-                </li>
-                <li class="arg">
-                        <code>cb</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l73"><code>proxy\action.js:73</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>根据name获取一条action</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">name</code>
-                        <span class="type">String</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">cb</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_getActionByNames" class="method item">
-    <h3 class="name"><code>getActionByNames</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>names</code>
-                </li>
-                <li class="arg">
-                        <code>cb</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l83"><code>proxy\action.js:83</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>根据name数组获取一系列action</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">names</code>
-                        <span class="type">Array</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">cb</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_getActions" class="method item">
-    <h3 class="name"><code>getActions</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>@option</code>
-                </li>
-                <li class="arg">
-                        <code>cb</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l52"><code>proxy\action.js:52</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>获取最新的action条目，但是跳过skip条</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">@option</code>
-                        <span class="type">Number</span>
-
-
-                    <div class="param-description">
-                        <p>skip</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">cb</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_getBySkip" class="method item">
-    <h3 class="name"><code>getBySkip</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cb</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l33"><code>proxy\action.js:33</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cb</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_getLastActionDate" class="method item">
-    <h3 class="name"><code>getLastActionDate</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>cb</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l17"><code>proxy\action.js:17</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>获取最近一个新增Acion的时间</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">cb</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_newAndSave" class="method item">
-    <h3 class="name"><code>newAndSave</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>mb十几个参数，懒得写了，自己看代码</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l158"><code>proxy\action.js:158</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>新建并存入action到数据库</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">mb十几个参数，懒得写了，自己看代码</code>
-                        <span class="type">Json</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_removeFork" class="method item">
-    <h3 class="name"><code>removeFork</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>aid</code>
-                </li>
-                <li class="arg">
-                        <code>uid</code>
-                </li>
-                <li class="arg">
-                        <code>callback</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l218"><code>proxy\action.js:218</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>根据删除一个fork，注意此方法会删除所有的匹配，不会只删除一个</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">aid</code>
-                        <span class="type">Objectid</span>
-
-
-                    <div class="param-description">
-                        <p>action id</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">uid</code>
-                        <span class="type">Objectid</span>
-
-
-                    <div class="param-description">
-                        <p>user id</p>
-
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">callback</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
-<div id="method_updateAction" class="method item">
-    <h3 class="name"><code>updateAction</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>query</code>
-                </li>
-                <li class="arg">
-                        <code>pjson</code>
-                </li>
-                <li class="arg">
-                        <code>callback</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/proxy_action.js.html#l169"><code>proxy\action.js:169</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>更新action信息</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">query</code>
-                        <span class="type">Json</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">pjson</code>
-                        <span class="type">Json</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-                <li class="param">
-                        <code class="param-name">callback</code>
-                        <span class="type">Function</span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-
-
-</div>
             </div>
-
-
-
-    </div>
-</div>
-                    </div>
+            
+            <div id="classes" class="sidebox">
+                <div class="hd">
+                    <h2 class="no-toc">Classes</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                            <li><a href="../classes/action-proxy.html">action-proxy</a></li>
+                            <li><a href="../classes/action-router.html">action-router</a></li>
+                            <li><a href="../classes/index-router.html">index-router</a></li>
+                            <li><a href="../classes/Search
+            搜索相关的API.html">Search
+            搜索相关的API</a></li>
+                            <li><a href="../classes/type-proxy.html">type-proxy</a></li>
+                            <li><a href="../classes/type-router.html">type-router</a></li>
+                            <li><a href="../classes/user-proxy.html">user-proxy</a></li>
+                            <li><a href="../classes/users-router.html">users-router</a></li>
+                    </ul>
                 </div>
             </div>
+            
+            <div id="methods-on-page" class="sidebox on-page">
+                <div class="hd">
+                    <h2 class="no-toc">Methods On Page</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                            <li><a href="#methods_addFork">addFork</a></li>
+                            <li><a href="#methods_deleteById">deleteById</a></li>
+                            <li><a href="#methods_getActionByCreateDate">getActionByCreateDate</a></li>
+                            <li><a href="#methods_getActionBycreator">getActionBycreator</a></li>
+                            <li><a href="#methods_getActionByEndDate">getActionByEndDate</a></li>
+                            <li><a href="#methods_getActionById">getActionById</a></li>
+                            <li><a href="#methods_getActionByIds">getActionByIds</a></li>
+                            <li><a href="#methods_getActionByName">getActionByName</a></li>
+                            <li><a href="#methods_getActionByNames">getActionByNames</a></li>
+                            <li><a href="#methods_getActions">getActions</a></li>
+                            <li><a href="#methods_getBySkip">getBySkip</a></li>
+                            <li><a href="#methods_getLastActionDate">getLastActionDate</a></li>
+                            <li><a href="#methods_newAndSave">newAndSave</a></li>
+                            <li><a href="#methods_removeFork">removeFork</a></li>
+                            <li><a href="#methods_searchActionByName">searchActionByName</a></li>
+                            <li><a href="#methods_searchActionByName">searchActionByName</a></li>
+                            <li><a href="#methods_updateAction">updateAction</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div id="fileTree" class="sidebox">
+                <div class="hd">
+                    <h2 class="no-toc">Files</h2>
+                </div>
+                <div class="bd">
+                    <ul><li>app.js/<ul></ul></li><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="main" class="yui3-u">
+            <div class="content"><h4>Class action-proxy</h4>
+<span class="foundat">Class defined in: <a href="../files/proxy_action.js.html#l8"><code>proxy\action.js:8</code></a></span>
+<div class="intro"><p>proxy - action.js</p>
+</div>
+
+
+<div id="classdocs">
+    <ul>
+        <li><a href="#methods">Methods</a></li>
+    </ul>
+    <div>
+            <div id="methods">
+<a name="methods_addFork"></a>
+<div class="method item">
+     <strong class="name"><code>addFork</code></strong>( <code>query, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l192"><code>proxy\action.js:192</code></a>
+    </span><br>
+    <p>增加一个fork，这个方法不会验证是否已经有重复的fork</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>query</code> <strong>&lt;Json&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_deleteById"></a>
+<div class="method item">
+     <strong class="name"><code>deleteById</code></strong>( <code>aid, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l181"><code>proxy\action.js:181</code></a>
+    </span><br>
+    <p>根据ID删除一个action，不会删除多个</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>aid</code> <strong>&lt;Objectid&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getActionByCreateDate"></a>
+<div class="method item">
+     <strong class="name"><code>getActionByCreateDate</code></strong>( <code>  </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l118"><code>proxy\action.js:118</code></a>
+    </span><br>
+    
+</div>
+<a name="methods_getActionBycreator"></a>
+<div class="method item">
+     <strong class="name"><code>getActionBycreator</code></strong>( <code>uid, @optional, @optional, @optional </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l135"><code>proxy\action.js:135</code></a>
+    </span><br>
+    <p>根据uid获取所有的action条目，通常用于获取某个user的所有action条目,默认十条</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>uid</code> <strong>&lt;Objectid&gt;</strong>
+         
+        </li>
+        <li>
+            <code>@optional</code> <strong>&lt;Number&gt;</strong>
+        <p>skip</p>
+
+        </li>
+        <li>
+            <code>@optional</code> <strong>&lt;Number&gt;</strong>
+        <p>limit</p>
+
+        </li>
+        <li>
+            <code>@optional</code> <strong>&lt;Function&gt;</strong>
+        <p>callback</p>
+
+        </li>
+    </ul>
+</div>
+<a name="methods_getActionByEndDate"></a>
+<div class="method item">
+     <strong class="name"><code>getActionByEndDate</code></strong>( <code>  </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l126"><code>proxy\action.js:126</code></a>
+    </span><br>
+    
+</div>
+<a name="methods_getActionById"></a>
+<div class="method item">
+     <strong class="name"><code>getActionById</code></strong>( <code>id, cb </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l96"><code>proxy\action.js:96</code></a>
+    </span><br>
+    <p>根据id获取一条action</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>id</code> <strong>&lt;Objectid&gt;</strong>
+         
+        </li>
+        <li>
+            <code>cb</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getActionByIds"></a>
+<div class="method item">
+     <strong class="name"><code>getActionByIds</code></strong>( <code>ids, cb </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l106"><code>proxy\action.js:106</code></a>
+    </span><br>
+    <p>根据id数组获取一系列action</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>ids</code> <strong>&lt;Array&gt;</strong>
+         
+        </li>
+        <li>
+            <code>cb</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getActionByName"></a>
+<div class="method item">
+     <strong class="name"><code>getActionByName</code></strong>( <code>name, cb </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l73"><code>proxy\action.js:73</code></a>
+    </span><br>
+    <p>根据name获取一条action</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>name</code> <strong>&lt;String&gt;</strong>
+         
+        </li>
+        <li>
+            <code>cb</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getActionByNames"></a>
+<div class="method item">
+     <strong class="name"><code>getActionByNames</code></strong>( <code>names, cb </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l83"><code>proxy\action.js:83</code></a>
+    </span><br>
+    <p>根据name数组获取一系列action</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>names</code> <strong>&lt;Array&gt;</strong>
+         
+        </li>
+        <li>
+            <code>cb</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getActions"></a>
+<div class="method item">
+     <strong class="name"><code>getActions</code></strong>( <code>@option, cb </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l52"><code>proxy\action.js:52</code></a>
+    </span><br>
+    <p>获取最新的action条目，但是跳过skip条</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>@option</code> <strong>&lt;Number&gt;</strong>
+        <p>skip</p>
+
+        </li>
+        <li>
+            <code>cb</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getBySkip"></a>
+<div class="method item">
+     <strong class="name"><code>getBySkip</code></strong>( <code>cb </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l33"><code>proxy\action.js:33</code></a>
+    </span><br>
+    
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>cb</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getLastActionDate"></a>
+<div class="method item">
+     <strong class="name"><code>getLastActionDate</code></strong>( <code>cb </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l17"><code>proxy\action.js:17</code></a>
+    </span><br>
+    <p>获取最近一个新增Acion的时间</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>cb</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_newAndSave"></a>
+<div class="method item">
+     <strong class="name"><code>newAndSave</code></strong>( <code>mb十几个参数，懒得写了，自己看代码 </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l158"><code>proxy\action.js:158</code></a>
+    </span><br>
+    <p>新建并存入action到数据库</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>mb十几个参数，懒得写了，自己看代码</code> <strong>&lt;Json&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_removeFork"></a>
+<div class="method item">
+     <strong class="name"><code>removeFork</code></strong>( <code>aid, uid, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l218"><code>proxy\action.js:218</code></a>
+    </span><br>
+    <p>根据删除一个fork，注意此方法会删除所有的匹配，不会只删除一个</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>aid</code> <strong>&lt;Objectid&gt;</strong>
+        <p>action id</p>
+
+        </li>
+        <li>
+            <code>uid</code> <strong>&lt;Objectid&gt;</strong>
+        <p>user id</p>
+
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_searchActionByName"></a>
+<div class="method item">
+     <strong class="name"><code>searchActionByName</code></strong>( <code>  </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l230"><code>proxy\action.js:230</code></a>
+    </span><br>
+    <p>搜索action的标题</p>
+
+</div>
+<a name="methods_searchActionByName"></a>
+<div class="method item">
+     <strong class="name"><code>searchActionByName</code></strong>( <code>  </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l241"><code>proxy\action.js:241</code></a>
+    </span><br>
+    <p>搜索action的描述</p>
+
+</div>
+<a name="methods_updateAction"></a>
+<div class="method item">
+     <strong class="name"><code>updateAction</code></strong>( <code>query, pjson, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_action.js.html#l169"><code>proxy\action.js:169</code></a>
+    </span><br>
+    <p>更新action信息</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>query</code> <strong>&lt;Json&gt;</strong>
+         
+        </li>
+        <li>
+            <code>pjson</code> <strong>&lt;Json&gt;</strong>
+         
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+            </div>
+    </div>
+</div>
+</div>
         </div>
     </div>
 </div>
 <script src="../assets/vendor/prettify/prettify-min.js"></script>
 <script>prettyPrint();</script>
 <script src="../assets/js/yui-prettify.js"></script>
-<script src="../assets/../api.js"></script>
-<script src="../assets/js/api-filter.js"></script>
-<script src="../assets/js/api-list.js"></script>
-<script src="../assets/js/api-search.js"></script>
-<script src="../assets/js/apidocs.js"></script>
+<script src="../assets/js/tabs.js"></script>
 </body>
 </html>
