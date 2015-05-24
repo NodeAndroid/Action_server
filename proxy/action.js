@@ -256,6 +256,29 @@ exports.countActionsById = function (uid,callback) {
   Action.count({creator:uid},callback);
 };
 
+/**
+ * 获取用户的fork数目
+ * @method countForkById
+ * @param  {objectid}      uid      user ids
+ * @param  {Function}    callback callback
+ */
 exports.countForkById = function (uid,callback) {
   Fork.count({user_id:uid},callback);
+};
+
+/**
+ * 改变赞数
+ * @method updateStar
+ * @param  {Number}   opt      加减数目
+ * @param  {objectid}   aid      action id
+ * @param  {Function} callback
+ */
+exports.updateStar = function (opt,aid,callback) {
+  if(opt === 1){
+    Acion.update({_id:uid},{$inc:{like_count:+1}},callback);
+  }else if(opt === -1){
+    Acion.update({_id:uid},{$inc:{unlike_count:+1}},callback);
+  }else{
+    callback(new Error('invalid opt'));
+  }
 };

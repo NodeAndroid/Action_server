@@ -68,6 +68,7 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   var pjson ={};
   pjson.name = body.name?_.trim(body.name):'';
   var date = new Date();
+  console.log(body);
   pjson.start_date = validator.isDate(body.start_date)?Date(body.start_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
   pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
   pjson.desc = body.desc?_.trim(body.desc):'';
@@ -78,6 +79,7 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   pjson.type_id = validator.isNumeric(body.type_id)?Number(body.type_id):1;
   pjson.top = validator.toBoolean(body.top,'strict');
   pjson.img_url = body.img_url?_.trim(body.img_url):'';
+  console.log(pjson);
   if(!validator.isDate(pjson.end_date)){
     return res.json({status:-1,message:'end_date error'});
   }
@@ -454,6 +456,45 @@ router.post('/uploadImg',seHelper.loginRequire,function (req,res,next) {
       // return Action.updateAction({_id:req.session.user._id},{img_url:'/uploads/' + date + '/' + FileName});
     });
     req.pipe(req.busboy);
+});
+
+/**
+ * 	赞一个action
+ *
+ * @method /starUp
+ */
+router.get('/starUp/:aid',function (req,res,next) {
+  var aid = xss(_.trim(req.params.aid));
+  if(!aid || aid.length !== 24){
+    return res.json({status:-1,message:'invalid aid'});
+  }
+  Action.updateStar(+1,aid,function (err) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    res.json({status:0,message:'success'});
+  });
+
+});
+/**
+ * 	踩一个action
+ *
+ * @method /starDown
+ */
+router.get('/starDown/:aid',function (req,res,next) {
+  var aid = xss(_.trim(req.params.aid));
+  if(!aid || aid.length !== 24){
+    return res.json({status:-1,message:'invalid aid'});
+  }
+  Action.updateStar(-1,aid,function (err) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    res.json({status:0,message:'success'});
+  });
+
 });
 
 module.exports = router;
