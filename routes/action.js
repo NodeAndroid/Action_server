@@ -69,13 +69,16 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   var pjson ={};
   pjson.name = body.name?_.trim(body.name):'';
   var date = new Date();
-  console.log(body);
-  // pjson.start_date = validator.isDate(body.start_date)?Date(body.start_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
-  // pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
-  pjson.start_date = Date(body.start_date);
-  pjson.end_date = Date(body.end_date);
+  console.log(new Date(Number(body.start_date)));
+  console.log(validator.isDate(new Date(Number(body.start_date))));
+  pjson.start_date = validator.isDate(new Date(Number(body.start_date)))?new Date(Number(body.start_date)):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
+  pjson.end_date = validator.isDate(new Date(Number(body.end_date)))?new Date(Number(body.end_date)):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
+  // pjson.start_date = validator.is(new Date(body.start_date);
+  // pjson.end_date = new Date(body.end_date);
+  // console.log(body.start_date,body.end_date);
 
   pjson.desc = body.desc?_.trim(body.desc):'';
+  // console.log(new Date(1432475010032));
   pjson.addr_name = body.addr_name?_.trim(body.addr_name):'';
   pjson.addr_position_x = validator.isFloat(body.addr_position_x)?Number(body.addr_position_x):-1;
   pjson.addr_position_y = validator.isFloat(body.addr_position_y)?Number(body.addr_position_y):-1;
@@ -310,8 +313,8 @@ router.post('/push/:aid',seHelper.loginRequire,function(res,req,next){
   // if(body.end_date && validator.isDate(body.end_date)){
   //   pjson.end_date = new Date(body.end_date);
   // }
-  pjson.start_date = new Date(body.start_date);
-  pjson.end_date = new Date(body.end_date);
+  pjson.start_date = new Date(Number(body.start_date));
+  pjson.end_date = new Date(Number(body.end_date));
   if(body.desc && _.trim(body.desc) !== ''){
     pjson.desc = _.trim(body.desc);
   }
