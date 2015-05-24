@@ -129,7 +129,7 @@
             "name": "routes\\search.js",
             "modules": {},
             "classes": {
-                "Search\n搜索相关的API": 1
+                "Search": 1
             },
             "fors": {},
             "namespaces": {}
@@ -149,13 +149,6 @@
             "classes": {
                 "users-router": 1
             },
-            "fors": {},
-            "namespaces": {}
-        },
-        "app.js": {
-            "name": "app.js",
-            "modules": {},
-            "classes": {},
             "fors": {},
             "namespaces": {}
         }
@@ -240,7 +233,7 @@
                 "user-proxy": 1,
                 "action-router": 1,
                 "index-router": 1,
-                "Search\n搜索相关的API": 1,
+                "Search": 1,
                 "type-router": 1,
                 "users-router": 1
             },
@@ -308,7 +301,7 @@
             "module": "Friend",
             "namespace": "",
             "file": "routes\\action.js",
-            "line": 10,
+            "line": 12,
             "description": "action操作的一些API  path-prefix '/action'"
         },
         "index-router": {
@@ -325,9 +318,9 @@
             "line": 7,
             "description": "主页的一些API  path-prefix '/'"
         },
-        "Search\n搜索相关的API": {
-            "name": "Search\n搜索相关的API",
-            "shortname": "Search\n搜索相关的API",
+        "Search": {
+            "name": "Search",
+            "shortname": "Search",
             "classitems": [],
             "plugins": [],
             "extensions": [],
@@ -336,7 +329,8 @@
             "module": "Friend",
             "namespace": "",
             "file": "routes\\search.js",
-            "line": 9
+            "line": 9,
+            "description": "搜索相关的API"
         },
         "type-router": {
             "name": "type-router",
@@ -925,7 +919,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 15,
+            "line": 17,
             "description": "新建一个action",
             "itemtype": "method",
             "name": "/new",
@@ -941,7 +935,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 110,
+            "line": 112,
             "description": "删除一个action",
             "itemtype": "method",
             "name": "/delete/:aid",
@@ -964,7 +958,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 136,
+            "line": 138,
             "description": "激活一个action，默认新建之后是激活状态",
             "itemtype": "method",
             "name": "/active/:aid",
@@ -984,7 +978,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 167,
+            "line": 169,
             "description": "参加一个活动",
             "itemtype": "method",
             "name": "/fork/:aid",
@@ -1004,7 +998,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 204,
+            "line": 206,
             "description": "退出一个action",
             "itemtype": "method",
             "name": "/exit/:aid",
@@ -1024,7 +1018,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 234,
+            "line": 236,
             "description": "获取一个action的资料",
             "itemtype": "method",
             "name": "/pull/:aid",
@@ -1044,7 +1038,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 256,
+            "line": 258,
             "description": "修改一个action的资料，类似于/new 如果某个最短格式错误，那么这个字段不会被修改，注意格式错误不会导致报错，只是单纯的不会更新这个字段",
             "itemtype": "method",
             "name": "/push/:aid",
@@ -1064,7 +1058,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 334,
+            "line": 336,
             "description": "获取我新建的action列表",
             "itemtype": "method",
             "name": "/listAllofMy",
@@ -1083,7 +1077,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 352,
+            "line": 354,
             "description": "获取我参加的action列表",
             "itemtype": "method",
             "name": "/listAllMyjoin",
@@ -1102,7 +1096,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 387,
+            "line": 389,
             "description": "文件上传，仅支持['jpg', 'png', 'gif', 'jpeg', 'bmp', 'JPG', 'PNG', 'GIF', 'JPEG', 'BMP']",
             "itemtype": "method",
             "name": "/uploadImg",
@@ -1238,8 +1232,10 @@
         },
         {
             "file": "routes\\search.js",
-            "line": 14,
+            "line": 15,
             "description": "搜索action名称",
+            "itemtype": "method",
+            "name": "/name",
             "params": [
                 {
                     "name": "key",
@@ -1247,13 +1243,15 @@
                     "type": "String"
                 }
             ],
-            "class": "Search\n搜索相关的API",
+            "class": "Search",
             "module": "Friend"
         },
         {
             "file": "routes\\search.js",
-            "line": 30,
+            "line": 32,
             "description": "搜索action描述",
+            "itemtype": "method",
+            "name": "/desc",
             "params": [
                 {
                     "name": "key",
@@ -1261,7 +1259,7 @@
                     "type": "String"
                 }
             ],
-            "class": "Search\n搜索相关的API",
+            "class": "Search",
             "module": "Friend"
         },
         {
@@ -1437,13 +1435,6 @@
             },
             "class": "users-router",
             "module": "Friend"
-        },
-        {
-            "file": "app.js",
-            "line": 76,
-            "description": "teswtestest中文",
-            "class": "",
-            "module": "Friend"
         }
     ],
     "warnings": [
@@ -1572,24 +1563,12 @@
             "line": " routes\\index.js:155"
         },
         {
-            "message": "Missing item type\n搜索action名称",
-            "line": " routes\\search.js:14"
-        },
-        {
-            "message": "Missing item type\n搜索action描述",
-            "line": " routes\\search.js:30"
-        },
-        {
             "message": "Missing item type\n登陆验证",
             "line": " routes\\users.js:23"
         },
         {
             "message": "Missing item type\n退出登录",
             "line": " routes\\users.js:91"
-        },
-        {
-            "message": "Missing item type\nteswtestest中文",
-            "line": " app.js:76"
         }
     ]
 }

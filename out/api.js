@@ -1,7 +1,7 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
-        "Search\n搜索相关的API",
+        "Search",
         "action-proxy",
         "action-router",
         "index-router",

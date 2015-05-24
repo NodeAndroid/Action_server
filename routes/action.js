@@ -72,8 +72,8 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
   pjson.desc = body.desc?_.trim(body.desc):'';
   pjson.addr_name = body.addr_name?_.trim(body.addr_name):'';
-  pjson.addr_position_x = validator.isNumeric(body.addr_position_x)?Number(body.addr_position_x):-1;
-  pjson.addr_position_y = validator.isNumeric(body.addr_position_y)?Number(body.addr_position_y):-1;
+  pjson.addr_position_x = validator.isFloat(body.addr_position_x)?Number(body.addr_position_x):-1;
+  pjson.addr_position_y = validator.isFloat(body.addr_position_y)?Number(body.addr_position_y):-1;
   pjson.creator = req.session.user._id;
   pjson.type_id = validator.isNumeric(body.type_id)?Number(body.type_id):1;
   pjson.top = validator.toBoolean(body.top,'strict');

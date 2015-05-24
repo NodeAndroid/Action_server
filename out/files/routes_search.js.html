@@ -57,9 +57,7 @@
                             <li><a href="../classes/action-proxy.html">action-proxy</a></li>
                             <li><a href="../classes/action-router.html">action-router</a></li>
                             <li><a href="../classes/index-router.html">index-router</a></li>
-                            <li><a href="../classes/Search
-            搜索相关的API.html">Search
-            搜索相关的API</a></li>
+                            <li><a href="../classes/Search.html">Search</a></li>
                             <li><a href="../classes/type-proxy.html">type-proxy</a></li>
                             <li><a href="../classes/type-router.html">type-router</a></li>
                             <li><a href="../classes/user-proxy.html">user-proxy</a></li>
@@ -77,7 +75,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>app.js/<ul></ul></li><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
+                    <ul><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -96,12 +94,14 @@ var _ = require(&#x27;lodash&#x27;);
 var xss = require(&#x27;xss&#x27;);
 
 /**
- * @class Search
  * 搜索相关的API
+ * @class Search
+ *
  */
 
 /**
  * 搜索action名称
+ * @method /name
  * @param {string} key
  */
 router.get(&#x27;/name&#x27;,function (req,res,next) {
@@ -118,6 +118,7 @@ router.get(&#x27;/name&#x27;,function (req,res,next) {
 
 /**
  * 搜索action描述
+ * @method /desc
  * @param {string} key
  */
 router.get(&#x27;/desc&#x27;,function (req,res,next) {

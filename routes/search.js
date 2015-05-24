@@ -7,12 +7,14 @@ var _ = require('lodash');
 var xss = require('xss');
 
 /**
- * @class Search
  * 搜索相关的API
+ * @class Search
+ *
  */
 
 /**
  * 搜索action名称
+ * @method /name
  * @param {string} key
  */
 router.get('/name',function (req,res,next) {
@@ -29,6 +31,7 @@ router.get('/name',function (req,res,next) {
 
 /**
  * 搜索action描述
+ * @method /desc
  * @param {string} key
  */
 router.get('/desc',function (req,res,next) {

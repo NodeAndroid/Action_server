@@ -57,9 +57,7 @@
                             <li><a href="../classes/action-proxy.html">action-proxy</a></li>
                             <li><a href="../classes/action-router.html">action-router</a></li>
                             <li><a href="../classes/index-router.html">index-router</a></li>
-                            <li><a href="../classes/Search
-            搜索相关的API.html">Search
-            搜索相关的API</a></li>
+                            <li><a href="../classes/Search.html">Search</a></li>
                             <li><a href="../classes/type-proxy.html">type-proxy</a></li>
                             <li><a href="../classes/type-router.html">type-router</a></li>
                             <li><a href="../classes/user-proxy.html">user-proxy</a></li>
@@ -77,7 +75,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>app.js/<ul></ul></li><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
+                    <ul><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -96,6 +94,8 @@ var Action = require(&#x27;../proxy/action&#x27;);
 var seHelper = require(&#x27;../middleware/session&#x27;);
 var xss = require(&#x27;xss&#x27;);
 var busboy = require(&#x27;busboy&#x27;);
+var path = require(&#x27;path&#x27;);
+var fs = require(&#x27;fs&#x27;);
 /**
  * action操作的一些API  path-prefix &#x27;/action&#x27;
  * @class action-router
@@ -487,6 +487,7 @@ router.post(&#x27;/uploadImg&#x27;,seHelper.loginRequire,function (req,res,next)
   var imgPath = path.resolve(__dirname, &#x27;../public/uploads&#x27;, date);
     // debug(&#x27;upload image + path is &#x27; + imgPath);
     req.busboy.on(&#x27;file&#x27;, function(fieldname, file, filename, encoding, mimetype) {
+  // console.log(&#x27;point&#x27;);
       // debug(&#x27;busboy on file&#x27;);
       if (!filename) {
         return res.json({
