@@ -9,6 +9,7 @@ var xss = require('xss');
 var busboy = require('busboy');
 var path = require('path');
 var fs = require('fs');
+var Notification = require('../proxy').Notification;
 /**
  * action操作的一些API  path-prefix '/action'
  * @class action-router
@@ -69,8 +70,11 @@ router.post('/new',seHelper.loginRequire,function (req,res,next) {
   pjson.name = body.name?_.trim(body.name):'';
   var date = new Date();
   console.log(body);
-  pjson.start_date = validator.isDate(body.start_date)?Date(body.start_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
-  pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
+  // pjson.start_date = validator.isDate(body.start_date)?Date(body.start_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
+  // pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
+  pjson.start_date = Date(body.start_date);
+  pjson.end_date = Date(body.end_date);
+
   pjson.desc = body.desc?_.trim(body.desc):'';
   pjson.addr_name = body.addr_name?_.trim(body.addr_name):'';
   pjson.addr_position_x = validator.isFloat(body.addr_position_x)?Number(body.addr_position_x):-1;
@@ -201,7 +205,15 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
       }
       res.json({status:0,message:'success'});
     });
-
+    //增加通知
+    Action.getActionById(aid,function (err,action) {
+      if(err){
+      	console.err(err.stack);
+      	throw err;
+      }
+      var toid = action.creator;
+      Notification.add('有一个新用户参加了您的活动',pjson.user_id,toid,pjson.user_id,0);
+    });
 });
 
 
@@ -241,7 +253,7 @@ router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
  * @param {string} aid action的ObjectId
  * @return {json} status 0 成功，否则失败, action\{status,action\}
  */
-router.get('/pull/:aid',seHelper.loginRequire,function(req,res,next){
+router.get('/pull/:aid',seHelper .loginRequire,function(req,res,next){
   var aid = req.params.aid?_.trim(req.params.aid):'';
   aid=xss(aid);
   if(!aid || aid.length !== 24){
@@ -292,12 +304,14 @@ router.post('/push/:aid',seHelper.loginRequire,function(res,req,next){
   if(body.name && _.trim(body.name) !== ''){
     pjson.name = _.trim(body.name);
   }
-  if(body.start_date && validator.isDate(body.start_date)){
-    pjson.start_date = new Date(body.start_date);
-  }
-  if(body.end_date && validator.isDate(body.end_date)){
-    pjson.end_date = new Date(body.end_date);
-  }
+  // if(body.start_date && validator.isDate(body.start_date)){
+  //   pjson.start_date = new Date(body.start_date);
+  // }
+  // if(body.end_date && validator.isDate(body.end_date)){
+  //   pjson.end_date = new Date(body.end_date);
+  // }
+  pjson.start_date = new Date(body.start_date);
+  pjson.end_date = new Date(body.end_date);
   if(body.desc && _.trim(body.desc) !== ''){
     pjson.desc = _.trim(body.desc);
   }
