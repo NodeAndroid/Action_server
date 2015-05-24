@@ -81,6 +81,8 @@
                             <li><a href="#methods_/new">/new</a></li>
                             <li><a href="#methods_/pull/:aid">/pull/:aid</a></li>
                             <li><a href="#methods_/push/:aid">/push/:aid</a></li>
+                            <li><a href="#methods_/starDown">/starDown</a></li>
+                            <li><a href="#methods_/starUp">/starUp</a></li>
                             <li><a href="#methods_/uploadImg">/uploadImg</a></li>
                     </ul>
                 </div>
@@ -94,7 +96,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
+                    <ul><li>app.js/<ul></ul></li><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -119,7 +121,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l138"><code>routes\action.js:138</code></a>
+        <a href="../files/routes_action.js.html#l140"><code>routes\action.js:140</code></a>
     </span><br>
     <p>激活一个action，默认新建之后是激活状态</p>
 
@@ -140,7 +142,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l112"><code>routes\action.js:112</code></a>
+        <a href="../files/routes_action.js.html#l114"><code>routes\action.js:114</code></a>
     </span><br>
     <p>删除一个action</p>
 
@@ -165,7 +167,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l206"><code>routes\action.js:206</code></a>
+        <a href="../files/routes_action.js.html#l208"><code>routes\action.js:208</code></a>
     </span><br>
     <p>退出一个action</p>
 
@@ -186,7 +188,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l169"><code>routes\action.js:169</code></a>
+        <a href="../files/routes_action.js.html#l171"><code>routes\action.js:171</code></a>
     </span><br>
     <p>参加一个活动</p>
 
@@ -207,7 +209,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l354"><code>routes\action.js:354</code></a>
+        <a href="../files/routes_action.js.html#l356"><code>routes\action.js:356</code></a>
     </span><br>
     <p>获取我参加的action列表</p>
 
@@ -228,7 +230,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l336"><code>routes\action.js:336</code></a>
+        <a href="../files/routes_action.js.html#l338"><code>routes\action.js:338</code></a>
     </span><br>
     <p>获取我新建的action列表</p>
 
@@ -283,7 +285,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l236"><code>routes\action.js:236</code></a>
+        <a href="../files/routes_action.js.html#l238"><code>routes\action.js:238</code></a>
     </span><br>
     <p>获取一个action的资料</p>
 
@@ -304,7 +306,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l258"><code>routes\action.js:258</code></a>
+        <a href="../files/routes_action.js.html#l260"><code>routes\action.js:260</code></a>
     </span><br>
     <p>修改一个action的资料，类似于/new 如果某个最短格式错误，那么这个字段不会被修改，注意格式错误不会导致报错，只是单纯的不会更新这个字段</p>
 
@@ -319,13 +321,35 @@
     <br><div class="returns"><strong>Returns:</strong> &lt;Json&gt; <p>status 0 成功，否则失败</p>
 </div>
 </div>
+<a name="methods_/starDown"></a>
+<div class="method item">
+     <strong class="name"><code>&#x2F;starDown</code></strong>( <code>  </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/routes_action.js.html#l480"><code>routes\action.js:480</code></a>
+    </span><br>
+    <p>踩一个action</p>
+
+</div>
+<a name="methods_/starUp"></a>
+<div class="method item">
+     <strong class="name"><code>&#x2F;starUp</code></strong>( <code>  </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/routes_action.js.html#l461"><code>routes\action.js:461</code></a>
+    </span><br>
+    <p>赞一个action</p>
+
+</div>
 <a name="methods_/uploadImg"></a>
 <div class="method item">
     Json <strong class="name"><code>&#x2F;uploadImg</code></strong>( <code>  </code> ) 
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_action.js.html#l389"><code>routes\action.js:389</code></a>
+        <a href="../files/routes_action.js.html#l391"><code>routes\action.js:391</code></a>
     </span><br>
     <p>文件上传，仅支持['jpg', 'png', 'gif', 'jpeg', 'bmp', 'JPG', 'PNG', 'GIF', 'JPEG', 'BMP']</p>
 

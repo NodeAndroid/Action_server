@@ -57,9 +57,7 @@
                             <li><a href="../classes/action-proxy.html">action-proxy</a></li>
                             <li><a href="../classes/action-router.html">action-router</a></li>
                             <li><a href="../classes/index-router.html">index-router</a></li>
-                            <li><a href="../classes/Search
-            搜索相关的API.html">Search
-            搜索相关的API</a></li>
+                            <li><a href="../classes/Search.html">Search</a></li>
                             <li><a href="../classes/type-proxy.html">type-proxy</a></li>
                             <li><a href="../classes/type-router.html">type-router</a></li>
                             <li><a href="../classes/user-proxy.html">user-proxy</a></li>
@@ -98,6 +96,7 @@ var MongoStore = require(&#x27;connect-mongo&#x27;)(session);
 var routes = require(&#x27;./routes/index&#x27;);
 var users = require(&#x27;./routes/users&#x27;);
 var config = require(&#x27;./config&#x27;);
+var busboy = require(&#x27;connect-busboy&#x27;);
 var app = express();
 
 var modole = require(&#x27;./module&#x27;);
@@ -123,7 +122,12 @@ app.use(session({
   resave:true,
   saveUninitialized:true,
 }));
-
+app.use(busboy({
+  // immediate: true,
+  limits: {
+    fileSize: 10 * 1024 * 1024
+  },
+}));
 
 app.use(&#x27;/&#x27;, routes);
 app.use(&#x27;/users&#x27;, users);

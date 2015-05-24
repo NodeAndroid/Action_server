@@ -75,7 +75,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
+                    <ul><li>app.js/<ul></ul></li><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -155,16 +155,18 @@ router.post(&#x27;/new&#x27;,seHelper.loginRequire,function (req,res,next) {
   var pjson ={};
   pjson.name = body.name?_.trim(body.name):&#x27;&#x27;;
   var date = new Date();
+  console.log(body);
   pjson.start_date = validator.isDate(body.start_date)?Date(body.start_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
   pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
   pjson.desc = body.desc?_.trim(body.desc):&#x27;&#x27;;
   pjson.addr_name = body.addr_name?_.trim(body.addr_name):&#x27;&#x27;;
-  pjson.addr_position_x = validator.isNumeric(body.addr_position_x)?Number(body.addr_position_x):-1;
-  pjson.addr_position_y = validator.isNumeric(body.addr_position_y)?Number(body.addr_position_y):-1;
+  pjson.addr_position_x = validator.isFloat(body.addr_position_x)?Number(body.addr_position_x):-1;
+  pjson.addr_position_y = validator.isFloat(body.addr_position_y)?Number(body.addr_position_y):-1;
   pjson.creator = req.session.user._id;
   pjson.type_id = validator.isNumeric(body.type_id)?Number(body.type_id):1;
   pjson.top = validator.toBoolean(body.top,&#x27;strict&#x27;);
   pjson.img_url = body.img_url?_.trim(body.img_url):&#x27;&#x27;;
+  console.log(pjson);
   if(!validator.isDate(pjson.end_date)){
     return res.json({status:-1,message:&#x27;end_date error&#x27;});
   }
@@ -541,6 +543,45 @@ router.post(&#x27;/uploadImg&#x27;,seHelper.loginRequire,function (req,res,next)
       // return Action.updateAction({_id:req.session.user._id},{img_url:&#x27;/uploads/&#x27; + date + &#x27;/&#x27; + FileName});
     });
     req.pipe(req.busboy);
+});
+
+/**
+ * 	赞一个action
+ *
+ * @method /starUp
+ */
+router.get(&#x27;/starUp/:aid&#x27;,function (req,res,next) {
+  var aid = xss(_.trim(req.params.aid));
+  if(!aid || aid.length !== 24){
+    return res.json({status:-1,message:&#x27;invalid aid&#x27;});
+  }
+  Action.updateStar(+1,aid,function (err) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    res.json({status:0,message:&#x27;success&#x27;});
+  });
+
+});
+/**
+ * 	踩一个action
+ *
+ * @method /starDown
+ */
+router.get(&#x27;/starDown/:aid&#x27;,function (req,res,next) {
+  var aid = xss(_.trim(req.params.aid));
+  if(!aid || aid.length !== 24){
+    return res.json({status:-1,message:&#x27;invalid aid&#x27;});
+  }
+  Action.updateStar(-1,aid,function (err) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    res.json({status:0,message:&#x27;success&#x27;});
+  });
+
 });
 
 module.exports = router;

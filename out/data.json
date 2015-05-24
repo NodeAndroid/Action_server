@@ -151,6 +151,13 @@
             },
             "fors": {},
             "namespaces": {}
+        },
+        "app.js": {
+            "name": "app.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
         }
     },
     "modules": {
@@ -723,6 +730,53 @@
             "module": "Friend"
         },
         {
+            "file": "proxy\\action.js",
+            "line": 259,
+            "description": "获取用户的fork数目",
+            "itemtype": "method",
+            "name": "countForkById",
+            "params": [
+                {
+                    "name": "uid",
+                    "description": "user ids",
+                    "type": "Objectid"
+                },
+                {
+                    "name": "callback",
+                    "description": "callback",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\action.js",
+            "line": 269,
+            "description": "改变赞数",
+            "itemtype": "method",
+            "name": "updateStar",
+            "params": [
+                {
+                    "name": "opt",
+                    "description": "加减数目",
+                    "type": "Number"
+                },
+                {
+                    "name": "aid",
+                    "description": "action id",
+                    "type": "Objectid"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
             "file": "proxy\\type.js",
             "line": 12,
             "description": "获取所有type类型",
@@ -935,7 +989,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 112,
+            "line": 114,
             "description": "删除一个action",
             "itemtype": "method",
             "name": "/delete/:aid",
@@ -958,7 +1012,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 138,
+            "line": 140,
             "description": "激活一个action，默认新建之后是激活状态",
             "itemtype": "method",
             "name": "/active/:aid",
@@ -978,7 +1032,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 169,
+            "line": 171,
             "description": "参加一个活动",
             "itemtype": "method",
             "name": "/fork/:aid",
@@ -998,7 +1052,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 206,
+            "line": 208,
             "description": "退出一个action",
             "itemtype": "method",
             "name": "/exit/:aid",
@@ -1018,7 +1072,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 236,
+            "line": 238,
             "description": "获取一个action的资料",
             "itemtype": "method",
             "name": "/pull/:aid",
@@ -1038,7 +1092,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 258,
+            "line": 260,
             "description": "修改一个action的资料，类似于/new 如果某个最短格式错误，那么这个字段不会被修改，注意格式错误不会导致报错，只是单纯的不会更新这个字段",
             "itemtype": "method",
             "name": "/push/:aid",
@@ -1058,7 +1112,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 336,
+            "line": 338,
             "description": "获取我新建的action列表",
             "itemtype": "method",
             "name": "/listAllofMy",
@@ -1077,7 +1131,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 354,
+            "line": 356,
             "description": "获取我参加的action列表",
             "itemtype": "method",
             "name": "/listAllMyjoin",
@@ -1096,7 +1150,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 389,
+            "line": 391,
             "description": "文件上传，仅支持['jpg', 'png', 'gif', 'jpeg', 'bmp', 'JPG', 'PNG', 'GIF', 'JPEG', 'BMP']",
             "itemtype": "method",
             "name": "/uploadImg",
@@ -1104,6 +1158,24 @@
                 "description": "status 1 错误，查阅message获得详细情况 0 成功",
                 "type": "Json"
             },
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 461,
+            "description": "赞一个action",
+            "itemtype": "method",
+            "name": "/starUp",
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 480,
+            "description": "踩一个action",
+            "itemtype": "method",
+            "name": "/starDown",
             "class": "action-router",
             "module": "Friend"
         },
@@ -1435,6 +1507,13 @@
             },
             "class": "users-router",
             "module": "Friend"
+        },
+        {
+            "file": "app.js",
+            "line": 82,
+            "description": "teswtestest中文",
+            "class": "",
+            "module": "Friend"
         }
     ],
     "warnings": [
@@ -1569,6 +1648,10 @@
         {
             "message": "Missing item type\n退出登录",
             "line": " routes\\users.js:91"
+        },
+        {
+            "message": "Missing item type\nteswtestest中文",
+            "line": " app.js:82"
         }
     ]
 }
