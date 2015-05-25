@@ -47,6 +47,7 @@ app.use('/users', users);
 app.use('/action',require('./routes/action'));
 app.use('/search',require('./routes/search'));
 app.use('/type',require('./routes/type'));
+app.use('/notification',require('./routes/notif'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

@@ -171,12 +171,13 @@ router.get('/profile',seHelper.loginRequire, function(req, res) {
       Action.countForkById(uid,cb);
     }
   ],function (err,results) {
-  console.log('point');
+  // console.log('point');
     var msg = {};
-    console.log(results);
+    // console.log(results);
     msg.countOfMy = results[0];
     msg.countOfJoin = results[1];
     msg.user = req.session.user;
+    console.log(msg);
     return res.json({message:msg,status:1});
   });
 });
@@ -205,7 +206,24 @@ router.get('/profile/:uid',seHelper.loginRequire,function (req,res,next) {
     if(!user.phone_enable){
       delete user.phone;
     }
-    res.json({message:user,status:1});
+    async.parallel([
+      function (cb) {
+        Action.countActionsById(uid,cb);
+      },
+      function (cb) {
+        Action.countForkById(uid,cb);
+      }
+    ],function (err,results) {
+    // console.log('point');
+      var msg = {};
+      // console.log(results);
+      msg.countOfMy = results[0];
+      msg.countOfJoin = results[1];
+      msg.user = user;
+      console.log(msg);
+      return res.json({message:msg,status:1});
+    });
+    // res.json({message:user,status:1});
   });
 });
 

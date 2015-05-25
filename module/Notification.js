@@ -11,7 +11,7 @@
   content:{type:String,default:''},
   create_at:{type:Date,default:Date.now},
   send_from:{type:ObjectId},
-  send_to:{type:Array},
+  send_to:[ObjectId],
   hasRead:{type:Boolean,default:false},
   prority:{type:Number,default:0},
  });

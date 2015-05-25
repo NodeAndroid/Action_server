@@ -200,6 +200,10 @@ exports.addFork=function(query,callback){
   fork.save(callback);
 };
 
+exports.updateForkByAidAndUid = function (aid,uid,fork,callback) {
+  Fork.update({action_id:aid,user_id:uid},fork,callback);
+};
+
 exports.getForkByUid = function (uid,skip,limit,callback) {
   if(typeof uid == 'function'){
     throw new Error('must have uid!');
@@ -212,6 +216,10 @@ exports.getForkByUid = function (uid,skip,limit,callback) {
     limit = 10;
   }
   Fork.find({user_id:uid}).select('action_id').sort({create_date:-1}).skip(skip).limit(limit).exec(callback);
+};
+
+exports.getForkByUidAndAid =function (uid,aid,callback) {
+  Fork.find({user_id:uid,action_id:aid},callback);
 };
 
 
@@ -275,9 +283,9 @@ exports.countForkById = function (uid,callback) {
  */
 exports.updateStar = function (opt,aid,callback) {
   if(opt === 1){
-    Acion.update({_id:uid},{$inc:{like_count:+1}},callback);
+    Action.update({_id:aid},{$inc:{like_count:+1}},callback);
   }else if(opt === -1){
-    Acion.update({_id:uid},{$inc:{unlike_count:+1}},callback);
+    Action.update({_id:aid},{$inc:{unlike_count:+1}},callback);
   }else{
     callback(new Error('invalid opt'));
   }

@@ -9,7 +9,7 @@ var xss = require('xss');
 var busboy = require('busboy');
 var path = require('path');
 var fs = require('fs');
-var Notification = require('../proxy').Notification;
+var Notification = require('../proxy/notification');
 /**
  * action操作的一些API  path-prefix '/action'
  * @class action-router
@@ -215,7 +215,7 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
       	throw err;
       }
       var toid = action.creator;
-      Notification.add('有一个新用户参加了您的活动',pjson.user_id,toid,pjson.user_id,0);
+      Notification.addOne('有一个新用户参加了您的活动',pjson.user_id,toid,pjson.user_id,0);
     });
 });
 
@@ -239,7 +239,8 @@ router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
     	console.err(err.stack);
     	throw err;
     }
-    return res.json({status: 0,message: 'done'});
+    Notification.addOne('有一个新用户退出了您的活动',pjson.user_id,toid,pjson.user_id,0);
+    res.json({status: 0,message: 'done'});
   });
   // if(err){
   //   console.log(err.stack);
@@ -254,7 +255,7 @@ router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
  * 获取一个action的资料
  * @method /pull/:aid
  * @param {string} aid action的ObjectId
- * @return {json} status 0 成功，否则失败, action\{status,action\}
+ * @return {json} status 0 成功，否则失败, message action的具体资料, fork 是否已参加
  */
 router.get('/pull/:aid',seHelper .loginRequire,function(req,res,next){
   var aid = req.params.aid?_.trim(req.params.aid):'';
@@ -267,8 +268,30 @@ router.get('/pull/:aid',seHelper .loginRequire,function(req,res,next){
         console.log(err.stack);
         res.json({status:-1,message:'server error'});
         throw err;
+    }
+    Action.getForkByUidAndAid(req.session.user._id,action._id,function (err,results) {
+      var fork = false;
+      if(results.length === 0){
+        fork = false;
+      }else{
+        fork = true;
       }
-      return res.json({status:0,message:action});
+
+      var tactions = results;
+      results.forEach(function (item,index) {
+        tactions[index] = item.toJSON();
+        if(item.create_date)
+          tactions[index].create_date = item.create_date.getTime();
+        if(item.start_date)
+          tactions[index].start_date = item.start_date.getTime();
+        if(item.end_date)
+          tactions[index].end_date = item.end_date.getTime();
+        if(item.edit_date)
+          tactions[index].edit_date = item.edit_date.getTime();
+      });
+      return res.json({status:0,message:tactions,fork:fork});
+
+    });
   });
 });
 
@@ -366,7 +389,19 @@ router.get('/listAllofMy',seHelper.loginRequire,function (req,res,next) {
     	console.err(err.stack);
     	throw err;
     }
-    return res.json({status:0,actions:actions});
+    var tactions = actions;
+    actions.forEach(function (item,index) {
+      tactions[index] = item.toJSON();
+      if(item.create_date)
+        tactions[index].create_date = item.create_date.getTime();
+      if(item.start_date)
+        tactions[index].start_date = item.start_date.getTime();
+      if(item.end_date)
+        tactions[index].end_date = item.end_date.getTime();
+      if(item.edit_date)
+        tactions[index].edit_date = item.edit_date.getTime();
+    });
+    return res.json({status:0,actions:tactions});
   });
 });
 
@@ -399,6 +434,18 @@ router.get('/listAllMyjoin',seHelper.loginRequire,function (req,res,next) {
       	console.err(err.stack);
       	throw err;
       }
+      var tactions = actions;
+      actions.forEach(function (item,index) {
+        tactions[index] = item.toJSON();
+        if(item.create_date)
+          tactions[index].create_date = item.create_date.getTime();
+        if(item.start_date)
+          tactions[index].start_date = item.start_date.getTime();
+        if(item.end_date)
+          tactions[index].end_date = item.end_date.getTime();
+        if(item.edit_date)
+          tactions[index].edit_date = item.edit_date.getTime();
+      });
       return res.json({status:0,actions:actions});
     });
   });
@@ -486,6 +533,8 @@ router.get('/starUp/:aid',function (req,res,next) {
     return res.json({status:-1,message:'invalid aid'});
   }
   Action.updateStar(+1,aid,function (err) {
+    console.log('point');
+
     if(err){
     	console.err(err.stack);
     	throw err;
@@ -505,11 +554,38 @@ router.get('/starDown/:aid',function (req,res,next) {
     return res.json({status:-1,message:'invalid aid'});
   }
   Action.updateStar(-1,aid,function (err) {
+
     if(err){
     	console.err(err.stack);
     	throw err;
     }
     res.json({status:0,message:'success'});
+  });
+
+});
+
+/**
+ * 签到
+ * @method /signMark/:aid
+ * @param {number} x
+ * @param {number} y
+ */
+router.get('/signMark/:aid',function (req,res,next) {
+  var aid = xss(_.trim(req.params.aid));
+  if(!aid || aid.length !== 24){
+    return res.json({status:-1,message:'invalid aid'});
+  }
+  var x = validator.isNumeric(req.query.x)?Number(req.query.x):exit('invalid x position');
+  var y = validator.isNumeric(req.query.y)?Number(req.query.y):exit('invalid y position');
+  function exit(msg){
+    return res.json({status:-1,message:msg});
+  }
+  Action.updateForkByAid(aid,req.session.user._id,{sign_mark:true},function (err,results) {
+      if(err){
+      	console.err(err.stack);
+      	throw err;
+      }
+      res.json({status:0,message:'success'});
   });
 
 });

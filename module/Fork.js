@@ -16,6 +16,8 @@ var Fork = new Schema({
   user_id: ObjectId,
   // 活动创建者ID
   fork_from:ObjectId,
+  //签到
+  sign_mark:{type:Boolean,default:false},
 });
 
 //{action_id,user_id,{unique :  true}}

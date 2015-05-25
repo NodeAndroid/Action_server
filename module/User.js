@@ -33,7 +33,9 @@
   //  用户好友 已废弃
    friends:{},
   //  用户角色ID 已废弃
-   role_id:{type:ObjectId}
+   role_id:{type:ObjectId},
+  // 用户头像
+   avatar:{type:String,default:''},
  });
 
  User.index({loginname:1});

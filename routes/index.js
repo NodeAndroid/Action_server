@@ -19,7 +19,20 @@ var Action = require('../proxy').Action;
 router.get('/', function(req, res) {
  // res.render('index', { title: 'Express' });
   Action.getActions(function (actions) {
-    res.json({time:new Date(),actions:actions});
+    var tactions = actions;
+    actions.forEach(function (item,index) {
+      tactions[index] = item.toJSON();
+      if(item.create_date)
+        tactions[index].create_date = item.create_date.getTime();
+      if(item.start_date)
+        tactions[index].start_date = item.start_date.getTime();
+      if(item.end_date)
+        tactions[index].end_date = item.end_date.getTime();
+      if(item.edit_date)
+        tactions[index].edit_date = item.edit_date.getTime();
+    });
+    // console.log(tactions);
+    res.json({time:new Date(),actions:tactions});
   });
 });
 
