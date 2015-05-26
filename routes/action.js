@@ -535,7 +535,7 @@ router.post('/uploadImg',seHelper.loginRequire,function (req,res,next) {
  *
  * @method /starUp/:aid
  */
-router.get('/starUp/:aid',function (req,res,next) {
+router.get('/starUp/:aid',seHelper.loginRequire,function (req,res,next) {
   var aid = xss(_.trim(req.params.aid));
   if(!aid || aid.length !== 24){
     return res.json({status:-1,message:'invalid aid'});
@@ -556,7 +556,7 @@ router.get('/starUp/:aid',function (req,res,next) {
  *
  * @method /starDown
  */
-router.get('/starDown/:aid',function (req,res,next) {
+router.get('/starDown/:aid',seHelper.loginRequire,function (req,res,next) {
   var aid = xss(_.trim(req.params.aid));
   if(!aid || aid.length !== 24){
     return res.json({status:-1,message:'invalid aid'});
@@ -578,7 +578,7 @@ router.get('/starDown/:aid',function (req,res,next) {
  * @param {number} x
  * @param {number} y
  */
-router.get('/signMark/:aid',function (req,res,next) {
+router.get('/signMark/:aid',seHelper.loginRequire,function (req,res,next) {
   var aid = xss(_.trim(req.params.aid));
   if(!aid || aid.length !== 24){
     return res.json({status:-1,message:'invalid aid'});
@@ -596,6 +596,11 @@ router.get('/signMark/:aid',function (req,res,next) {
       res.json({status:0,message:'success'});
   });
 
+});
+
+router.get('/checkIn',seHelper.loginRequire,function (req,res,next) {
+  var uid = req.session.user._id;
+  var x_position = validator.isFloat(req.query.x)?Number(req.query.x):exit();
 });
 
 module.exports = router;

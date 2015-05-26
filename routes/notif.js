@@ -6,6 +6,7 @@ var Notification = require('../proxy/notification');
 var seHelper = require('../middleware/session');
 var async = require('async');
 var User = require('../proxy/user');
+var Action = require('../proxy/action');
 /**
  * 通知推送有关的API
  * @class notif-router
@@ -46,14 +47,19 @@ router.get('/',seHelper.loginRequire,function (req,res,next) {
       var fid = item.send_from;
       // var tid = item.send_to;
       User.getUserById(fid,function (err,fuser) {
-        cb(null,fuser);
+        Action.getActionById(aid,function (err,action) {
+          cb(null,[fuser,action]);
+        });
       });
-    },function (err,users) {
+    },function (err,aresults) {
       // console.log(results);
-      users.forEach(function(item,index){
-        // console.log(results[index]);
+      aresults.forEach(function(item,index){
+        // console.log(item);
         results[index] = results[index].toJSON();
-        results[index].send_from_name = item.loginname;
+        if(item[0])
+          results[index].send_from_name = item[0].loginname;
+        if(item[1])
+          results[index].action_name = item[1].name;
       });
       res.json({status:status,message:results});
     });
@@ -84,16 +90,21 @@ router.get('/history',seHelper.loginRequire,function (req,res,next) {
     // console.log();
     async.map(results,function (item,cb) {
       var fid = item.send_from;
-      // var tid = item.send_to;
+      var aid = item.action_id;
       User.getUserById(fid,function (err,fuser) {
-        cb(null,fuser);
+        Action.getActionById(aid,function (err,action) {
+          cb(null,[fuser,action]);
+        });
       });
-    },function (err,users) {
-      console.log(results);
-      users.forEach(function(item,index){
-        console.log(results[index]);
+    },function (err,aresults) {
+      // console.log(results);
+      aresults.forEach(function(item,index){
+        // console.log(item);
         results[index] = results[index].toJSON();
-        results[index].send_from_name = item.loginname;
+        if(item[0])
+          results[index].send_from_name = item[0].loginname;
+        if(item[1])
+          results[index].action_name = item[1].name;
       });
       res.json({status:0,message:results});
     });
