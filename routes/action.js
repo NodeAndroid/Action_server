@@ -291,11 +291,11 @@ router.get('/pull/:aid',seHelper .loginRequire,function(req,res,next){
       // });
         if(action.create_date)
           tactions.create_date = action.create_date.getTime();
-        if(item.start_date)
+        if(action.start_date)
           tactions.start_date = action.start_date.getTime();
-        if(item.end_date)
+        if(action.end_date)
           tactions.end_date = action.end_date.getTime();
-        if(item.edit_date)
+        if(action.edit_date)
           tactions.edit_date = action.edit_date.getTime();
       return res.json({status:0,message:tactions,fork:fork});
 
