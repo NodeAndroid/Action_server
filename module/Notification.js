@@ -14,6 +14,7 @@
   send_to:[ObjectId],
   hasRead:{type:Boolean,default:false},
   prority:{type:Number,default:0},
+  action_id:{type:ObjectId},
  });
 
  Notification.index({create_at:-1});

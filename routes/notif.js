@@ -44,16 +44,19 @@ router.get('/',seHelper.loginRequire,function (req,res,next) {
     }
     async.map(results,function (item,cb) {
       var fid = item.send_from;
-      var tid = item.send_to;
+      // var tid = item.send_to;
       User.getUserById(fid,function (err,fuser) {
-        User.getUserById(tid,function (err,tuser) {
-          cb(null,[fuser,tuser]);
-        });
+        cb(null,fuser);
       });
-    },function (err,results) {
-
+    },function (err,users) {
+      // console.log(results);
+      users.forEach(function(item,index){
+        // console.log(results[index]);
+        results[index] = results[index].toJSON();
+        results[index].send_from_name = item.loginname;
+      });
+      res.json({status:status,message:results});
     });
-    res.json({status:status,message:results});
     var ids = results.reduce(function (pre,cur) {
       pre.push(cur._id);
       return pre;
@@ -79,7 +82,21 @@ router.get('/history',seHelper.loginRequire,function (req,res,next) {
       throw err;
     }
     // console.log();
-    res.json({status:0,message:results});
+    async.map(results,function (item,cb) {
+      var fid = item.send_from;
+      // var tid = item.send_to;
+      User.getUserById(fid,function (err,fuser) {
+        cb(null,fuser);
+      });
+    },function (err,users) {
+      console.log(results);
+      users.forEach(function(item,index){
+        console.log(results[index]);
+        results[index] = results[index].toJSON();
+        results[index].send_from_name = item.loginname;
+      });
+      res.json({status:0,message:results});
+    });
   });
 });
 

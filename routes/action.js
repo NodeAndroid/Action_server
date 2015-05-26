@@ -214,7 +214,7 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
         	throw err;
         }
         var toid = action.creator;
-        Notification.addOne('有一个新用户参加了您的活动',pjson.user_id,toid,pjson.user_id,0);
+        Notification.addOne('有一个新用户参加了您的活动',pjson.user_id,toid,pjson.user_id,aid,0);
       });
     });
 });
@@ -239,7 +239,7 @@ router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
     	console.err(err.stack);
     	throw err;
     }
-    Notification.addOne('有一个新用户退出了您的活动',pjson.user_id,toid,pjson.user_id,0);
+    Notification.addOne('有一个新用户退出了您的活动',pjson.user_id,toid,pjson.user_id,aid,0);
     res.json({status: 0,message: 'done'});
   });
   // if(err){

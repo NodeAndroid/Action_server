@@ -15,13 +15,13 @@ var Notification =require('../module').Notification;
  * @param {number} prority 优先级
  * @param {function} callback 回调函数
  */
-exports.addOne = function (content,from,to,creator,prority,callback) {
+exports.addOne = function (content,from,to,creator,aid,prority,callback) {
   console.log(to);
   if(!(to instanceof Array)){
     console.log('point');
     to = [to,];
   }
-  var notification = new Notification({content:content,send_from:from,send_to:to,prority:prority,});
+  var notification = new Notification({content:content,send_from:from,send_to:to,action_id:aid,prority:prority,});
   console.log('save one notification ',content,to);
   notification.save(callback);
 };
