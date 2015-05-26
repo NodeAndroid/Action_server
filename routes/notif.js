@@ -4,7 +4,8 @@ var router = express.Router();
 var validator = require('validator');
 var Notification = require('../proxy/notification');
 var seHelper = require('../middleware/session');
-
+var async = require('async');
+var User = require('../proxy/user');
 /**
  * 通知推送有关的API
  * @class notif-router
@@ -41,6 +42,17 @@ router.get('/',seHelper.loginRequire,function (req,res,next) {
     if(results.length === 0){
       status = 1;
     }
+    async.map(results,function (item,cb) {
+      var fid = item.send_from;
+      var tid = item.send_to;
+      User.getUserById(fid,function (err,fuser) {
+        User.getUserById(tid,function (err,tuser) {
+          cb(null,[fuser,tuser]);
+        });
+      });
+    },function (err,results) {
+
+    });
     res.json({status:status,message:results});
     var ids = results.reduce(function (pre,cur) {
       pre.push(cur._id);

@@ -207,15 +207,15 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
         }
       }
       res.json({status:0,message:'success'});
-    });
-    //增加通知
-    Action.getActionById(aid,function (err,action) {
-      if(err){
-      	console.err(err.stack);
-      	throw err;
-      }
-      var toid = action.creator;
-      Notification.addOne('有一个新用户参加了您的活动',pjson.user_id,toid,pjson.user_id,0);
+      //增加通知
+      Action.getActionById(aid,function (err,action) {
+        if(err){
+        	console.err(err.stack);
+        	throw err;
+        }
+        var toid = action.creator;
+        Notification.addOne('有一个新用户参加了您的活动',pjson.user_id,toid,pjson.user_id,0);
+      });
     });
 });
 
