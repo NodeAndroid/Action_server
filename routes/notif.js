@@ -37,12 +37,16 @@ router.get('/',seHelper.loginRequire,function (req,res,next) {
     	throw err;
     }
     // console.log();
-    res.json({status:0,message:results});
+    var status = 0;
+    if(results.length === 0){
+      status = 1;
+    }
+    res.json({status:status,message:results});
     var ids = results.reduce(function (pre,cur) {
       pre.push(cur._id);
       return pre;
     },[]);
-    console.log(ids);
+    // console.log(ids);
     Notification.hasRead(ids,function (err,results) {
       console.log(results);
     });
