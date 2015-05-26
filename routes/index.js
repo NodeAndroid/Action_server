@@ -47,7 +47,7 @@ router.get('/', function(req, res) {
  * 		http.get(SERVER_URL,{skip:10}) //假设原本已经显示了10条，跳过之前的10条获取之后的action
  */
 router.get('/more',function (req,res,next) {
-  var skip = req.params.skip?req.params.skip:0;
+  var skip = req.query.skip?req.query.skip:0;
   skip = validator.isNumeric(skip)?Number(skip):0;
   Action.getActions(skip,function (actions) {
     res.json({time:new Date(),actions:actions});
