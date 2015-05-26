@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>type-router</title>
+    <title>Notification</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -13,7 +13,7 @@
 <div id="doc">
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
-            <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">undefined: type-router</a></h1>
+            <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">undefined: Notification</a></h1>
         </div>
         <div class="yui3-u-1-4 version">
             <em>API Docs for: </em>
@@ -74,8 +74,10 @@
                 </div>
                 <div class="bd">
                     <ul>
-                            <li><a href="#methods_/pull">/pull</a></li>
-                            <li><a href="#methods_/push">/push</a></li>
+                            <li><a href="#methods_addOne">addOne</a></li>
+                            <li><a href="#methods_getAllByToUid">getAllByToUid</a></li>
+                            <li><a href="#methods_getByToUid">getByToUid</a></li>
+                            <li><a href="#methods_hasRead">hasRead</a></li>
                     </ul>
                 </div>
             </div>
@@ -95,9 +97,9 @@
         </div>
 
         <div id="main" class="yui3-u">
-            <div class="content"><h4>Class type-router</h4>
-<span class="foundat">Class defined in: <a href="../files/routes_type.js.html#l7"><code>routes\type.js:7</code></a></span>
-<div class="intro"><p>活动类型相关的操作</p>
+            <div class="content"><h4>Class Notification</h4>
+<span class="foundat">Class defined in: <a href="../files/proxy_notification.js.html#l3"><code>proxy\notification.js:3</code></a></span>
+<div class="intro"><p>推送API</p>
 </div>
 
 
@@ -107,53 +109,123 @@
     </ul>
     <div>
             <div id="methods">
-<a name="methods_/pull"></a>
+<a name="methods_addOne"></a>
 <div class="method item">
-    Json <strong class="name"><code>&#x2F;pull</code></strong>( <code>  </code> ) 
+     <strong class="name"><code>addOne</code></strong>( <code>content, from, to, prority, callback </code> ) 
     <br>
     <span class="foundat">
         
-        <a href="../files/routes_type.js.html#l12"><code>routes\type.js:12</code></a>
+        <a href="../files/proxy_notification.js.html#l9"><code>proxy\notification.js:9</code></a>
     </span><br>
-    <p>获取所有类型</p>
-
-    <br><div class="returns"><strong>Returns:</strong> &lt;Json&gt; <p>{message 类型数组,status 0 为成功,否则出错}</p>
-</div>
-        <h5>Example</h5>
-        <p>message 是type的一个数组,没想type是一个对象,有这些属性
-type:{type:String},类型名称,必选
-type_id:{type:Number}, 类型ID,可自由设置编号,必选
-creator: ObjectId, 创建者ID,可选</p>
-
-</div>
-<a name="methods_/push"></a>
-<div class="method item">
-    Json <strong class="name"><code>&#x2F;push</code></strong>( <code>type, type_id, @optional </code> ) 
-    <br>
-    <span class="foundat">
-        
-        <a href="../files/routes_type.js.html#l32"><code>routes\type.js:32</code></a>
-    </span><br>
-    <p>新增一个type,此API为私有,只有管理员可以使用</p>
+    <p>增加一条推送</p>
 
     <strong>Parameters:</strong>
     <ul class="params">
         <li>
-            <code>type</code> <strong>&lt;String&gt;</strong>
-         
+            <code>content</code> <strong>&lt;String&gt;</strong>
+        <p>推送的内容</p>
+
         </li>
         <li>
-            <code>type_id</code> <strong>&lt;Number&gt;</strong>
-         
+            <code>from</code> <strong>&lt;Objectid&gt;</strong>
+        <p>推送的创建者</p>
+
         </li>
         <li>
-            <code>@optional</code> <strong>&lt;Object&gt;</strong>
-        <p>creator</p>
+            <code>to</code> <strong>&lt;Array&gt;</strong>
+        <p>通送给的人，数组内容是ObjectId</p>
+
+        </li>
+        <li>
+            <code>prority</code> <strong>&lt;Number&gt;</strong>
+        <p>优先级</p>
+
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+        <p>回调函数</p>
 
         </li>
     </ul>
-    <br><div class="returns"><strong>Returns:</strong> &lt;Json&gt; <p>status为 0 成功插入,-1 发生错误,1 已存在该type</p>
 </div>
+<a name="methods_getAllByToUid"></a>
+<div class="method item">
+     <strong class="name"><code>getAllByToUid</code></strong>( <code>uid, size, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_notification.js.html#l53"><code>proxy\notification.js:53</code></a>
+    </span><br>
+    <p>根据to字段中的用户id获取所有信息</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>uid</code> <strong>&lt;Objecid&gt;</strong>
+        <p>用户uid</p>
+
+        </li>
+        <li>
+            <code>size</code> <strong>&lt;Number&gt;</strong>
+        <p>获取多少条目</p>
+
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Fucntion&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_getByToUid"></a>
+<div class="method item">
+     <strong class="name"><code>getByToUid</code></strong>( <code>uid, size, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_notification.js.html#l40"><code>proxy\notification.js:40</code></a>
+    </span><br>
+    <p>根据to字段中的用户id获取推送信息</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>uid</code> <strong>&lt;Objecid&gt;</strong>
+        <p>用户uid</p>
+
+        </li>
+        <li>
+            <code>size</code> <strong>&lt;Number&gt;</strong>
+        <p>获取多少条目</p>
+
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Fucntion&gt;</strong>
+         
+        </li>
+    </ul>
+</div>
+<a name="methods_hasRead"></a>
+<div class="method item">
+     <strong class="name"><code>hasRead</code></strong>( <code>nid, callback </code> ) 
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/proxy_notification.js.html#l30"><code>proxy\notification.js:30</code></a>
+    </span><br>
+    <p>将某条推送标记为已读</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>nid</code> <strong>&lt;Objectid&gt;</strong>
+        <p>该推送的_id</p>
+
+        </li>
+        <li>
+            <code>callback</code> <strong>&lt;Function&gt;</strong>
+         
+        </li>
+    </ul>
 </div>
             </div>
     </div>

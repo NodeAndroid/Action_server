@@ -277,18 +277,26 @@ router.get('/pull/:aid',seHelper .loginRequire,function(req,res,next){
         fork = true;
       }
 
-      var tactions = results;
-      results.forEach(function (item,index) {
-        tactions[index] = item.toJSON();
-        if(item.create_date)
-          tactions[index].create_date = item.create_date.getTime();
+      var tactions = action.toJSON();
+      // results.forEach(function (item,index) {
+      //   tactions[index] = item.toJSON();
+      //   if(item.create_date)
+      //     tactions[index].create_date = item.create_date.getTime();
+      //   if(item.start_date)
+      //     tactions[index].start_date = item.start_date.getTime();
+      //   if(item.end_date)
+      //     tactions[index].end_date = item.end_date.getTime();
+      //   if(item.edit_date)
+      //     tactions[index].edit_date = item.edit_date.getTime();
+      // });
+        if(action.create_date)
+          tactions.create_date = action.create_date.getTime();
         if(item.start_date)
-          tactions[index].start_date = item.start_date.getTime();
+          tactions.start_date = action.start_date.getTime();
         if(item.end_date)
-          tactions[index].end_date = item.end_date.getTime();
+          tactions.end_date = action.end_date.getTime();
         if(item.edit_date)
-          tactions[index].edit_date = item.edit_date.getTime();
-      });
+          tactions.edit_date = action.edit_date.getTime();
       return res.json({status:0,message:tactions,fork:fork});
 
     });
@@ -525,7 +533,7 @@ router.post('/uploadImg',seHelper.loginRequire,function (req,res,next) {
 /**
  * 	赞一个action
  *
- * @method /starUp
+ * @method /starUp/:aid
  */
 router.get('/starUp/:aid',function (req,res,next) {
   var aid = xss(_.trim(req.params.aid));
@@ -533,7 +541,7 @@ router.get('/starUp/:aid',function (req,res,next) {
     return res.json({status:-1,message:'invalid aid'});
   }
   Action.updateStar(+1,aid,function (err) {
-    console.log('point');
+    // console.log('point');
 
     if(err){
     	console.err(err.stack);

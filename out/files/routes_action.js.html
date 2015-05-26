@@ -57,6 +57,8 @@
                             <li><a href="../classes/action-proxy.html">action-proxy</a></li>
                             <li><a href="../classes/action-router.html">action-router</a></li>
                             <li><a href="../classes/index-router.html">index-router</a></li>
+                            <li><a href="../classes/notif-router.html">notif-router</a></li>
+                            <li><a href="../classes/Notification.html">Notification</a></li>
                             <li><a href="../classes/Search.html">Search</a></li>
                             <li><a href="../classes/type-proxy.html">type-proxy</a></li>
                             <li><a href="../classes/type-router.html">type-router</a></li>
@@ -75,7 +77,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>app.js/<ul></ul></li><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
+                    <ul><li>app.js/<ul></ul></li><li>module\Action.js/<ul></ul></li><li>module\Article.js/<ul></ul></li><li>module\Attend.js/<ul></ul></li><li>module\Fork.js/<ul></ul></li><li>module\Notification.js/<ul></ul></li><li>module\Role.js/<ul></ul></li><li>module\Type.js/<ul></ul></li><li>module\User.js/<ul></ul></li><li>module\friend.js/<ul></ul></li><li>module\index.js/<ul></ul></li><li>proxy\action.js/<ul></ul></li><li>proxy\notification.js/<ul></ul></li><li>proxy\type.js/<ul></ul></li><li>proxy\user.js/<ul></ul></li><li>routes\action.js/<ul></ul></li><li>routes\index.js/<ul></ul></li><li>routes\notif.js/<ul></ul></li><li>routes\search.js/<ul></ul></li><li>routes\type.js/<ul></ul></li><li>routes\users.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -96,6 +98,7 @@ var xss = require(&#x27;xss&#x27;);
 var busboy = require(&#x27;busboy&#x27;);
 var path = require(&#x27;path&#x27;);
 var fs = require(&#x27;fs&#x27;);
+var Notification = require(&#x27;../proxy/notification&#x27;);
 /**
  * action操作的一些API  path-prefix &#x27;/action&#x27;
  * @class action-router
@@ -155,10 +158,16 @@ router.post(&#x27;/new&#x27;,seHelper.loginRequire,function (req,res,next) {
   var pjson ={};
   pjson.name = body.name?_.trim(body.name):&#x27;&#x27;;
   var date = new Date();
-  console.log(body);
-  pjson.start_date = validator.isDate(body.start_date)?Date(body.start_date):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
-  pjson.end_date = validator.isDate(body.end_date)?Date(body.end_date):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
+  console.log(new Date(Number(body.start_date)));
+  console.log(validator.isDate(new Date(Number(body.start_date))));
+  pjson.start_date = validator.isDate(new Date(Number(body.start_date)))?new Date(Number(body.start_date)):new Date(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds());
+  pjson.end_date = validator.isDate(new Date(Number(body.end_date)))?new Date(Number(body.end_date)):new Date(date.getFullYear(),date.getMonth(),date.getDate()+1,date.getHours(),date.getMinutes(),date.getSeconds());
+  // pjson.start_date = validator.is(new Date(body.start_date);
+  // pjson.end_date = new Date(body.end_date);
+  // console.log(body.start_date,body.end_date);
+
   pjson.desc = body.desc?_.trim(body.desc):&#x27;&#x27;;
+  // console.log(new Date(1432475010032));
   pjson.addr_name = body.addr_name?_.trim(body.addr_name):&#x27;&#x27;;
   pjson.addr_position_x = validator.isFloat(body.addr_position_x)?Number(body.addr_position_x):-1;
   pjson.addr_position_y = validator.isFloat(body.addr_position_y)?Number(body.addr_position_y):-1;
@@ -288,7 +297,15 @@ router.get(&#x27;/fork/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
       }
       res.json({status:0,message:&#x27;success&#x27;});
     });
-
+    //增加通知
+    Action.getActionById(aid,function (err,action) {
+      if(err){
+      	console.err(err.stack);
+      	throw err;
+      }
+      var toid = action.creator;
+      Notification.addOne(&#x27;有一个新用户参加了您的活动&#x27;,pjson.user_id,toid,pjson.user_id,0);
+    });
 });
 
 
@@ -311,7 +328,8 @@ router.get(&#x27;/exit/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
     	console.err(err.stack);
     	throw err;
     }
-    return res.json({status: 0,message: &#x27;done&#x27;});
+    Notification.addOne(&#x27;有一个新用户退出了您的活动&#x27;,pjson.user_id,toid,pjson.user_id,0);
+    res.json({status: 0,message: &#x27;done&#x27;});
   });
   // if(err){
   //   console.log(err.stack);
@@ -326,9 +344,9 @@ router.get(&#x27;/exit/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
  * 获取一个action的资料
  * @method /pull/:aid
  * @param {string} aid action的ObjectId
- * @return {json} status 0 成功，否则失败, action\{status,action\}
+ * @return {json} status 0 成功，否则失败, message action的具体资料, fork 是否已参加
  */
-router.get(&#x27;/pull/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
+router.get(&#x27;/pull/:aid&#x27;,seHelper .loginRequire,function(req,res,next){
   var aid = req.params.aid?_.trim(req.params.aid):&#x27;&#x27;;
   aid=xss(aid);
   if(!aid || aid.length !== 24){
@@ -339,8 +357,30 @@ router.get(&#x27;/pull/:aid&#x27;,seHelper.loginRequire,function(req,res,next){
         console.log(err.stack);
         res.json({status:-1,message:&#x27;server error&#x27;});
         throw err;
+    }
+    Action.getForkByUidAndAid(req.session.user._id,action._id,function (err,results) {
+      var fork = false;
+      if(results.length === 0){
+        fork = false;
+      }else{
+        fork = true;
       }
-      return res.json({status:0,message:action});
+
+      var tactions = results;
+      results.forEach(function (item,index) {
+        tactions[index] = item.toJSON();
+        if(item.create_date)
+          tactions[index].create_date = item.create_date.getTime();
+        if(item.start_date)
+          tactions[index].start_date = item.start_date.getTime();
+        if(item.end_date)
+          tactions[index].end_date = item.end_date.getTime();
+        if(item.edit_date)
+          tactions[index].edit_date = item.edit_date.getTime();
+      });
+      return res.json({status:0,message:tactions,fork:fork});
+
+    });
   });
 });
 
@@ -379,12 +419,14 @@ router.post(&#x27;/push/:aid&#x27;,seHelper.loginRequire,function(res,req,next){
   if(body.name &amp;&amp; _.trim(body.name) !== &#x27;&#x27;){
     pjson.name = _.trim(body.name);
   }
-  if(body.start_date &amp;&amp; validator.isDate(body.start_date)){
-    pjson.start_date = new Date(body.start_date);
-  }
-  if(body.end_date &amp;&amp; validator.isDate(body.end_date)){
-    pjson.end_date = new Date(body.end_date);
-  }
+  // if(body.start_date &amp;&amp; validator.isDate(body.start_date)){
+  //   pjson.start_date = new Date(body.start_date);
+  // }
+  // if(body.end_date &amp;&amp; validator.isDate(body.end_date)){
+  //   pjson.end_date = new Date(body.end_date);
+  // }
+  pjson.start_date = new Date(Number(body.start_date));
+  pjson.end_date = new Date(Number(body.end_date));
   if(body.desc &amp;&amp; _.trim(body.desc) !== &#x27;&#x27;){
     pjson.desc = _.trim(body.desc);
   }
@@ -436,7 +478,19 @@ router.get(&#x27;/listAllofMy&#x27;,seHelper.loginRequire,function (req,res,next
     	console.err(err.stack);
     	throw err;
     }
-    return res.json({status:0,actions:actions});
+    var tactions = actions;
+    actions.forEach(function (item,index) {
+      tactions[index] = item.toJSON();
+      if(item.create_date)
+        tactions[index].create_date = item.create_date.getTime();
+      if(item.start_date)
+        tactions[index].start_date = item.start_date.getTime();
+      if(item.end_date)
+        tactions[index].end_date = item.end_date.getTime();
+      if(item.edit_date)
+        tactions[index].edit_date = item.edit_date.getTime();
+    });
+    return res.json({status:0,actions:tactions});
   });
 });
 
@@ -469,6 +523,18 @@ router.get(&#x27;/listAllMyjoin&#x27;,seHelper.loginRequire,function (req,res,ne
       	console.err(err.stack);
       	throw err;
       }
+      var tactions = actions;
+      actions.forEach(function (item,index) {
+        tactions[index] = item.toJSON();
+        if(item.create_date)
+          tactions[index].create_date = item.create_date.getTime();
+        if(item.start_date)
+          tactions[index].start_date = item.start_date.getTime();
+        if(item.end_date)
+          tactions[index].end_date = item.end_date.getTime();
+        if(item.edit_date)
+          tactions[index].edit_date = item.edit_date.getTime();
+      });
       return res.json({status:0,actions:actions});
     });
   });
@@ -556,6 +622,8 @@ router.get(&#x27;/starUp/:aid&#x27;,function (req,res,next) {
     return res.json({status:-1,message:&#x27;invalid aid&#x27;});
   }
   Action.updateStar(+1,aid,function (err) {
+    console.log(&#x27;point&#x27;);
+
     if(err){
     	console.err(err.stack);
     	throw err;
@@ -575,11 +643,38 @@ router.get(&#x27;/starDown/:aid&#x27;,function (req,res,next) {
     return res.json({status:-1,message:&#x27;invalid aid&#x27;});
   }
   Action.updateStar(-1,aid,function (err) {
+
     if(err){
     	console.err(err.stack);
     	throw err;
     }
     res.json({status:0,message:&#x27;success&#x27;});
+  });
+
+});
+
+/**
+ * 签到
+ * @method /signMark/:aid
+ * @param {number} x
+ * @param {number} y
+ */
+router.get(&#x27;/signMark/:aid&#x27;,function (req,res,next) {
+  var aid = xss(_.trim(req.params.aid));
+  if(!aid || aid.length !== 24){
+    return res.json({status:-1,message:&#x27;invalid aid&#x27;});
+  }
+  var x = validator.isNumeric(req.query.x)?Number(req.query.x):exit(&#x27;invalid x position&#x27;);
+  var y = validator.isNumeric(req.query.y)?Number(req.query.y):exit(&#x27;invalid y position&#x27;);
+  function exit(msg){
+    return res.json({status:-1,message:msg});
+  }
+  Action.updateForkByAid(aid,req.session.user._id,{sign_mark:true},function (err,results) {
+      if(err){
+      	console.err(err.stack);
+      	throw err;
+      }
+      res.json({status:0,message:&#x27;success&#x27;});
   });
 
 });

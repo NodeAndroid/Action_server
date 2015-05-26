@@ -37,6 +37,13 @@
             "fors": {},
             "namespaces": {}
         },
+        "module\\Notification.js": {
+            "name": "module\\Notification.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "module\\Role.js": {
             "name": "module\\Role.js",
             "modules": {
@@ -89,6 +96,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "proxy\\notification.js": {
+            "name": "proxy\\notification.js",
+            "modules": {},
+            "classes": {
+                "Notification": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "proxy\\type.js": {
             "name": "proxy\\type.js",
             "modules": {},
@@ -121,6 +137,15 @@
             "modules": {},
             "classes": {
                 "index-router": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "routes\\notif.js": {
+            "name": "routes\\notif.js",
+            "modules": {},
+            "classes": {
+                "notif-router": 1
             },
             "fors": {},
             "namespaces": {}
@@ -201,6 +226,16 @@
             "file": "module\\Fork.js",
             "line": 7
         },
+        "User": {
+            "name": "User",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "module\\User.js",
+            "line": 9
+        },
         "Role": {
             "name": "Role",
             "submodules": {},
@@ -221,25 +256,17 @@
             "file": "module\\Type.js",
             "line": 7
         },
-        "User": {
-            "name": "User",
-            "submodules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "module\\User.js",
-            "line": 9
-        },
         "Friend": {
             "name": "Friend",
             "submodules": {},
             "classes": {
                 "action-proxy": 1,
+                "Notification": 1,
                 "type-proxy": 1,
                 "user-proxy": 1,
                 "action-router": 1,
                 "index-router": 1,
+                "notif-router": 1,
                 "Search": 1,
                 "type-router": 1,
                 "users-router": 1
@@ -266,6 +293,20 @@
             "line": 8,
             "description": "proxy - action.js",
             "exmaple": "//这里传入的回调函数的参数一律是\n\t\tcallback(err,results)\n\t\t//results是从mongodb中取得的结果集"
+        },
+        "Notification": {
+            "name": "Notification",
+            "shortname": "Notification",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Friend",
+            "namespace": "",
+            "file": "proxy\\notification.js",
+            "line": 3,
+            "description": "推送API"
         },
         "type-proxy": {
             "name": "type-proxy",
@@ -308,7 +349,7 @@
             "module": "Friend",
             "namespace": "",
             "file": "routes\\action.js",
-            "line": 12,
+            "line": 13,
             "description": "action操作的一些API  path-prefix '/action'"
         },
         "index-router": {
@@ -324,6 +365,20 @@
             "file": "routes\\index.js",
             "line": 7,
             "description": "主页的一些API  path-prefix '/'"
+        },
+        "notif-router": {
+            "name": "notif-router",
+            "shortname": "notif-router",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Friend",
+            "namespace": "",
+            "file": "routes\\notif.js",
+            "line": 8,
+            "description": "通知推送有关的API"
         },
         "Search": {
             "name": "Search",
@@ -680,7 +735,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 218,
+            "line": 226,
             "description": "根据删除一个fork，注意此方法会删除所有的匹配，不会只删除一个",
             "itemtype": "method",
             "name": "removeFork",
@@ -706,7 +761,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 230,
+            "line": 238,
             "description": "搜索action的标题",
             "itemtype": "method",
             "name": "searchActionByName",
@@ -715,7 +770,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 241,
+            "line": 249,
             "description": "搜索action的描述",
             "itemtype": "method",
             "name": "searchActionByName",
@@ -724,14 +779,14 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 252,
+            "line": 260,
             "description": "统计用户action的个数",
             "class": "action-proxy",
             "module": "Friend"
         },
         {
             "file": "proxy\\action.js",
-            "line": 259,
+            "line": 267,
             "description": "获取用户的fork数目",
             "itemtype": "method",
             "name": "countForkById",
@@ -752,7 +807,7 @@
         },
         {
             "file": "proxy\\action.js",
-            "line": 269,
+            "line": 277,
             "description": "改变赞数",
             "itemtype": "method",
             "name": "updateStar",
@@ -774,6 +829,115 @@
                 }
             ],
             "class": "action-proxy",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\notification.js",
+            "line": 9,
+            "description": "增加一条推送",
+            "itemtype": "method",
+            "name": "addOne",
+            "params": [
+                {
+                    "name": "content",
+                    "description": "推送的内容",
+                    "type": "String"
+                },
+                {
+                    "name": "from",
+                    "description": "推送的创建者",
+                    "type": "Objectid"
+                },
+                {
+                    "name": "to",
+                    "description": "通送给的人，数组内容是ObjectId",
+                    "type": "Array"
+                },
+                {
+                    "name": "prority",
+                    "description": "优先级",
+                    "type": "Number"
+                },
+                {
+                    "name": "callback",
+                    "description": "回调函数",
+                    "type": "Function"
+                }
+            ],
+            "class": "Notification",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\notification.js",
+            "line": 30,
+            "description": "将某条推送标记为已读",
+            "itemtype": "method",
+            "name": "hasRead",
+            "params": [
+                {
+                    "name": "nid",
+                    "description": "该推送的_id",
+                    "type": "Objectid"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "Notification",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\notification.js",
+            "line": 40,
+            "description": "根据to字段中的用户id获取推送信息",
+            "itemtype": "method",
+            "name": "getByToUid",
+            "params": [
+                {
+                    "name": "uid",
+                    "description": "用户uid",
+                    "type": "Objecid"
+                },
+                {
+                    "name": "size",
+                    "description": "获取多少条目",
+                    "type": "Number"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Fucntion"
+                }
+            ],
+            "class": "Notification",
+            "module": "Friend"
+        },
+        {
+            "file": "proxy\\notification.js",
+            "line": 53,
+            "description": "根据to字段中的用户id获取所有信息",
+            "itemtype": "method",
+            "name": "getAllByToUid",
+            "params": [
+                {
+                    "name": "uid",
+                    "description": "用户uid",
+                    "type": "Objecid"
+                },
+                {
+                    "name": "size",
+                    "description": "获取多少条目",
+                    "type": "Number"
+                },
+                {
+                    "name": "callback",
+                    "description": "",
+                    "type": "Fucntion"
+                }
+            ],
+            "class": "Notification",
             "module": "Friend"
         },
         {
@@ -973,7 +1137,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 17,
+            "line": 18,
             "description": "新建一个action",
             "itemtype": "method",
             "name": "/new",
@@ -989,7 +1153,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 114,
+            "line": 121,
             "description": "删除一个action",
             "itemtype": "method",
             "name": "/delete/:aid",
@@ -1012,7 +1176,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 140,
+            "line": 147,
             "description": "激活一个action，默认新建之后是激活状态",
             "itemtype": "method",
             "name": "/active/:aid",
@@ -1032,7 +1196,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 171,
+            "line": 178,
             "description": "参加一个活动",
             "itemtype": "method",
             "name": "/fork/:aid",
@@ -1052,7 +1216,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 208,
+            "line": 223,
             "description": "退出一个action",
             "itemtype": "method",
             "name": "/exit/:aid",
@@ -1072,7 +1236,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 238,
+            "line": 254,
             "description": "获取一个action的资料",
             "itemtype": "method",
             "name": "/pull/:aid",
@@ -1084,7 +1248,7 @@
                 }
             ],
             "return": {
-                "description": "status 0 成功，否则失败, action\\{status,action\\}",
+                "description": "status 0 成功，否则失败, message action的具体资料, fork 是否已参加",
                 "type": "Json"
             },
             "class": "action-router",
@@ -1092,7 +1256,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 260,
+            "line": 298,
             "description": "修改一个action的资料，类似于/new 如果某个最短格式错误，那么这个字段不会被修改，注意格式错误不会导致报错，只是单纯的不会更新这个字段",
             "itemtype": "method",
             "name": "/push/:aid",
@@ -1112,7 +1276,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 338,
+            "line": 378,
             "description": "获取我新建的action列表",
             "itemtype": "method",
             "name": "/listAllofMy",
@@ -1131,7 +1295,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 356,
+            "line": 408,
             "description": "获取我参加的action列表",
             "itemtype": "method",
             "name": "/listAllMyjoin",
@@ -1150,7 +1314,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 391,
+            "line": 455,
             "description": "文件上传，仅支持['jpg', 'png', 'gif', 'jpeg', 'bmp', 'JPG', 'PNG', 'GIF', 'JPEG', 'BMP']",
             "itemtype": "method",
             "name": "/uploadImg",
@@ -1163,7 +1327,7 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 461,
+            "line": 525,
             "description": "赞一个action",
             "itemtype": "method",
             "name": "/starUp",
@@ -1172,10 +1336,31 @@
         },
         {
             "file": "routes\\action.js",
-            "line": 480,
+            "line": 546,
             "description": "踩一个action",
             "itemtype": "method",
             "name": "/starDown",
+            "class": "action-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\action.js",
+            "line": 567,
+            "description": "签到",
+            "itemtype": "method",
+            "name": "/signMark/:aid",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
             "class": "action-router",
             "module": "Friend"
         },
@@ -1194,7 +1379,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 27,
+            "line": 40,
             "description": "获取最新的活动10条，但是跳过之前的条数",
             "itemtype": "method",
             "name": "/more",
@@ -1217,7 +1402,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 44,
+            "line": 57,
             "description": "判断是否已经有更新的action条目,返回status = -1说明已经需要更新,status=1说明不需要更新",
             "itemtype": "method",
             "name": "/isTimeout",
@@ -1240,7 +1425,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 71,
+            "line": 84,
             "description": "NOTE:过期API",
             "depracated": "",
             "class": "index-router",
@@ -1248,7 +1433,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 80,
+            "line": 93,
             "description": "NOTE:过期API",
             "depracated": "",
             "class": "index-router",
@@ -1256,7 +1441,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 97,
+            "line": 110,
             "description": "NOTE:过期API",
             "depracated": "",
             "class": "index-router",
@@ -1264,7 +1449,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 113,
+            "line": 126,
             "description": "NOTE:过期API",
             "depracated": "",
             "class": "index-router",
@@ -1272,7 +1457,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 124,
+            "line": 137,
             "description": "NOTE:过期API",
             "depracated": "",
             "class": "index-router",
@@ -1280,7 +1465,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 134,
+            "line": 147,
             "description": "NOTE:过期API",
             "depracated": "",
             "class": "index-router",
@@ -1288,7 +1473,7 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 144,
+            "line": 157,
             "description": "NOTE:过期API",
             "depracated": "",
             "class": "index-router",
@@ -1296,10 +1481,42 @@
         },
         {
             "file": "routes\\index.js",
-            "line": 155,
+            "line": 168,
             "description": "NOTE:过期API",
             "depracated": "",
             "class": "index-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\notif.js",
+            "line": 13,
+            "description": "得到未读通知",
+            "itemtype": "method",
+            "name": "/",
+            "params": [
+                {
+                    "name": "size",
+                    "description": "获取的数目，如果请求中没有这个字段，默认是五条。",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "status 0 代表成功，非零错误，message,消息数组",
+                "type": "Json"
+            },
+            "example": [
+                "\n\t\t{\n\t\t\t  content:{type:String,default:''},\n       create_at:{type:Date,default:Date.now},\n       send_from:{type:ObjectId},\n       send_to:{type:Array},\n       hasRead:{type:Boolean,default:false},\n   }"
+            ],
+            "class": "notif-router",
+            "module": "Friend"
+        },
+        {
+            "file": "routes\\notif.js",
+            "line": 53,
+            "description": "获取历史所有通知",
+            "itemtype": "method",
+            "name": "/history",
+            "class": "notif-router",
             "module": "Friend"
         },
         {
@@ -1490,7 +1707,7 @@
         },
         {
             "file": "routes\\users.js",
-            "line": 185,
+            "line": 186,
             "description": "获取其他用户的账号信息",
             "itemtype": "method",
             "name": "/profile/:uid",
@@ -1510,7 +1727,7 @@
         },
         {
             "file": "app.js",
-            "line": 82,
+            "line": 83,
             "description": "teswtestest中文",
             "class": "",
             "module": "Friend"
@@ -1543,35 +1760,35 @@
         },
         {
             "message": "unknown tag: depracated",
-            "line": " routes\\index.js:71"
+            "line": " routes\\index.js:84"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " routes\\index.js:80"
+            "line": " routes\\index.js:93"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " routes\\index.js:97"
+            "line": " routes\\index.js:110"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " routes\\index.js:113"
+            "line": " routes\\index.js:126"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " routes\\index.js:124"
+            "line": " routes\\index.js:137"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " routes\\index.js:134"
+            "line": " routes\\index.js:147"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " routes\\index.js:144"
+            "line": " routes\\index.js:157"
         },
         {
             "message": "unknown tag: depracated",
-            "line": " routes\\index.js:155"
+            "line": " routes\\index.js:168"
         },
         {
             "message": "unknown tag: mothod",
@@ -1603,7 +1820,7 @@
         },
         {
             "message": "Missing item type\n统计用户action的个数",
-            "line": " proxy\\action.js:252"
+            "line": " proxy\\action.js:260"
         },
         {
             "message": "Missing item type",
@@ -1611,35 +1828,35 @@
         },
         {
             "message": "Missing item type\nNOTE:过期API",
-            "line": " routes\\index.js:71"
+            "line": " routes\\index.js:84"
         },
         {
             "message": "Missing item type\nNOTE:过期API",
-            "line": " routes\\index.js:80"
+            "line": " routes\\index.js:93"
         },
         {
             "message": "Missing item type\nNOTE:过期API",
-            "line": " routes\\index.js:97"
+            "line": " routes\\index.js:110"
         },
         {
             "message": "Missing item type\nNOTE:过期API",
-            "line": " routes\\index.js:113"
+            "line": " routes\\index.js:126"
         },
         {
             "message": "Missing item type\nNOTE:过期API",
-            "line": " routes\\index.js:124"
+            "line": " routes\\index.js:137"
         },
         {
             "message": "Missing item type\nNOTE:过期API",
-            "line": " routes\\index.js:134"
+            "line": " routes\\index.js:147"
         },
         {
             "message": "Missing item type\nNOTE:过期API",
-            "line": " routes\\index.js:144"
+            "line": " routes\\index.js:157"
         },
         {
             "message": "Missing item type\nNOTE:过期API",
-            "line": " routes\\index.js:155"
+            "line": " routes\\index.js:168"
         },
         {
             "message": "Missing item type\n登陆验证",
@@ -1651,7 +1868,7 @@
         },
         {
             "message": "Missing item type\nteswtestest中文",
-            "line": " app.js:82"
+            "line": " app.js:83"
         }
     ]
 }

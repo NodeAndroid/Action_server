@@ -1,10 +1,12 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
+        "Notification",
         "Search",
         "action-proxy",
         "action-router",
         "index-router",
+        "notif-router",
         "type-proxy",
         "type-router",
         "user-proxy",
