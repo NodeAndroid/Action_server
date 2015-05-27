@@ -306,7 +306,14 @@ router.get('/pull/:aid',seHelper .loginRequire,function(req,res,next){
           tactions.end_date = action.end_date.getTime();
         if(action.edit_date)
           tactions.edit_date = action.edit_date.getTime();
-      return res.json({status:0,message:tactions,fork:fork});
+        User.getUserById(action.creator,function (err,user) {
+          if(err){
+          	console.err(err.stack);
+          	throw err;
+          }
+          tactions.creator = user.loginname;
+          return res.json({status:0,message:tactions,fork:fork});
+        });
 
     });
   });
