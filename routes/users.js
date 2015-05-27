@@ -305,6 +305,15 @@ router.post('/update',seHelper.loginRequire,function (req,res,next) {
   if(body.avatar){
     pjson.avatar = xss(_.trim(body.avatar));
   }
+  if(body.nickname){
+    pjson.nickname = xss(_.trim(body.nickname));
+  }
+  if(body.email_enable){
+    pjson.email_enable = xss(_.trim(body.email_enable));
+  }
+  if(body.phone_enable){
+    pjson.phone_enable = xss(_.trim(body.phone_enable));
+  }
   if(pjson.email_enable !== null){
     pjson.email_enable = Boolean(pjson.email_enable);
   }
