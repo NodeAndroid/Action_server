@@ -131,7 +131,7 @@ router.post('/signup', function(req, res) {
       }else{
         var token = jwt.encode({uid:user._id},secret);
         req.session.user = user;
-        return res.json({message:'success',status:0,token:token});
+        return res.json({message:'success',status:0,token:token,user:user});
       }
     });
   });
