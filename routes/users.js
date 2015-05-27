@@ -132,6 +132,15 @@ router.post('/signup', function(req, res) {
       }else{
         var token = jwt.encode({uid:user._id},secret);
         req.session.user = user;
+        if(req.session.user._id !== user._id){
+          user = user.toJSON();
+          if(!user.email_enable){
+            delete user.email;
+          }
+          if(!user.phone_enable){
+            delete user.phone;
+          }
+        }
         return res.json({message:'success',status:0,token:token,user:user});
       }
     });
@@ -187,7 +196,15 @@ router.get('/profile',seHelper.loginRequire, function(req, res) {
       	console.err(err.stack);
       	throw err;
       }
-      msg.user = user;
+      msg.user = user.toJSON();
+      if(req.session.user._id !== user._id){
+        if(!user.email_enable){
+          delete msg.user.email;
+        }
+        if(!user.phone_enable){
+          delete msg.user.phone;
+        }
+      }
       return res.json({message:msg,status:1});
     });
     // console.log(msg);
@@ -212,11 +229,14 @@ router.get('/profile/:uid',seHelper.loginRequire,function (req,res,next) {
     	throw err;
     }
     // console.log('point');
-    if(!user.email_enable){
-      delete user.email;
-    }
-    if(!user.phone_enable){
-      delete user.phone;
+    if(req.session.user._id !== user._id){
+      user = user.toJSON();
+      if(!user.email_enable){
+        delete user.email;
+      }
+      if(!user.phone_enable){
+        delete user.phone;
+      }
     }
     async.parallel([
       function (cb) {
@@ -232,7 +252,7 @@ router.get('/profile/:uid',seHelper.loginRequire,function (req,res,next) {
       msg.countOfMy = results[0];
       msg.countOfJoin = results[1];
       msg.user = user;
-      console.log(msg);
+      // console.log(msg);
       return res.json({message:msg,status:1});
     });
     // res.json({message:user,status:1});

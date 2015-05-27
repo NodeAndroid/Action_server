@@ -44,7 +44,7 @@
   * @param {function} callback
   */
  exports.getUserById=function(id,callback){
-   User.findOne({_id:id},callback);
+   User.findOne({_id:id}).exec(callback);
  };
  /**
   * 根据用户email查找用户列表

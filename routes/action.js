@@ -313,6 +313,7 @@ router.get('/pull/:aid',seHelper .loginRequire,function(req,res,next){
           	console.err(err.stack);
           	throw err;
           }
+          
           tactions.creator = user.loginname;
           return res.json({status:0,message:tactions,fork:fork});
         });
@@ -728,6 +729,15 @@ router.get('/near',seHelper.loginRequire,function (req,res,next) {
     }
     async.map(actions,function (action,cb) {
       User.getUserById(action.creator,function (err,results) {
+        if(req.session.user._id !== results._id){
+          results = results.toJSON();
+          if(!results.email_enable){
+            delete results.email;
+          }
+          if(!results.phone_enable){
+            delete results.phone;
+          }
+        }
         cb(err,results);
       });
     },function (err,users) {
@@ -772,12 +782,30 @@ router.get('/listJoinUser/:aid',seHelper.loginRequire,function (req,res,next) {
     async.map(ids,function (uid,cb) {
       // uid = item.user_id;
       User.getUserById(uid,function (err,user) {
+        if(req.session.user._id !== user._id){
+          user = user.toJSON();
+          if(!user.email_enable){
+            delete user.email;
+          }
+          if(!user.phone_enable){
+            delete user.phone;
+          }
+        }
         cb(err,user);
       });
     },function (err,users) {
       if(forks.length !== 0){
         Action.getActionById(aid,function (err,action) {
           User.getUserById(action.creator,function (err,user) {
+            if(req.session.user._id !== user._id){
+              user = user.toJSON();
+              if(!user.email_enable){
+                delete user.email;
+              }
+              if(!user.phone_enable){
+                delete user.phone;
+              }
+            }
             res.json({status:0,message:users,creator:user});
           });
         });

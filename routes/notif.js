@@ -48,6 +48,15 @@ router.get('/',seHelper.loginRequire,function (req,res,next) {
       // var tid = item.send_to;
       var aid = item.action_id;
       User.getUserById(fid,function (err,fuser) {
+        if(req.session.user._id !== fuser._id){
+          fuser = fuser.toJSON();
+          if(!fuser.email_enable){
+            delete fuser.email;
+          }
+          if(!fuser.phone_enable){
+            delete fuser.phone;
+          }
+        }
         Action.getActionById(aid,function (err,action) {
           cb(null,[fuser,action]);
         });
@@ -94,6 +103,15 @@ router.get('/history',seHelper.loginRequire,function (req,res,next) {
       var fid = item.send_from;
       var aid = item.action_id;
       User.getUserById(fid,function (err,fuser) {
+        if(req.session.user._id !== fuser._id){
+          fuser = fuser.toJSON();
+          if(!fuser.email_enable){
+            delete fuser.email;
+          }
+          if(!fuser.phone_enable){
+            delete fuser.phone;
+          }
+        }
         Action.getActionById(aid,function (err,action) {
           cb(null,[fuser,action]);
         });
