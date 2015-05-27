@@ -14,7 +14,7 @@ module.exports = {
     //     next();
     //   });
     // }
-    console.log(req.get('User-Agent'));
+    // console.log(req.get('User-Agent'));
     var token = req.query.token;
     if(token){
       var uid = jwt.decode(token,secret).uid;
