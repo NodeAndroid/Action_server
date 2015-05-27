@@ -222,6 +222,9 @@ exports.getForkByUidAndAid =function (uid,aid,callback) {
   Fork.find({user_id:uid,action_id:aid},callback);
 };
 
+exports.getForkByAid = function (aid,callback) {
+  Fork.find({action_id:aid}).lean().exec(callback);
+};
 
 /**
  * 根据删除一个fork，注意此方法会删除所有的匹配，不会只删除一个

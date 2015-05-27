@@ -694,7 +694,7 @@ function GetDistance(lat1, lng1, lat2, lng2) {
 }
 
 /**
- * 附近功能
+ * 查询附近的活动
  * @method /near
  * @param {number} x
  * @param {number} y
@@ -731,6 +731,46 @@ router.get('/near',seHelper.loginRequire,function (req,res,next) {
     });
   });
 
+});
+
+/**
+ * 根据aid查询所有参加的人
+ * @method /listJoin/:aid
+ * @return status,-1 invalid id, -2 no uesr join, 0 success
+ */
+router.get('/listJoinUser/:aid',seHelper.loginRequire,function (req,res,next) {
+  var uid = req.session.user._id;
+  var aid = req.params.aid;
+  if(!aid || aid.length !== 24){
+    return res.json({status:0,message:'invalid aid'});
+  }
+  Action.getForkByAid(aid,function (err,forks) {
+    var ids = [];
+    if(forks.length === 0){
+      return res.json({status:-2,message:'no user join'});
+    }
+    forks.forEach(function (item,index) {
+      forks[index] = item.user_id;
+    });
+    ids = forks.filter(function (item,index) {
+      return forks.indexOf(item) === index;
+    });
+    // console.log(ids);
+    async.map(ids,function (uid,cb) {
+      // uid = item.user_id;
+      User.getUserById(uid,function (err,user) {
+        cb(err,user);
+      });
+    },function (err,users) {
+      if(forks.length !== 0){
+        Action.getActionById(aid,function (err,action) {
+          User.getUserById(action.creator,function (err,user) {
+            res.json({status:0,message:users,creator:user});
+          });
+        });
+      }
+    });
+  });
 });
 
 
