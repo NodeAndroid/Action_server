@@ -30,10 +30,11 @@ html,body{
   display: block;
 }
 .nav-title h1{
-  margin:5px;
+  margin-top:20px;
+  font-size:2em;
 }
 .nav-title p{
-  margin:0px;
+  margin:5px;
   font-size:0.5em;
 }
 
