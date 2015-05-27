@@ -37,47 +37,6 @@ html, body {
   margin: 5px;
   font-size: 0.5em;
 }
-@media screen and (max-width: 1000px) {
-  .top-nav {
-    position: relative;
-    width: 100%;
-    height: auto;
-    background: #0077d9;
-    display: block;
-    color: #fff;
-    box-shadow: 0px 2px 15px black;
-    display: block;
-    overflow: hidden;
-    /*text-align: center;*/
-  }
-  .nav-title {
-    font-size: 2.5em;
-    padding:0px;
-    /*padding-left:200px;*/
-    margin:0 auto;
-    display: block;
-    width:300px;
-
-  }
-  /*.nav-title::after{
-    content:'\A';
-    white-space: pre;
-  }*/
-  .top-nav img{
-    display: block;
-    position: relative;
-    /*vertical-align: middle;*/
-    right:0;
-    top:0;
-    padding:0;
-    margin:50px auto 0 auto;
-    /*height: 300px;
-    width: 300px;*/
-  }
-  .download{
-    margin-bottom:10px;
-  }
-}
 @-webkit-keyframes rotating
 /* Safari and Chrome */
 
@@ -140,4 +99,107 @@ section {
   top:200px;
   margin-left:-140px;
   background-image: url('/img/qr.png');
+}
+
+@media screen and (max-width: 1000px) {
+  .top-nav {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: #0077d9;
+    display: block;
+    color: #fff;
+    box-shadow: 0px 2px 15px black;
+    display: block;
+    overflow: hidden;
+    /*text-align: center;*/
+  }
+  .nav-title {
+    font-size: 1em;
+    padding:0px;
+    margin:0 auto;
+    display: block;
+    width:300px;
+
+  }
+  .nav-title h1{
+    font-size: 1em;
+    padding:0px;
+    /*padding-left:200px;*/
+    margin:0 auto;
+    display: block;
+    width:300px;
+
+  }
+  /*.nav-title::after{
+    content:'\A';
+    white-space: pre;
+  }*/
+  .top-nav img{
+    display: block;
+    position: relative;
+    /*vertical-align: middle;*/
+    right:0;
+    top:0;
+    padding:0;
+    margin:50px auto 0 auto;
+    /*height: 300px;
+    width: 300px;*/
+  }
+  .download{
+    margin-bottom:10px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .top-nav {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background: #0077d9;
+    display: block;
+    color: #fff;
+    box-shadow: 0px 2px 15px black;
+    display: block;
+    overflow: hidden;
+    /*text-align: center;*/
+  }
+  .nav-title {
+    font-size: 2em;
+    padding:0px;
+    /*padding-left:200px;*/
+    margin:0 auto;
+    display: block;
+    width:300px;
+
+  }
+  .nav-title h1{
+    font-size: 1.5em;
+    padding:0px;
+    /*padding-left:200px;*/
+    margin:0 auto;
+    display: block;
+    width:300px;
+
+  }
+  /*.nav-title::after{
+    content:'\A';
+    white-space: pre;
+  }*/
+  .top-nav img{
+    display: block;
+    position: relative;
+    /*vertical-align: middle;*/
+    width:200px;
+    height:200px;
+    right:0;
+    top:0;
+    padding:0;
+    margin:24px auto 0 auto;
+    /*height: 300px;
+    width: 300px;*/
+  }
+  .download{
+    padding-top: 50px;
+    margin-bottom:10px;
+  }
 }
