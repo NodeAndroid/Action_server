@@ -61,6 +61,7 @@ router.post('/signup', function(req, res) {
   // var name = xss(_.trim(body.name));
   var title = xss(_.trim(body.title));
   var school = xss(_.trim(body.title));
+  var avatar = xss(_.trim(body.avatar));
   if(loginname ==='' || passwd === '' || email === '' || phone === ''|| title === ''|| school === ''){
     return res.json({message:'信息格式错误',status:2});
   }
@@ -76,7 +77,7 @@ router.post('/signup', function(req, res) {
     if(user){
       return res.json({message:'exist username',status:0});
     }else{
-      User.newAndSave({loginname:loginname,passwd:passwd,email:email,phone:phone,title:title,school:school},function (err) {
+      User.newAndSave({loginname:loginname,passwd:passwd,email:email,phone:phone,title:title,school:school,avatar:avatar},function (err) {
         if(err){
         	console.err(err.stack);
         	throw err;
