@@ -246,7 +246,7 @@ exports.searchActionByName = function (key,cb) {
   // Action.find({$text:{$search:key,$language:'none'}},cb);
     // key = '['+key+']';
     console.log(key);
-  Action.find({name:{$regex:key}},cb);
+  Action.find({name:{$regex:key}}).lean().exec(cb);
 };
 
 /**

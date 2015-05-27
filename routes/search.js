@@ -25,6 +25,12 @@ router.get('/name',function (req,res,next) {
     	console.log(err.stack);
     	throw err;
     }
+    results.forEach(function (item,index) {
+      results[index].create_date = item.create_date.getTime();
+      results[index].start_date = item.start_date.getTime();
+      results[index].end_date = item.end_date.getTime();
+      results[index].edit_date = item.edit_date.getTime();
+    });
     return res.json({message:results,status:0});
   });
 });
