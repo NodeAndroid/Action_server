@@ -60,7 +60,7 @@ router.post('/signup', function(req, res) {
   var phone = xss(_.trim(body.phone));
   // var name = xss(_.trim(body.name));
   var title = xss(_.trim(body.title));
-  var school = xss(_.trim(body.title));
+  var school = xss(_.trim(body.school));
   var avatar = xss(_.trim(body.avatar));
   if(loginname ==='' || passwd === '' || email === '' || phone === ''|| title === ''|| school === ''){
     return res.json({message:'信息格式错误',status:2});
