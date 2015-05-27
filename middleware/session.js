@@ -16,10 +16,11 @@ module.exports = {
     // }
     var token = req.query.token;
     if(token){
-      var jObject = jwt.decode(token,secret).uid;
-      if((new Date()).getTime() - jObject.exp * 1000 > exp){
-        return res.json({status:102,message:'token expired'});
-      }
+      var uid = jwt.decode(token,secret).uid;
+      // if((new Date()).getTime() - jObject.exp * 1000 > exp){
+      //   return res.json({status:102,message:'token expired'});
+      // }
+        // console.log('point');
       User.getUserById(uid,function (err,user) {
         if(err){
         	console.err(err.stack);
