@@ -474,7 +474,7 @@ router.get('/listAllMyjoin',seHelper.loginRequire,function (req,res,next) {
  * @method /uploadImg
  * @return {json}   status 1 错误，查阅message获得详细情况 0 成功
  */
-router.post('/uploadImg',seHelper.loginRequire,function (req,res,next) {
+router.post('/uploadImg',function (req,res,next) {
   var IMG_FILE_TYPE = ['jpg', 'png', 'gif', 'jpeg', 'bmp', 'JPG', 'PNG', 'GIF', 'JPEG', 'BMP'];
   var query = req.query;
   var date = new Date();

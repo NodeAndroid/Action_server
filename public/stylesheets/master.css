@@ -18,7 +18,7 @@ html,body{
 }
 .top-nav img{
   position:absolute;
-  right:200px;
+  right:10%;
   top:70px;
   height:300px;
   width:auto;
@@ -37,6 +37,10 @@ html,body{
   margin:5px;
   font-size:0.5em;
 }
+@media screen and(max-width: 1000px){
+
+}
+
 
 @-webkit-keyframes rotating /* Safari and Chrome */ {
   from {
