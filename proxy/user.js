@@ -93,5 +93,6 @@
   * @param {function} callback
   */
  exports.updateByid = function (id,profile,cb) {
-   user.update({id:id},profile,cb);
+   console.log(id,profile);
+   User.update({_id:id},profile,cb);
  };

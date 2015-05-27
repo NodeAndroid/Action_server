@@ -180,9 +180,16 @@ router.get('/profile',seHelper.loginRequire, function(req, res) {
     // console.log(results);
     msg.countOfMy = results[0];
     msg.countOfJoin = results[1];
-    msg.user = req.session.user;
-    console.log(msg);
-    return res.json({message:msg,status:1});
+    // msg.user = req.session.user;
+    User.getUserById(uid,function (err,user) {
+      if(err){
+      	console.err(err.stack);
+      	throw err;
+      }
+      msg.user = user;
+      return res.json({message:msg,status:1});
+    });
+    // console.log(msg);
   });
 });
 
@@ -234,6 +241,7 @@ router.get('/profile/:uid',seHelper.loginRequire,function (req,res,next) {
 
 router.post('/update',seHelper.loginRequire,function (req,res,next) {
   var body = req.body;
+  // console.log(body);
   var pjson = {};
   var args = [
     'name',
@@ -245,18 +253,44 @@ router.post('/update',seHelper.loginRequire,function (req,res,next) {
     'title',
     'school',
     'nickname',
+    'avatar',
   ];
-  args.forEach(function (item,index) {
-    if(body[item]){
-      pjson[item] = xss(_.trim(body.item));
-    }
-  });
+  // args.forEach(function (item,index) {
+  //   if(body[item]){
+  //     pjson[item] = xss(_.trim(body.item));
+  //   }
+  // });
+  if(body.name){
+    pjson.name = xss(_.trim(body.name));
+  }
+  if(body.passwd){
+    pjson.passwd = xss(_.trim(body.passwd));
+  }
+  if(body.email){
+    pjson.email = xss(_.trim(body.email));
+  }
+  if(body.phone){
+    pjson.phone = xss(_.trim(body.phone));
+  }
+  if(body.title){
+    pjson.title = xss(_.trim(body.title));
+  }
+  if(body.school){
+    pjson.school = xss(_.trim(body.school));
+  }
+  if(body.nickname){
+    pjson.nickname = xss(_.trim(body.nickname));
+  }
+  if(body.avatar){
+    pjson.avatar = xss(_.trim(body.avatar));
+  }
   if(pjson.email_enable !== null){
     pjson.email_enable = Boolean(pjson.email_enable);
   }
   if(pjson.phone_enable !== null){
     pjson.phone_enable = Boolean(pjson.phone_enable);
   }
+  console.log(pjson);
   User.updateByid(req.session.user._id,pjson,function (err) {
     if(err){
     	console.err(err.stack);
