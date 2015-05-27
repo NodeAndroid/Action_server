@@ -732,6 +732,10 @@ router.get('/near',seHelper.loginRequire,function (req,res,next) {
       // console.log(users);
       users.forEach(function (item,index) {
         actions[index].creator = item;
+        actions[index].create_date = actions[index].create_date.getTime();
+        actions[index].start_date = actions[index].start_date.getTime();
+        actions[index].end_date = actions[index].end_date.getTime();
+        actions[index].edit_date = actions[index].edit_date.getTime();
       });
       // console.log(actions);
       return res.json({status:0,message:actions});

@@ -304,5 +304,5 @@ exports.updateStar = function (opt,aid,callback) {
  */
 exports.getActionByPos = function (x,y,limit,callback) {
   // console.log('point');
-  Action.find().where('addr_position_x').gt(x-limit).lt(x+limit).where('addr_position_y').gt(y-limit).lt(y+limit).lean().exec(callback);
+  Action.find().where('addr_position_x').gt(x-limit).lt(x+limit).where('addr_position_y').gt(y-limit).lt(y+limit).lean().lean().exec(callback);
 };
