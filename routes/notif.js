@@ -46,6 +46,7 @@ router.get('/',seHelper.loginRequire,function (req,res,next) {
     async.map(results,function (item,cb) {
       var fid = item.send_from;
       // var tid = item.send_to;
+      var aid = item.action_id;
       User.getUserById(fid,function (err,fuser) {
         Action.getActionById(aid,function (err,action) {
           cb(null,[fuser,action]);

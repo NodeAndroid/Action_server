@@ -4,12 +4,14 @@ var router = express.Router();
 var validator = require('validator');
 var _ = require('lodash');
 var Action = require('../proxy/action');
+var User = require('../proxy/user');
 var seHelper = require('../middleware/session');
 var xss = require('xss');
 var busboy = require('busboy');
 var path = require('path');
 var fs = require('fs');
 var Notification = require('../proxy/notification');
+var async = require('async');
 /**
  * action操作的一些API  path-prefix '/action'
  * @class action-router
@@ -227,20 +229,27 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
   * @return {json} status 0 成功，否则失败
   */
 router.get('/exit/:aid',seHelper.loginRequire,function(req,res,next){
-  var userid=req.session.user._id;
+  var uid=req.session.user._id;
   var aid = req.params.aid?_.trim(req.params.aid):'';
   aid = xss(aid);
   if(!aid || aid.length !== 24){
     return res.json({status: -1,message: 'invalid ObjectId'});
   }
   aid = xss(aid);
-  Action.removeFork(aid,uid,function (err) {
+  Action.removeFork(aid,uid,function (err,results) {
     if(err){
     	console.err(err.stack);
     	throw err;
     }
-    Notification.addOne('有一个新用户退出了您的活动',pjson.user_id,toid,pjson.user_id,aid,0);
     res.json({status: 0,message: 'done'});
+    Action.getActionById(aid,function (err,action) {
+      if(err){
+      	console.err(err.stack);
+      	throw err;
+      }
+      var toid = action.creator;
+      Notification.addOne('有一个新用户退出了您的活动',uid,toid,uid,aid,0);
+    });
   });
   // if(err){
   //   console.log(err.stack);
@@ -598,9 +607,131 @@ router.get('/signMark/:aid',seHelper.loginRequire,function (req,res,next) {
 
 });
 
-router.get('/checkIn',seHelper.loginRequire,function (req,res,next) {
+/**
+ * @method /checkIn/:aid
+ * @param {number} x
+ * @param {number} y
+ * @return {json} status -1 各种参数错误 1 太远了不能签到 2 没有参加这个action 0 成功
+ */
+router.get('/checkIn/:aid',seHelper.loginRequire,function (req,res,next) {
   var uid = req.session.user._id;
-  var x_position = validator.isFloat(req.query.x)?Number(req.query.x):exit();
+  var aid = req.params.aid;
+  if(!aid || aid.length !== 24){
+    exit('invalid aid');
+  }
+  var x_position = validator.isFloat(req.query.x)?Number(req.query.x):exit('invalid x position');
+  var y_position = validator.isFloat(req.query.x)?Number(req.query.y):exit('invalid y position');
+  if (Math.abs(x_position) > 90) {
+    return exit('x must in -90,+90');
+  }
+  if(Math.abs(y_position) > 180) {
+    return exit('x must in -180,+180');
+  }
+  function exit(msg) {
+    return res.json({status:-1,message:msg});
+  }
+  Action.getActionById(aid,function (err,action) {
+  console.log(aid);
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    if(!action){
+      return exit('action not exit');
+    }
+    var ax = action.addr_position_x;
+    var ay = action.addr_position_y;
+    var distance = GetDistance(ax,ay,x_position,y_position);
+    // console.log(distance);
+    if(distance > 1000){
+      return res.json({status:1,message:'far away'});
+    }
+    Action.getForkByUidAndAid(uid,aid,function (err,results) {
+      if(err){
+      	console.err(err.stack);
+      	throw err;
+      }
+      if(results.length === 0){
+        return res.json({status:2,message:'you never join this action'});
+      }
+      results = results[0];
+      // console.log(results);
+      results.sign_mark = true;
+      results.save(function (err,results) {
+        if(err){
+        	console.err(err.stack);
+        	throw err;
+        }
+        res.json({status:0,message:'success'});
+      });
+    });
+  });
 });
+
+function rad(d) {
+  return d * Math.PI / 180.0;
+}
+
+/**
+ * 返回单位是M
+ */
+function GetDistance(lat1, lng1, lat2, lng2) {
+  if ((Math.abs(lat1) > 90) || (Math.abs(lat2) > 90)) {
+    return -1;
+  }
+  if ((Math.abs(lng1) > 180) || (Math.abs(lng2) > 180)) {
+    return -1;
+  }
+  var radLat1 = rad(lat1);
+  var radLat2 = rad(lat2);
+  var a = radLat1 - radLat2;
+  var b = rad(lng1) - rad(lng2);
+  var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+    Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+  s = s * 6378.137; // EARTH_RADIUS;
+  s = Math.round(s * 10000) / 10;
+  return s;
+}
+
+/**
+ * 附近功能
+ * @method /near
+ * @param {number} x
+ * @param {number} y
+ */
+router.get('/near',seHelper.loginRequire,function (req,res,next) {
+  var x_position = validator.isFloat(req.query.x)?Number(req.query.x):exit('invalid x position');
+  var y_position = validator.isFloat(req.query.x)?Number(req.query.y):exit('invalid y position');
+  function exit(msg) {
+    return res.json({status:-1,message:msg});
+  }
+  if (Math.abs(x_position) > 90) {
+    return exit('x must in -90,+90');
+  }
+  if(Math.abs(y_position) > 180) {
+    return exit('x must in -180,+180');
+  }
+  var LIMIT = 0.1; //寻找范围，此范围经度差10.3067km，纬度差11.1319km
+  Action.getActionByPos(x_position,y_position,LIMIT,function (err,actions) {
+    if(err){
+    	console.err(err.stack);
+    	throw err;
+    }
+    async.map(actions,function (action,cb) {
+      User.getUserById(action.creator,function (err,results) {
+        cb(err,results);
+      });
+    },function (err,users) {
+      // console.log(users);
+      users.forEach(function (item,index) {
+        actions[index].creator = item;
+      });
+      // console.log(actions);
+      return res.json({status:0,message:actions});
+    });
+  });
+
+});
+
 
 module.exports = router;
