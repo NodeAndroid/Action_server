@@ -14,6 +14,11 @@ window.onload = function() {
   }, 800);
 
   effectBegin(['聚会','郊游','聚餐','KTV','开黑'],text);
+
+  $('#qr-display').click(function (e) {
+    e.preventDefault();
+    $('.qrcode').toggle();
+  });
 };
 
 function effectBegin(stra,ele) {

@@ -215,6 +215,8 @@ router.get('/fork/:aid',seHelper.loginRequire,function(req,res,next){
         	console.err(err.stack);
         	throw err;
         }
+        action.fork_count += 1;
+        action.save();
         var toid = action.creator;
         Notification.addOne('有一个新用户参加了您的活动',pjson.user_id,toid,pjson.user_id,aid,0);
       });
