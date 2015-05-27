@@ -18,6 +18,8 @@ var Fork = new Schema({
   fork_from:ObjectId,
   //签到
   sign_mark:{type:Boolean,default:false},
+  //是否已在活动开始的六个小时内提醒用户参加活动
+  has_noti:{type:Boolean,default:false},
 });
 
 //{action_id,user_id,{unique :  true}}

@@ -55,6 +55,9 @@ app.use(function(req, res, next) {
     next(err);
 });
 
+//run task
+require('./task');
+
 // error handlers
 
 // development error handler
