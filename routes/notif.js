@@ -57,6 +57,7 @@ router.get('/',seHelper.loginRequire,function (req,res,next) {
       aresults.forEach(function(item,index){
         // console.log(item);
         results[index] = results[index].toJSON();
+        delete results[index].creator;
         if(item[0])
           results[index].send_from_name = item[0].loginname;
         if(item[1])
@@ -102,6 +103,7 @@ router.get('/history',seHelper.loginRequire,function (req,res,next) {
       aresults.forEach(function(item,index){
         // console.log(item);
         results[index] = results[index].toJSON();
+        delete results[index].creator;
         if(item[0])
           results[index].send_from_name = item[0].loginname;
         if(item[1])
