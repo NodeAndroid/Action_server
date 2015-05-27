@@ -2,6 +2,7 @@
 var config = {
   path:"",//root of the project dir;
   db:"mongodb://localhost/action",
+  secret:'action',
 };
 
 if(process.env.NODE_ENV=='development'){

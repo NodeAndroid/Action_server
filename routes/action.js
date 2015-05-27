@@ -705,11 +705,11 @@ router.get('/near',seHelper.loginRequire,function (req,res,next) {
   function exit(msg) {
     return res.json({status:-1,message:msg});
   }
-  if (Math.abs(x_position) > 90) {
+  if (Math.abs(x_position) > 180) {
     return exit('x must in -90,+90');
   }
-  if(Math.abs(y_position) > 180) {
-    return exit('x must in -180,+180');
+  if(Math.abs(y_position) > 90) {
+    return exit('y must in -180,+180');
   }
   var LIMIT = 0.1; //寻找范围，此范围经度差10.3067km，纬度差11.1319km
   Action.getActionByPos(x_position,y_position,LIMIT,function (err,actions) {

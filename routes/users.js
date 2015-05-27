@@ -6,6 +6,8 @@ var _ = require('lodash');
 var seHelper = require('../middleware/session');
 var xss = require('xss');
 var async = require('async');
+var jwt = require('jwt-simple');
+var secret = require('../config').secret;
 
 var Action = require('../proxy').Action;
 
@@ -108,12 +110,13 @@ router.post('/signup', function(req, res) {
   */
   router.post('/login',function (req,res,next) {
     var body = req.body;
-    console.log(body);
+    // console.log(body);
     var loginname = xss(_.trim(body.loginname));
     var passwd = xss(_.trim(body.passwd));
     if(loginname ==='' || passwd === ''){
       return res.json({message:'账号或者密码格式错误',status:1});
     }
+    console.log(req.session.user);
     if(req.session.user){
       return res.json({message:'user had login!',status:2});
     }
@@ -122,12 +125,13 @@ router.post('/signup', function(req, res) {
       	console.err(err.stack);
       	throw err;
       }
-      console.log(user);
+      // console.log(user);
       if(!user || user.length ===0 || user.passwd !== passwd){
         return res.json({message:'loginname or passwd error',status:1});
       }else{
+        var token = jwt.encode({uid:user._id},secret);
         req.session.user = user;
-        return res.json({message:'success',status:0});
+        return res.json({message:'success',status:0,token:token});
       }
     });
   });
