@@ -17,7 +17,12 @@ module.exports = {
     // console.log(req.get('User-Agent'));
     var token = req.query.token;
     if(token){
-      var uid = jwt.decode(token,secret).uid;
+      var uid;
+      try {
+        uid = jwt.decode(token,secret).uid;
+      } catch (e) {
+        return res.json({status:101,message:'wrong token'});
+      }
       // if((new Date()).getTime() - jObject.exp * 1000 > exp){
       //   return res.json({status:102,message:'token expired'});
       // }
