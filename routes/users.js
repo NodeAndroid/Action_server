@@ -310,12 +310,6 @@ router.post('/update',seHelper.loginRequire,function (req,res,next) {
   }
   if(body.email_enable){
     pjson.email_enable = xss(_.trim(body.email_enable));
-  }
-  if(body.phone_enable){
-    pjson.phone_enable = xss(_.trim(body.phone_enable));
-  }
-  console.log(pjson);
-  if(pjson.email_enable !== null){
     if(pjson.email_enable === 'true'){
       pjson.email_enable = true;
     }
@@ -323,7 +317,8 @@ router.post('/update',seHelper.loginRequire,function (req,res,next) {
       pjson.email_enable = false;
     }
   }
-  if(pjson.phone_enable !== null){
+  if(body.phone_enable){
+    pjson.phone_enable = xss(_.trim(body.phone_enable));
     if(pjson.phone_enable === 'true'){
       pjson.phone_enable = true;
     }
@@ -331,6 +326,7 @@ router.post('/update',seHelper.loginRequire,function (req,res,next) {
       pjson.phone_enable = false;
     }
   }
+
   User.updateByid(req.session.user._id,pjson,function (err) {
     if(err){
     	console.err(err.stack);
