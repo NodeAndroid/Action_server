@@ -314,13 +314,23 @@ router.post('/update',seHelper.loginRequire,function (req,res,next) {
   if(body.phone_enable){
     pjson.phone_enable = xss(_.trim(body.phone_enable));
   }
+  console.log(pjson);
   if(pjson.email_enable !== null){
-    pjson.email_enable = Boolean(pjson.email_enable);
+    if(pjson.email_enable === 'true'){
+      pjson.email_enable = true;
+    }
+    else {
+      pjson.email_enable = false;
+    }
   }
   if(pjson.phone_enable !== null){
-    pjson.phone_enable = Boolean(pjson.phone_enable);
+    if(pjson.phone_enable === 'true'){
+      pjson.phone_enable = true;
+    }
+    else {
+      pjson.phone_enable = false;
+    }
   }
-  console.log(pjson);
   User.updateByid(req.session.user._id,pjson,function (err) {
     if(err){
     	console.err(err.stack);
